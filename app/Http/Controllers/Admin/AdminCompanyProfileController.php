@@ -11,8 +11,8 @@ class AdminCompanyProfileController extends Controller
 {
     public function edit()
     {
-        $company = CompanyProfile::getInstance();
-        return view('admin.company-profile.edit', compact('company'));
+        $profile = CompanyProfile::getInstance();
+        return view('admin.company_profile.edit', compact('profile'));
     }
 
     public function update(Request $request)
@@ -33,17 +33,17 @@ class AdminCompanyProfileController extends Controller
             'footer_text'       => 'nullable|string|max:255',
         ]);
 
-        $company = CompanyProfile::getInstance();
+        $profile = CompanyProfile::getInstance();
 
-        $logoPath = $company->logo;
+        $logoPath = $profile->logo;
         if ($request->hasFile('logo')) {
-            if ($company->logo) {
-                Storage::disk('public')->delete($company->logo);
+            if ($profile->logo) {
+                Storage::disk('public')->delete($profile->logo);
             }
             $logoPath = $request->file('logo')->store('company', 'public');
         }
 
-        $company->update([
+        $profile->update([
             'company_name'      => $request->company_name,
             'brand_name'        => $request->brand_name,
             'short_description' => $request->short_description,

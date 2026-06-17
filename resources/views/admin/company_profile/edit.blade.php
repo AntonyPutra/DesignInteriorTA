@@ -11,7 +11,7 @@
 </div>
 
 <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden max-w-5xl">
-    <form action="{{ route('admin.company-profile.update') }}" method="POST" class="p-6 sm:p-8">
+    <form action="{{ route('admin.company-profile.update') }}" method="POST" enctype="multipart/form-data" class="p-6 sm:p-8">
         @csrf
         @method('PUT')
 
@@ -21,25 +21,85 @@
             <div class="space-y-6">
                 <h3 class="text-base font-semibold text-gray-800 border-b border-gray-200 pb-2">Informasi Utama</h3>
 
-                {{-- Name --}}
+                {{-- Company Name --}}
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="company_name" class="block text-sm font-medium text-gray-700 mb-1">
                         Nama Perusahaan <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" id="name" name="name" value="{{ old('name', $profile->name) }}" required
-                           class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('name') border-red-500 @enderror">
-                    @error('name') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    <input type="text" id="company_name" name="company_name" value="{{ old('company_name', $profile->company_name) }}" required
+                           class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('company_name') border-red-500 @enderror">
+                    @error('company_name') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
-                {{-- About Text --}}
+                {{-- Brand Name --}}
                 <div>
-                    <label for="about_text" class="block text-sm font-medium text-gray-700 mb-1">
-                        Teks Singkat Tentang Kami
+                    <label for="brand_name" class="block text-sm font-medium text-gray-700 mb-1">
+                        Nama Brand <span class="text-red-500">*</span>
                     </label>
-                    <textarea id="about_text" name="about_text" rows="5"
-                              class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('about_text') border-red-500 @enderror">{{ old('about_text', $profile->about_text) }}</textarea>
-                    <p class="mt-1 text-xs text-gray-500">Tampil di footer atau bagian about singkat.</p>
-                    @error('about_text') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    <input type="text" id="brand_name" name="brand_name" value="{{ old('brand_name', $profile->brand_name) }}" required
+                           class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('brand_name') border-red-500 @enderror">
+                    @error('brand_name') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                </div>
+
+                {{-- Short Description --}}
+                <div>
+                    <label for="short_description" class="block text-sm font-medium text-gray-700 mb-1">
+                        Deskripsi Singkat
+                    </label>
+                    <textarea id="short_description" name="short_description" rows="3"
+                              class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('short_description') border-red-500 @enderror">{{ old('short_description', $profile->short_description) }}</textarea>
+                    <p class="mt-1 text-xs text-gray-500">Tampil di hero section atau meta deskripsi.</p>
+                    @error('short_description') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                </div>
+
+                {{-- About Description --}}
+                <div>
+                    <label for="about_description" class="block text-sm font-medium text-gray-700 mb-1">
+                        Tentang Perusahaan Lengkap
+                    </label>
+                    <textarea id="about_description" name="about_description" rows="5"
+                              class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('about_description') border-red-500 @enderror">{{ old('about_description', $profile->about_description) }}</textarea>
+                    @error('about_description') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                </div>
+
+                {{-- Vision --}}
+                <div>
+                    <label for="vision" class="block text-sm font-medium text-gray-700 mb-1">
+                        Visi
+                    </label>
+                    <textarea id="vision" name="vision" rows="3"
+                              class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('vision') border-red-500 @enderror">{{ old('vision', $profile->vision) }}</textarea>
+                    @error('vision') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                </div>
+
+                {{-- Mission --}}
+                <div>
+                    <label for="mission" class="block text-sm font-medium text-gray-700 mb-1">
+                        Misi
+                    </label>
+                    <textarea id="mission" name="mission" rows="4"
+                              class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('mission') border-red-500 @enderror">{{ old('mission', $profile->mission) }}</textarea>
+                    @error('mission') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                </div>
+            </div>
+
+            {{-- Bagian Kanan: Kontak & Aset --}}
+            <div class="space-y-6">
+                <h3 class="text-base font-semibold text-gray-800 border-b border-gray-200 pb-2">Kontak & Aset</h3>
+
+                {{-- Logo --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Logo Perusahaan</label>
+                    @if($profile->logo)
+                        <div class="mb-3 relative w-32 h-32 bg-gray-50 rounded-lg border border-gray-200 flex items-center justify-center overflow-hidden">
+                            <img src="{{ Storage::url($profile->logo) }}" alt="Logo" class="max-w-full max-h-full object-contain p-2">
+                        </div>
+                    @endif
+                    <input type="file" name="logo" id="logo" accept="image/*" class="block w-full text-sm text-gray-500
+                        file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold
+                        file:bg-red-50 file:text-red-700 hover:file:bg-red-100 transition-colors">
+                    <p class="mt-1 text-xs text-gray-500">Format: JPG, PNG, WEBP. Maks: 2MB.</p>
+                    @error('logo') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- Address --}}
@@ -51,25 +111,20 @@
                               class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('address') border-red-500 @enderror">{{ old('address', $profile->address) }}</textarea>
                     @error('address') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
-            </div>
 
-            {{-- Bagian Kanan: Kontak & Sosial Media --}}
-            <div class="space-y-6">
-                <h3 class="text-base font-semibold text-gray-800 border-b border-gray-200 pb-2">Kontak & Sosial Media</h3>
-
-                {{-- Phone / WA --}}
+                {{-- WhatsApp --}}
                 <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
-                        Nomor Telepon / WhatsApp
+                    <label for="whatsapp" class="block text-sm font-medium text-gray-700 mb-1">
+                        WhatsApp
                     </label>
                     <div class="relative">
                         <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                             <i class="fab fa-whatsapp"></i>
                         </span>
-                        <input type="text" id="phone" name="phone" value="{{ old('phone', $profile->phone) }}" placeholder="Contoh: +62 822 1364 1995"
-                               class="w-full pl-9 rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('phone') border-red-500 @enderror">
+                        <input type="text" id="whatsapp" name="whatsapp" value="{{ old('whatsapp', $profile->whatsapp) }}" placeholder="Contoh: +62 822 1364 1995"
+                               class="w-full pl-9 rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('whatsapp') border-red-500 @enderror">
                     </div>
-                    @error('phone') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    @error('whatsapp') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- Email --}}
@@ -87,6 +142,21 @@
                     @error('email') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
+                {{-- Website --}}
+                <div>
+                    <label for="website" class="block text-sm font-medium text-gray-700 mb-1">
+                        Website URL
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                            <i class="fas fa-globe"></i>
+                        </span>
+                        <input type="url" id="website" name="website" value="{{ old('website', $profile->website) }}" placeholder="https://..."
+                               class="w-full pl-9 rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('website') border-red-500 @enderror">
+                    </div>
+                    @error('website') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                </div>
+
                 {{-- Instagram --}}
                 <div>
                     <label for="instagram" class="block text-sm font-medium text-gray-700 mb-1">
@@ -102,43 +172,14 @@
                     @error('instagram') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
-                {{-- Facebook --}}
-                <div class="hidden"> {{-- Disembunyikan dulu jika tidak diperlukan, tapi tetap disediakan inputnya --}}
-                    <label for="facebook" class="block text-sm font-medium text-gray-700 mb-1">
-                        Facebook URL
-                    </label>
-                    <div class="relative">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                            <i class="fab fa-facebook"></i>
-                        </span>
-                        <input type="url" id="facebook" name="facebook" value="{{ old('facebook', $profile->facebook) }}"
-                               class="w-full pl-9 rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
-                    </div>
-                </div>
-
-                {{-- YouTube --}}
-                <div class="hidden">
-                    <label for="youtube" class="block text-sm font-medium text-gray-700 mb-1">
-                        YouTube URL
-                    </label>
-                    <div class="relative">
-                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                            <i class="fab fa-youtube"></i>
-                        </span>
-                        <input type="url" id="youtube" name="youtube" value="{{ old('youtube', $profile->youtube) }}"
-                               class="w-full pl-9 rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
-                    </div>
-                </div>
-
-                {{-- Map Embed (Opsional) --}}
+                {{-- Footer Text --}}
                 <div>
-                    <label for="map_embed" class="block text-sm font-medium text-gray-700 mb-1">
-                        Google Maps Embed Link (Opsional)
+                    <label for="footer_text" class="block text-sm font-medium text-gray-700 mb-1">
+                        Teks Copyright (Footer)
                     </label>
-                    <textarea id="map_embed" name="map_embed" rows="3" placeholder="<iframe src='...'></iframe>"
-                              class="w-full font-mono text-sm rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('map_embed') border-red-500 @enderror">{{ old('map_embed', $profile->map_embed) }}</textarea>
-                    <p class="mt-1 text-xs text-gray-500">Paste kode Iframe dari Google Maps (Share -> Embed a map).</p>
-                    @error('map_embed') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    <input type="text" id="footer_text" name="footer_text" value="{{ old('footer_text', $profile->footer_text) }}" placeholder="© 2024 Pratama Design Studio. All rights reserved."
+                           class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('footer_text') border-red-500 @enderror">
+                    @error('footer_text') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
             </div>
         </div>
