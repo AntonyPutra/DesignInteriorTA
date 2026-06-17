@@ -59,17 +59,20 @@
                 @enderror
             </div>
 
-            {{-- Order --}}
+            {{-- Status --}}
             <div>
-                <label for="order" class="block text-sm font-medium text-gray-700 mb-1">
-                    Urutan Tampil <span class="text-red-500">*</span>
+                <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
+                    Status <span class="text-red-500">*</span>
                 </label>
-                <input type="number" id="order" name="order" value="{{ old('order', 0) }}" required min="0"
-                       class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('order') border-red-500 @enderror">
-                @error('order')
+                <select id="status" name="status" required
+                        class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('status') border-red-500 @enderror">
+                    <option value="active" {{ old('status', 'active') == 'active' ? 'selected' : '' }}>Aktif</option>
+                    <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Tidak Aktif</option>
+                </select>
+                @error('status')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
-                <p class="mt-1 text-xs text-gray-500">Angka lebih kecil tampil lebih dulu (0, 1, 2, dst).</p>
+                <p class="mt-1 text-xs text-gray-500">Layanan tidak aktif akan disembunyikan dari website.</p>
             </div>
 
             {{-- Description --}}

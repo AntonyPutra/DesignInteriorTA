@@ -23,7 +23,7 @@
                     <th class="px-6 py-4 font-semibold border-b border-gray-200 w-16 text-center">Icon</th>
                     <th class="px-6 py-4 font-semibold border-b border-gray-200">Nama Layanan</th>
                     <th class="px-6 py-4 font-semibold border-b border-gray-200">Deskripsi Singkat</th>
-                    <th class="px-6 py-4 font-semibold border-b border-gray-200 text-center w-24">Urutan</th>
+                    <th class="px-6 py-4 font-semibold border-b border-gray-200 text-center w-24">Status</th>
                     <th class="px-6 py-4 font-semibold border-b border-gray-200 text-right w-32">Aksi</th>
                 </tr>
             </thead>
@@ -58,9 +58,15 @@
                         </p>
                     </td>
                     <td class="px-6 py-4 text-center">
-                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-sm font-medium text-gray-700">
-                            {{ $service->order }}
-                        </span>
+                        @if($service->status === 'active')
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Aktif
+                            </span>
+                        @else
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                Tidak Aktif
+                            </span>
+                        @endif
                     </td>
                     <td class="px-6 py-4 text-right space-x-2">
                         <a href="{{ route('admin.services.edit', $service) }}" class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors" title="Edit">
