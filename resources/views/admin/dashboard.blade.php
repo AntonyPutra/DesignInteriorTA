@@ -70,15 +70,15 @@
                             <div class="text-xs text-gray-500">{{ $consultation->room_type }}</div>
                         </td>
                         <td class="px-6 py-4">
-                            @if($consultation->status === 'new')
+                            @if($consultation->status === 'pending')
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Baru</span>
                             @elseif($consultation->status === 'contacted')
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Dihubungi</span>
-                            @elseif($consultation->status === 'meeting')
+                            @elseif($consultation->status === 'scheduled')
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">Meeting/Survey</span>
-                            @elseif($consultation->status === 'deal')
+                            @elseif($consultation->status === 'finished')
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Deal</span>
-                            @elseif($consultation->status === 'cancel')
+                            @elseif($consultation->status === 'cancelled')
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">Batal</span>
                             @endif
                         </td>

@@ -25,7 +25,7 @@
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
                 @forelse($consultations as $consultation)
-                <tr class="hover:bg-gray-50 transition-colors {{ $consultation->status === 'new' ? 'bg-blue-50/30' : '' }}">
+                <tr class="hover:bg-gray-50 transition-colors {{ $consultation->status === 'pending' ? 'bg-blue-50/30' : '' }}">
                     <td class="px-6 py-4">
                         <div class="text-sm text-gray-900 font-medium">{{ $consultation->created_at->format('d M Y') }}</div>
                         <div class="text-xs text-gray-500">{{ $consultation->created_at->format('H:i') }} WIB</div>
@@ -50,7 +50,7 @@
                         </div>
                     </td>
                     <td class="px-6 py-4">
-                        @if($consultation->status === 'new')
+                        @if($consultation->status === 'pending')
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                 <span class="w-1.5 h-1.5 rounded-full bg-blue-600 mr-1.5"></span> Baru
                             </span>
@@ -58,15 +58,15 @@
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                                 <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-1.5"></span> Dihubungi
                             </span>
-                        @elseif($consultation->status === 'meeting')
+                        @elseif($consultation->status === 'scheduled')
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
                                 <span class="w-1.5 h-1.5 rounded-full bg-purple-500 mr-1.5"></span> Meeting/Survey
                             </span>
-                        @elseif($consultation->status === 'deal')
+                        @elseif($consultation->status === 'finished')
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                 <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5"></span> Deal
                             </span>
-                        @elseif($consultation->status === 'cancel')
+                        @elseif($consultation->status === 'cancelled')
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
                                 <span class="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5"></span> Batal
                             </span>
