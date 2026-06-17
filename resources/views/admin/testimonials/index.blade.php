@@ -29,7 +29,7 @@
             </thead>
             <tbody class="divide-y divide-gray-200">
                 @forelse($testimonials as $testimonial)
-                <tr class="hover:bg-gray-50 transition-colors {{ !$testimonial->is_published ? 'bg-gray-50/50 opacity-75' : '' }}">
+                <tr class="hover:bg-gray-50 transition-colors {{ $testimonial->status !== 'active' ? 'bg-gray-50/50 opacity-75' : '' }}">
                     <td class="px-6 py-4">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold text-sm shrink-0">
@@ -54,7 +54,7 @@
                         </p>
                     </td>
                     <td class="px-6 py-4 text-center">
-                        @if($testimonial->is_published)
+                        @if($testimonial->status === 'active')
                             <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">Tampil</span>
                         @else
                             <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-gray-100 text-gray-800">Sembunyi</span>

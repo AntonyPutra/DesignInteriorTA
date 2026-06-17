@@ -60,7 +60,8 @@
             <div class="flex items-center pt-6">
                 <label class="flex items-center gap-3 cursor-pointer">
                     <div class="relative">
-                        <input type="checkbox" name="is_published" value="1" {{ old('is_published', '1') ? 'checked' : '' }}
+                        <input type="hidden" name="status" value="inactive">
+                        <input type="checkbox" name="status" value="active" {{ old('status', 'active') == 'active' ? 'checked' : '' }}
                                class="sr-only peer">
                         <div class="w-10 h-5 rounded-full transition-colors duration-200 peer-checked:bg-green-500 bg-gray-300"></div>
                         <div class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 peer-checked:translate-x-5"></div>

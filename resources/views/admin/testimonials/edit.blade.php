@@ -62,8 +62,8 @@
                 <label class="flex items-center gap-3 cursor-pointer">
                     <div class="relative">
                         <!-- Hidden input to ensure value is sent when unchecked -->
-                        <input type="hidden" name="is_published" value="0">
-                        <input type="checkbox" name="is_published" value="1" {{ old('is_published', $testimonial->is_published) ? 'checked' : '' }}
+                        <input type="hidden" name="status" value="inactive">
+                        <input type="checkbox" name="status" value="active" {{ old('status', $testimonial->status) == 'active' ? 'checked' : '' }}
                                class="sr-only peer">
                         <div class="w-10 h-5 rounded-full transition-colors duration-200 peer-checked:bg-green-500 bg-gray-300"></div>
                         <div class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 peer-checked:translate-x-5"></div>
