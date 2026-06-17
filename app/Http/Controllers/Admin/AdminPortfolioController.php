@@ -15,13 +15,13 @@ class AdminPortfolioController extends Controller
     public function index()
     {
         $portfolios = Portfolio::with('category')->withTrashed()->latest()->paginate(10);
-        return view('admin.portfolios.index', compact('portfolios'));
+        return view('admin.portfolio.index', compact('portfolios'));
     }
 
     public function create()
     {
         $categories = PortfolioCategory::active()->get();
-        return view('admin.portfolios.create', compact('categories'));
+        return view('admin.portfolio.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -74,14 +74,42 @@ class AdminPortfolioController extends Controller
             }
         }
 
-        return redirect()->route('admin.portfolios.index')->with('success', 'Portofolio berhasil ditambahkan.');
+        return redirect()->route('admin.portfolio.index')->with('success', 'Portofolio berhasil ditambahkan.');
+    }
+
+    public function gallery(Portfolio $portfolio)
+    {
+        $portfolio->load('images');
+        return view('admin.portfolio.gallery', compact('portfolio'));
+    }
+
+    public function storeGallery(Request $request, Portfolio $portfolio)
+    {
+        $request->validate([
+            'images'   => 'required|array',
+            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:4096',
+            'caption'  => 'nullable|string|max:255',
+        ]);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('portfolios/gallery', 'public');
+                PortfolioImage::create([
+                    'portfolio_id' => $portfolio->id,
+                    'image'        => $path,
+                    'caption'      => $request->caption,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.portfolio.gallery', $portfolio)->with('success', 'Gambar berhasil ditambahkan ke galeri.');
     }
 
     public function edit(Portfolio $portfolio)
     {
         $categories = PortfolioCategory::active()->get();
         $portfolio->load('images');
-        return view('admin.portfolios.edit', compact('portfolio', 'categories'));
+        return view('admin.portfolio.edit', compact('portfolio', 'categories'));
     }
 
     public function update(Request $request, Portfolio $portfolio)
@@ -137,7 +165,7 @@ class AdminPortfolioController extends Controller
             }
         }
 
-        return redirect()->route('admin.portfolios.index')->with('success', 'Portofolio berhasil diperbarui.');
+        return redirect()->route('admin.portfolio.index')->with('success', 'Portofolio berhasil diperbarui.');
     }
 
     public function destroy(Portfolio $portfolio)
@@ -152,7 +180,7 @@ class AdminPortfolioController extends Controller
         }
 
         $portfolio->delete();
-        return redirect()->route('admin.portfolios.index')->with('success', 'Portofolio berhasil dihapus.');
+        return redirect()->route('admin.portfolio.index')->with('success', 'Portofolio berhasil dihapus.');
     }
 
     public function destroyImage(Portfolio $portfolio, PortfolioImage $image)
@@ -160,7 +188,7 @@ class AdminPortfolioController extends Controller
         Storage::disk('public')->delete($image->image);
         $image->delete();
 
-        return redirect()->route('admin.portfolios.edit', $portfolio->id)
+        return redirect()->route('admin.portfolio.gallery', $portfolio->id)
             ->with('success', 'Gambar berhasil dihapus.');
     }
 }

@@ -74,9 +74,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
         ]);
 
     // Portfolios CRUD
-    Route::resource('portfolios', AdminPortfolioController::class)->except(['show']);
-    Route::delete('portfolios/{portfolio}/images/{image}', [AdminPortfolioController::class, 'destroyImage'])
-        ->name('portfolios.images.destroy');
+    Route::resource('portfolio', AdminPortfolioController::class)->except(['show']);
+    Route::get('portfolio/{portfolio}/gallery', [AdminPortfolioController::class, 'gallery'])->name('portfolio.gallery');
+    Route::post('portfolio/{portfolio}/gallery', [AdminPortfolioController::class, 'storeGallery'])->name('portfolio.gallery.store');
+    Route::delete('portfolio/{portfolio}/images/{image}', [AdminPortfolioController::class, 'destroyImage'])
+        ->name('portfolio.gallery.destroy');
 
     // Consultations
     Route::get('/consultations', [AdminConsultationController::class, 'index'])->name('consultations.index');
