@@ -38,19 +38,32 @@
 
                 {{-- Category (Service) --}}
                 <div>
-                    <label for="category_id" class="block text-sm font-medium text-gray-700 mb-1">
+                    <label for="portfolio_category_id" class="block text-sm font-medium text-gray-700 mb-1">
                         Kategori (Layanan) <span class="text-red-500">*</span>
                     </label>
-                    <select id="category_id" name="category_id" required
-                            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('category_id') border-red-500 @enderror">
+                    <select id="portfolio_category_id" name="portfolio_category_id" required
+                            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('portfolio_category_id') border-red-500 @enderror">
                         <option value="">-- Pilih Kategori --</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ old('category_id', $portfolio->category_id) == $category->id ? 'selected' : '' }}>
+                            <option value="{{ $category->id }}" {{ old('portfolio_category_id', $portfolio->portfolio_category_id) == $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
                             </option>
                         @endforeach
                     </select>
-                    @error('category_id') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    @error('portfolio_category_id') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                </div>
+
+                {{-- Status --}}
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
+                        Status <span class="text-red-500">*</span>
+                    </label>
+                    <select id="status" name="status" required
+                            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('status') border-red-500 @enderror">
+                        <option value="published" {{ old('status', $portfolio->status) == 'published' ? 'selected' : '' }}>Published (Tampil di web)</option>
+                        <option value="draft" {{ old('status', $portfolio->status) == 'draft' ? 'selected' : '' }}>Draft (Sembunyikan)</option>
+                    </select>
+                    @error('status') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                 </div>
 
                 {{-- Project Type & Room Type --}}

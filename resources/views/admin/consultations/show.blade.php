@@ -137,11 +137,11 @@
                     
                     <div class="space-y-4">
                         @foreach([
-                            'new'       => ['Baru Masuk', 'blue'],
+                            'pending'   => ['Baru Masuk', 'blue'],
                             'contacted' => ['Sudah Dihubungi', 'yellow'],
-                            'meeting'   => ['Proses Meeting / Survey', 'purple'],
-                            'deal'      => ['Deal (Project Berjalan)', 'green'],
-                            'cancel'    => ['Batal / Hold', 'red'],
+                            'scheduled' => ['Proses Meeting / Survey', 'purple'],
+                            'finished'  => ['Deal (Project Berjalan)', 'green'],
+                            'cancelled' => ['Batal / Hold', 'red'],
                         ] as $val => [$label, $color])
                         <label class="flex items-center p-3 border rounded-lg cursor-pointer transition-colors {{ $consultation->status === $val ? 'bg-'.$color.'-50 border-'.$color.'-200 ring-1 ring-'.$color.'-500' : 'border-gray-200 hover:bg-gray-50' }}">
                             <input type="radio" name="status" value="{{ $val }}" class="text-{{$color}}-600 focus:ring-{{$color}}-500 h-4 w-4" {{ $consultation->status === $val ? 'checked' : '' }}>
