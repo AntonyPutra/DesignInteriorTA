@@ -83,7 +83,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     // Consultations
     Route::get('/consultations', [AdminConsultationController::class, 'index'])->name('consultations.index');
     Route::get('/consultations/{consultation}', [AdminConsultationController::class, 'show'])->name('consultations.show');
-    Route::patch('/consultations/{consultation}/status', [AdminConsultationController::class, 'updateStatus'])->name('consultations.updateStatus');
+    Route::patch('/consultations/{consultation}/status', [AdminConsultationController::class, 'updateStatus'])->name('consultations.update-status');
     Route::delete('/consultations/{consultation}', [AdminConsultationController::class, 'destroy'])->name('consultations.destroy');
 
     // Testimonials CRUD
