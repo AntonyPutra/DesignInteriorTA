@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminTestimonialController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\CostEstimatorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PortfolioController;
@@ -42,6 +43,9 @@ Route::get('/cost-estimator', [CostEstimatorController::class, 'index'])->name('
 
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+// Chatbot AI
+Route::post('/chat', [ChatbotController::class, 'chat'])->name('chat');
 
 // ============================================================
 // AUTH ROUTES (Breeze)

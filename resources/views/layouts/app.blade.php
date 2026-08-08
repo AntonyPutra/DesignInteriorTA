@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="@yield('meta_description', 'Pratama Design Studio — Interior & Exterior Design & Build Company. Kami menghadirkan solusi desain yang estetis, fungsional, dan sesuai kebutuhan Anda.')">
     <title>@yield('title', 'Pratama Design Studio') | PT Pratama Berkah Utama</title>
 
@@ -140,5 +141,7 @@
     </script>
 
     @yield('scripts')
+
+    <x-chatbot-widget />
 </body>
 </html>
