@@ -35,11 +35,13 @@
                         ['route' => 'portfolio.index','label' => 'Portfolio',       'match' => 'portfolio.*'],
                         ['route' => 'estimator.index','label' => 'Cost Estimator',  'match' => 'estimator.*'],
                         ['route' => 'contact',        'label' => 'Contact',         'match' => 'contact'],
+                        ['route' => 'ai-portfolio.index','label' => 'Cari',         'match' => 'ai-portfolio.*'],
+                        ['route' => 'ai-estimator.index','label' => 'AI Estimator', 'match' => 'ai-estimator.*'],
                     ];
                 @endphp
 
                 @foreach($navLinks as $link)
-                    <a href="{{ route($link['route']) }}"
+                    <a href="{{ route($link['route']) }}{{ $link['hash'] ?? '' }}"
                        class="relative text-sm font-medium transition-colors duration-200 pb-0.5 group
                               {{ request()->routeIs($link['match']) ? 'font-semibold' : '' }}"
                        style="{{ request()->routeIs($link['match']) ? 'color: #B85C4A;' : 'color: #4B5563;' }}">
@@ -129,6 +131,20 @@
            style="{{ request()->routeIs('contact') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
             <i class="fas fa-envelope w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
             Contact
+        </a>
+        <a href="{{ route('ai-portfolio.index') }}"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
+                  {{ request()->routeIs('ai-portfolio.*') ? 'font-semibold' : 'text-gray-700' }}"
+           style="{{ request()->routeIs('ai-portfolio.*') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
+            <i class="fas fa-search w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
+            Cari
+        </a>
+        <a href="{{ route('ai-estimator.index') }}"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
+                  {{ request()->routeIs('ai-estimator.*') ? 'font-semibold' : 'text-gray-700' }}"
+           style="{{ request()->routeIs('ai-estimator.*') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
+            <i class="fas fa-robot w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
+            AI Estimator
         </a>
 
         {{-- Mobile CTA --}}

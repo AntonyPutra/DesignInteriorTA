@@ -18,6 +18,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name=\'csrf-token\']').getAttribute('content')
                     },
                     body: JSON.stringify({ message: message })
@@ -44,7 +45,7 @@
             }
         }
     }" 
-    class="fixed bottom-6 right-6 z-50">
+    class="fixed bottom-20 right-6 z-50">
 
     <!-- Toggle Button -->
     <button @click="open = !open" 

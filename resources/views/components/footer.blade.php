@@ -63,6 +63,8 @@
                         ['Cost Estimator', route('estimator.index')],
                         ['Consultation',   route('consultation.create')],
                         ['Contact',        route('contact')],
+                        ['Cari',           route('ai-portfolio.index')],
+                        ['AI Estimator',   route('ai-estimator.index')],
                     ] as [$label, $href])
                     <li>
                         <a href="{{ $href }}"

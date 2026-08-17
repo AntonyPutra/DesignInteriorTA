@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="hcaj5GkZVTpzsSWpIrZBrHgtNYuLwdWS2Abm6qC5">
+    <meta name="description" content="Pratama Design Studio — Interior &amp; Exterior Design &amp; Build. Kami membantu Anda mewujudkan ruang impian yang estetis, fungsional, dan berkarakter. Based in Jakarta.">
+    <title>Home | PT Pratama Berkah Utama</title>
+
+    <!-- Google Fonts: Cormorant Garamond (display) + Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Vite: Tailwind CSS + Alpine.js -->
+    <link rel="preload" as="style" href="http://localhost:8090/build/assets/app-D8TohGTl.css" /><link rel="modulepreload" as="script" href="http://localhost:8090/build/assets/app-BBPB1kKK.js" /><link rel="stylesheet" href="http://localhost:8090/build/assets/app-D8TohGTl.css" /><script type="module" src="http://localhost:8090/build/assets/app-BBPB1kKK.js"></script>
+    
+    <style>
+        /* Ensure fonts load correctly */
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+        /* Navbar transition */
+        #main-navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        /* Page-level padding for fixed navbar */
+        .page-content-top { padding-top: 0; }
+    </style>
+</head>
+<body class="bg-white text-[#1F1F1F] antialiased">
+
+    
+    
+    
+    
+    <nav id="main-navbar"
+     x-data="{ open: false }"
+     class="fixed top-0 left-0 right-0 z-50 bg-white transition-all duration-300"
+     style="border-bottom: 1px solid #E2DDD6;">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-[70px]">
+
+            
+            <a href="http://localhost:8090" class="flex items-center gap-3 group">
+                <div class="w-9 h-9 rounded flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105"
+                     style="background-color: #3E372C;">
+                    <span class="text-white font-bold text-base leading-none font-display tracking-widest">P</span>
+                </div>
+                <div class="leading-tight">
+                    <div class="font-semibold tracking-wide leading-none"
+                         style="font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: #3E372C;">
+                        Pratama Design Studio
+                    </div>
+                    <div class="text-[10px] tracking-[0.18em] uppercase font-medium mt-0.5"
+                         style="color: #8A6F55;">Interior Design & Build</div>
+                </div>
+            </a>
+
+            
+            <div class="hidden lg:flex items-center gap-7">
+                
+                                    <a href="http://localhost:8090"
+                       class="relative text-sm font-medium transition-colors duration-200 pb-0.5 group
+                              font-semibold"
+                       style="color: #B85C4A;">
+                        Home
+                        
+                        <span class="absolute -bottom-0.5 left-0 h-0.5 rounded-full transition-all duration-300
+                                     w-full"
+                              style="background-color: #B85C4A;"></span>
+                    </a>
+                                    <a href="http://localhost:8090/about"
+                       class="relative text-sm font-medium transition-colors duration-200 pb-0.5 group
+                              "
+                       style="color: #4B5563;">
+                        About
+                        
+                        <span class="absolute -bottom-0.5 left-0 h-0.5 rounded-full transition-all duration-300
+                                     w-0 group-hover:w-full"
+                              style="background-color: #B85C4A;"></span>
+                    </a>
+                                    <a href="http://localhost:8090/services"
+                       class="relative text-sm font-medium transition-colors duration-200 pb-0.5 group
+                              "
+                       style="color: #4B5563;">
+                        Services
+                        
+                        <span class="absolute -bottom-0.5 left-0 h-0.5 rounded-full transition-all duration-300
+                                     w-0 group-hover:w-full"
+                              style="background-color: #B85C4A;"></span>
+                    </a>
+                                    <a href="http://localhost:8090/portfolio"
+                       class="relative text-sm font-medium transition-colors duration-200 pb-0.5 group
+                              "
+                       style="color: #4B5563;">
+                        Portfolio
+                        
+                        <span class="absolute -bottom-0.5 left-0 h-0.5 rounded-full transition-all duration-300
+                                     w-0 group-hover:w-full"
+                              style="background-color: #B85C4A;"></span>
+                    </a>
+                                    <a href="http://localhost:8090/cost-estimator"
+                       class="relative text-sm font-medium transition-colors duration-200 pb-0.5 group
+                              "
+                       style="color: #4B5563;">
+                        Cost Estimator
+                        
+                        <span class="absolute -bottom-0.5 left-0 h-0.5 rounded-full transition-all duration-300
+                                     w-0 group-hover:w-full"
+                              style="background-color: #B85C4A;"></span>
+                    </a>
+                                    <a href="http://localhost:8090/contact"
+                       class="relative text-sm font-medium transition-colors duration-200 pb-0.5 group
+                              "
+                       style="color: #4B5563;">
+                        Contact
+                        
+                        <span class="absolute -bottom-0.5 left-0 h-0.5 rounded-full transition-all duration-300
+                                     w-0 group-hover:w-full"
+                              style="background-color: #B85C4A;"></span>
+                    </a>
+                            </div>
+
+            
+            <div class="flex items-center gap-3">
+                
+                <a href="http://localhost:8090/consultation"
+                   class="hidden lg:inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-px active:translate-y-0"
+                   style="background-color: #B85C4A; letter-spacing: 0.03em;">
+                    <i class="fas fa-comment-dots"></i>
+                    Konsultasi
+                </a>
+
+                
+                <button @click="open = !open"
+                        class="lg:hidden w-9 h-9 flex items-center justify-center rounded text-gray-600 hover:bg-gray-100 transition-colors"
+                        :aria-expanded="open">
+                    <svg x-show="!open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <svg x-show="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:none;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div x-show="open"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 -translate-y-2"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 -translate-y-2"
+         class="lg:hidden bg-white border-t px-4 pt-3 pb-4 space-y-1"
+         style="border-color: #E2DDD6; display: none;">
+
+        <a href="http://localhost:8090"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
+                  font-semibold"
+           style="color: #B85C4A; background-color: #FEF6F4;">
+            <i class="fas fa-home w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
+            Home
+        </a>
+        <a href="http://localhost:8090/about"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
+                  text-gray-700"
+           style="">
+            <i class="fas fa-building w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
+            About
+        </a>
+        <a href="http://localhost:8090/services"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
+                  text-gray-700"
+           style="">
+            <i class="fas fa-layer-group w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
+            Services
+        </a>
+        <a href="http://localhost:8090/portfolio"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
+                  text-gray-700"
+           style="">
+            <i class="fas fa-images w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
+            Portfolio
+        </a>
+        <a href="http://localhost:8090/cost-estimator"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
+                  text-gray-700"
+           style="">
+            <i class="fas fa-calculator w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
+            Cost Estimator
+        </a>
+        <a href="http://localhost:8090/contact"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
+                  text-gray-700"
+           style="">
+            <i class="fas fa-envelope w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
+            Contact
+        </a>
+
+        
+        <div class="pt-3 border-t" style="border-color: #E2DDD6;">
+            <a href="http://localhost:8090/consultation"
+               class="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
+               style="background-color: #B85C4A;">
+                <i class="fas fa-comment-dots"></i>
+                Konsultasi Sekarang
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+<div style="height: 70px;"></div>
+
+    
+    <main>
+        
+
+
+
+<section class="relative min-h-[92vh] flex items-center overflow-hidden"
+         style="background-color: #1E1812;">
+
+    
+    <div class="absolute inset-0 opacity-[0.03]"
+         style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+
+    
+    <div class="absolute inset-0"
+         style="background: linear-gradient(135deg, rgba(30,24,18,0.98) 0%, rgba(62,55,44,0.85) 50%, rgba(92,72,55,0.7) 100%);"></div>
+
+    
+    <div class="absolute -right-32 -top-32 w-96 h-96 rounded-full opacity-5"
+         style="background: radial-gradient(circle, #B85C4A 0%, transparent 70%);"></div>
+    <div class="absolute -left-20 -bottom-20 w-72 h-72 rounded-full opacity-5"
+         style="background: radial-gradient(circle, #8A6F55 0%, transparent 70%);"></div>
+
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="max-w-3xl">
+
+            
+            <div class="inline-flex items-center gap-2 mb-6">
+                <div class="w-8 h-px" style="background-color: #B85C4A;"></div>
+                <span class="text-xs font-semibold tracking-[0.2em] uppercase" style="color: #B85C4A;">
+                    Pratama Design Studio
+                </span>
+            </div>
+
+            
+            <h1 class="font-display text-white mb-6 leading-[1.05]"
+                style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 600;">
+                Transforming Ideas<br>
+                <span style="color: #C8956A; font-style: italic;">into Living Spaces</span>
+            </h1>
+
+            
+            <p class="text-base md:text-lg leading-relaxed mb-8 max-w-xl"
+               style="color: rgba(255,255,255,0.72);">
+                Kami membantu Anda menciptakan ruang yang estetis, fungsional, dan sesuai dengan kebutuhan — mulai dari desain konsep hingga proses fit-out selesai.
+            </p>
+
+            
+            <div class="flex flex-wrap items-center gap-4 mb-12">
+                <a href="http://localhost:8090/consultation"
+                   class="inline-flex items-center gap-2 px-7 py-3.5 rounded text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-px"
+                   style="background-color: #B85C4A; letter-spacing: 0.04em;">
+                    <i class="fas fa-comment-dots"></i>
+                    Konsultasi Sekarang
+                </a>
+                <a href="http://localhost:8090/portfolio"
+                   class="inline-flex items-center gap-2 px-7 py-3.5 rounded text-sm font-semibold text-white transition-all duration-200 hover:bg-white/10"
+                   style="border: 1.5px solid rgba(255,255,255,0.45); letter-spacing: 0.04em;">
+                    <i class="fas fa-images"></i>
+                    Lihat Portofolio
+                </a>
+            </div>
+
+            
+            <div class="flex flex-wrap items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <div class="flex -space-x-1.5">
+                                                <div class="w-6 h-6 rounded-full border-2 border-[#1E1812] flex items-center justify-center"
+                             style="background-color: #B85C4A;">
+                            <i class="fas fa-user text-[0.5rem] text-white"></i>
+                        </div>
+                                                <div class="w-6 h-6 rounded-full border-2 border-[#1E1812] flex items-center justify-center"
+                             style="background-color: #8A6F55;">
+                            <i class="fas fa-user text-[0.5rem] text-white"></i>
+                        </div>
+                                                <div class="w-6 h-6 rounded-full border-2 border-[#1E1812] flex items-center justify-center"
+                             style="background-color: #3E372C;">
+                            <i class="fas fa-user text-[0.5rem] text-white"></i>
+                        </div>
+                                            </div>
+                    <span class="text-xs" style="color: rgba(255,255,255,0.55);">Klien puas &amp; terpercaya</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                                        <i class="fas fa-star text-xs" style="color: #F59E0B;"></i>
+                                        <i class="fas fa-star text-xs" style="color: #F59E0B;"></i>
+                                        <i class="fas fa-star text-xs" style="color: #F59E0B;"></i>
+                                        <i class="fas fa-star text-xs" style="color: #F59E0B;"></i>
+                                        <i class="fas fa-star text-xs" style="color: #F59E0B;"></i>
+                                        <span class="text-xs ml-1" style="color: rgba(255,255,255,0.55);">5.0 Rating</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+        <span class="text-[10px] tracking-[0.2em] uppercase text-white">Scroll</span>
+        <div class="w-px h-10 bg-white/30 relative overflow-hidden">
+            <div class="w-full h-1/2 bg-white animate-bounce"></div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section style="background-color: #F8F5EF; border-bottom: 1px solid #E2DDD6;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                        <div class="flex flex-col items-center gap-1.5">
+                <i class="fas fa-check-circle text-sm mb-1" style="color: #B85C4A;"></i>
+                <div class="font-display text-3xl font-semibold leading-none" style="color: #3E372C;">20+</div>
+                <div class="text-xs text-gray-500 font-medium tracking-wide">Proyek Selesai</div>
+            </div>
+                        <div class="flex flex-col items-center gap-1.5">
+                <i class="fas fa-calendar text-sm mb-1" style="color: #B85C4A;"></i>
+                <div class="font-display text-3xl font-semibold leading-none" style="color: #3E372C;">4+</div>
+                <div class="text-xs text-gray-500 font-medium tracking-wide">Tahun Pengalaman</div>
+            </div>
+                        <div class="flex flex-col items-center gap-1.5">
+                <i class="fas fa-map-marker-alt text-sm mb-1" style="color: #B85C4A;"></i>
+                <div class="font-display text-3xl font-semibold leading-none" style="color: #3E372C;">3+</div>
+                <div class="text-xs text-gray-500 font-medium tracking-wide">Kota di Indonesia</div>
+            </div>
+                        <div class="flex flex-col items-center gap-1.5">
+                <i class="fas fa-heart text-sm mb-1" style="color: #B85C4A;"></i>
+                <div class="font-display text-3xl font-semibold leading-none" style="color: #3E372C;">100%</div>
+                <div class="text-xs text-gray-500 font-medium tracking-wide">Klien Puas</div>
+            </div>
+                    </div>
+    </div>
+</section>
+
+
+
+
+<section class="py-20 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+            
+            <div class="relative order-2 lg:order-1 fade-up">
+                
+                <div class="relative">
+                    <div class="aspect-[4/3] rounded-2xl overflow-hidden"
+                         style="background: linear-gradient(135deg, #3E372C 0%, #5A4A38 40%, #8A6F55 100%);">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <div class="text-center p-8">
+                                <i class="fas fa-drafting-compass text-5xl mb-4 opacity-30 text-white"></i>
+                                <p class="font-display text-2xl italic text-white opacity-40">Design & Build</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -bottom-5 -right-5 bg-white rounded-xl p-4 shadow-xl"
+                         style="border: 1px solid #E2DDD6;">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background-color: #FEF6F4;">
+                                <i class="fas fa-award" style="color: #B85C4A;"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-semibold" style="color: #3E372C;">Est. 2021</div>
+                                <div class="text-xs text-gray-500">Jakarta, Indonesia</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -top-3 -left-3 w-24 h-24 rounded-lg -z-10"
+                         style="background-color: #F8F5EF; border: 1px solid #E2DDD6;"></div>
+                </div>
+            </div>
+
+            
+            <div class="order-1 lg:order-2 fade-up">
+                <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">About Us</p>
+                <h2 class="font-display text-4xl lg:text-5xl font-semibold leading-tight mb-4"
+                    style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
+                    Desain yang Berbicara,<br>Ruang yang Bercerita
+                </h2>
+                <div class="w-10 h-0.5 mb-5" style="background-color: #B85C4A;"></div>
+                <p class="text-base leading-relaxed mb-5 text-gray-600">
+                    <strong class="font-semibold" style="color: #3E372C;">Pratama Design Studio</strong> adalah perusahaan desain interior dan eksterior yang berdiri sejak 2021 di Jakarta. Kami menghadirkan layanan <em>one-stop solution</em> mulai dari konsultasi, perencanaan, rendering 3D, hingga proses fit-out dan renovasi.
+                </p>
+                <p class="text-base leading-relaxed mb-7 text-gray-600">
+                    Setiap proyek kami kerjakan dengan penuh perhatian terhadap detail, anggaran yang transparan, dan hasil yang melebihi ekspektasi klien.
+                </p>
+                <div class="flex flex-wrap gap-3 mb-8">
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
+                          style="background-color: #F8F5EF; color: #3E372C; border: 1px solid #E2DDD6;">
+                        <i class="fas fa-check text-[0.55rem]" style="color: #B85C4A;"></i>
+                        Free Pre-Layout Concept
+                    </span>
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
+                          style="background-color: #F8F5EF; color: #3E372C; border: 1px solid #E2DDD6;">
+                        <i class="fas fa-check text-[0.55rem]" style="color: #B85C4A;"></i>
+                        Fleksibel Budget
+                    </span>
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
+                          style="background-color: #F8F5EF; color: #3E372C; border: 1px solid #E2DDD6;">
+                        <i class="fas fa-check text-[0.55rem]" style="color: #B85C4A;"></i>
+                        Workshop Sendiri
+                    </span>
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
+                          style="background-color: #F8F5EF; color: #3E372C; border: 1px solid #E2DDD6;">
+                        <i class="fas fa-check text-[0.55rem]" style="color: #B85C4A;"></i>
+                        Multi-Kota
+                    </span>
+                                    </div>
+                <a href="http://localhost:8090/about"
+                   class="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 group"
+                   style="color: #B85C4A;">
+                    Pelajari Lebih Lanjut
+                    <i class="fas fa-arrow-right text-xs transition-transform duration-200 group-hover:translate-x-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="py-20 lg:py-24" style="background-color: #F8F5EF;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        
+        <div class="max-w-2xl mb-12 fade-up">
+            <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">What We Do</p>
+            <h2 class="font-display text-4xl lg:text-5xl font-semibold leading-tight mb-4"
+                style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
+                Layanan Kami
+            </h2>
+            <div class="w-10 h-0.5 mb-4" style="background-color: #B85C4A;"></div>
+            <p class="text-gray-600 leading-relaxed">
+                Dari konsultasi awal hingga proyek selesai, kami menyediakan solusi lengkap untuk kebutuhan desain interior dan eksterior Anda.
+            </p>
+        </div>
+
+        
+        
+        <div class="text-center fade-up">
+            <a href="http://localhost:8090/services"
+               class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded transition-all duration-200 hover:opacity-90"
+               style="background-color: #3E372C; color: white;">
+                <i class="fas fa-layer-group"></i>
+                Lihat Semua Layanan
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="py-20 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-12 fade-up">
+            <div>
+                <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">Project Portfolio</p>
+                <h2 class="font-display text-4xl lg:text-5xl font-semibold leading-tight"
+                    style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
+                    Karya Kami
+                </h2>
+                <div class="w-10 h-0.5 mt-3" style="background-color: #B85C4A;"></div>
+            </div>
+            <a href="http://localhost:8090/portfolio"
+               class="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 group flex-shrink-0"
+               style="color: #B85C4A;">
+                Lihat Semua Proyek
+                <i class="fas fa-arrow-right text-xs transition-transform duration-200 group-hover:translate-x-1"></i>
+            </a>
+        </div>
+
+        
+                <div class="text-center py-16 text-gray-400">
+            <i class="fas fa-images text-4xl mb-3 opacity-40"></i>
+            <p class="text-sm">Belum ada portofolio tersedia.</p>
+        </div>
+            </div>
+</section>
+
+
+
+
+<section class="py-20 lg:py-24" style="background-color: #2A2219;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        
+        <div class="text-center mb-14 fade-up">
+            <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">Cara Kerja Kami</p>
+            <h2 class="font-display text-4xl lg:text-5xl font-semibold text-white leading-tight"
+                style="font-family: 'Cormorant Garamond', serif;">
+                How We Work
+            </h2>
+            <div class="w-10 h-0.5 mx-auto mt-4" style="background-color: #B85C4A;"></div>
+        </div>
+
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="relative fade-up text-center lg:text-left">
+                
+                <div class="text-[4.5rem] font-bold leading-none mb-3 select-none"
+                     style="font-family: 'Cormorant Garamond', serif; color: rgba(255,255,255,0.06);">
+                    01
+                </div>
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 mx-auto lg:mx-0"
+                     style="background-color: rgba(184,92,74,0.2);">
+                    <i class="fas fa-comments" style="color: #B85C4A;"></i>
+                </div>
+                <h3 class="font-semibold text-white mb-2 text-base">Konsultasi Awal</h3>
+                <p class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.55);">Diskusi kebutuhan, lokasi, budget, dan style desain yang Anda inginkan.</p>
+
+                
+                                <div class="hidden lg:block absolute top-16 -right-4 text-gray-600">
+                    <i class="fas fa-chevron-right text-sm" style="color: rgba(184,92,74,0.35);"></i>
+                </div>
+                            </div>
+                        <div class="relative fade-up text-center lg:text-left">
+                
+                <div class="text-[4.5rem] font-bold leading-none mb-3 select-none"
+                     style="font-family: 'Cormorant Garamond', serif; color: rgba(255,255,255,0.06);">
+                    02
+                </div>
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 mx-auto lg:mx-0"
+                     style="background-color: rgba(184,92,74,0.2);">
+                    <i class="fas fa-pencil-ruler" style="color: #B85C4A;"></i>
+                </div>
+                <h3 class="font-semibold text-white mb-2 text-base">Perencanaan &amp; Konsep</h3>
+                <p class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.55);">Kami menyusun rencana desain, denah, dan timeline proyek yang terstruktur.</p>
+
+                
+                                <div class="hidden lg:block absolute top-16 -right-4 text-gray-600">
+                    <i class="fas fa-chevron-right text-sm" style="color: rgba(184,92,74,0.35);"></i>
+                </div>
+                            </div>
+                        <div class="relative fade-up text-center lg:text-left">
+                
+                <div class="text-[4.5rem] font-bold leading-none mb-3 select-none"
+                     style="font-family: 'Cormorant Garamond', serif; color: rgba(255,255,255,0.06);">
+                    03
+                </div>
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 mx-auto lg:mx-0"
+                     style="background-color: rgba(184,92,74,0.2);">
+                    <i class="fas fa-display" style="color: #B85C4A;"></i>
+                </div>
+                <h3 class="font-semibold text-white mb-2 text-base">Visualisasi 3D</h3>
+                <p class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.55);">Anda dapat melihat hasil desain secara nyata sebelum pengerjaan dimulai.</p>
+
+                
+                                <div class="hidden lg:block absolute top-16 -right-4 text-gray-600">
+                    <i class="fas fa-chevron-right text-sm" style="color: rgba(184,92,74,0.35);"></i>
+                </div>
+                            </div>
+                        <div class="relative fade-up text-center lg:text-left">
+                
+                <div class="text-[4.5rem] font-bold leading-none mb-3 select-none"
+                     style="font-family: 'Cormorant Garamond', serif; color: rgba(255,255,255,0.06);">
+                    04
+                </div>
+                <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 mx-auto lg:mx-0"
+                     style="background-color: rgba(184,92,74,0.2);">
+                    <i class="fas fa-hammer" style="color: #B85C4A;"></i>
+                </div>
+                <h3 class="font-semibold text-white mb-2 text-base">Produksi &amp; Fit-Out</h3>
+                <p class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.55);">Eksekusi desain dengan standar kualitas tinggi hingga ruang siap digunakan.</p>
+
+                
+                            </div>
+                    </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+<section class="py-16 lg:py-20 relative overflow-hidden" style="background-color: #3E372C;">
+    
+    <div class="absolute inset-0 opacity-[0.04]"
+         style="background-image: url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'1\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'1\'/%3E%3C/g%3E%3C/svg%3E');"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-up">
+        <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
+             style="background-color: rgba(184,92,74,0.2);">
+            <i class="fas fa-headset text-xl" style="color: #B85C4A;"></i>
+        </div>
+        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-white mb-4"
+            style="font-family: 'Cormorant Garamond', serif;">
+            Siap Mewujudkan Ruang Impian Anda?
+        </h2>
+        <p class="text-base mb-8 max-w-lg mx-auto" style="color: rgba(255,255,255,0.65);">
+            Konsultasikan kebutuhan desain interior Anda bersama tim kami. Gratis pre-layout concept dan estimasi awal.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="https://wa.me/6282213641995?text=Halo%20Pratama%20Design%20Studio%2C%20saya%20ingin%20konsultasi%20desain%20interior."
+               target="_blank"
+               class="inline-flex items-center gap-3 px-7 py-4 rounded-lg text-white font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:-translate-y-px"
+               style="background-color: #25D366; box-shadow: 0 4px 16px rgba(37,211,102,0.3);">
+                <i class="fab fa-whatsapp text-xl"></i>
+                Chat via WhatsApp
+            </a>
+            <a href="http://localhost:8090/consultation"
+               class="inline-flex items-center gap-2 px-7 py-4 rounded-lg text-white font-semibold text-sm transition-all duration-200 hover:bg-white hover:text-gray-900 hover:-translate-y-px"
+               style="border: 1.5px solid rgba(255,255,255,0.4);">
+                <i class="fas fa-file-alt"></i>
+                Isi Form Konsultasi
+            </a>
+        </div>
+
+        
+        <div class="flex flex-wrap justify-center gap-4 mt-8">
+            <span class="inline-flex items-center gap-2 text-sm" style="color: rgba(255,255,255,0.5);">
+                <i class="fas fa-phone-alt text-xs"></i>
+                +62 822 1364 1995
+            </span>
+            <span style="color: rgba(255,255,255,0.25);">·</span>
+            <span class="inline-flex items-center gap-2 text-sm" style="color: rgba(255,255,255,0.5);">
+                <i class="fas fa-envelope text-xs"></i>
+                pratamadsb@gmail.com
+            </span>
+            <span style="color: rgba(255,255,255,0.25);">·</span>
+            <span class="inline-flex items-center gap-2 text-sm" style="color: rgba(255,255,255,0.5);">
+                <i class="fab fa-instagram text-xs"></i>
+                @pratamaid.studio
+            </span>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    
+    <footer style="background-color: #2A2219; color: #C8BDB0;">
+
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+
+            
+            <div class="lg:col-span-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded flex items-center justify-center flex-shrink-0"
+                         style="background-color: #B85C4A;">
+                        <span class="text-white font-bold text-base font-display">P</span>
+                    </div>
+                    <div>
+                        <div class="font-semibold tracking-wide text-white"
+                             style="font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;">
+                            Pratama Design Studio
+                        </div>
+                        <div class="text-[10px] tracking-[0.16em] uppercase mt-0.5" style="color: #8A6F55;">
+                            Interior Design & Build
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-sm leading-relaxed mb-5" style="color: #9E9189;">
+                    Interior & exterior design & build company based in Jakarta, Indonesia. Mewujudkan ruang yang estetis, fungsional, dan sesuai kebutuhan Anda.
+                </p>
+
+                
+                <div class="flex items-center gap-3">
+                    <a href="https://instagram.com/pratamaid.studio" target="_blank" rel="noopener"
+                       class="w-8 h-8 rounded flex items-center justify-center transition-all duration-200 hover:scale-110 hover:opacity-80"
+                       style="background-color: #3E372C;"
+                       title="Instagram @pratamaid.studio">
+                        <i class="fab fa-instagram text-sm text-white"></i>
+                    </a>
+                    <a href="https://wa.me/6282213641995" target="_blank" rel="noopener"
+                       class="w-8 h-8 rounded flex items-center justify-center transition-all duration-200 hover:scale-110 hover:opacity-80"
+                       style="background-color: #3E372C;"
+                       title="WhatsApp">
+                        <i class="fab fa-whatsapp text-sm text-white"></i>
+                    </a>
+                    <a href="mailto:pratamadsb@gmail.com"
+                       class="w-8 h-8 rounded flex items-center justify-center transition-all duration-200 hover:scale-110 hover:opacity-80"
+                       style="background-color: #3E372C;"
+                       title="Email">
+                        <i class="fas fa-envelope text-sm text-white"></i>
+                    </a>
+                </div>
+            </div>
+
+            
+            <div>
+                <h4 class="text-sm font-semibold text-white mb-4 tracking-wider uppercase">Menu</h4>
+                <ul class="space-y-2.5">
+                                        <li>
+                        <a href="http://localhost:8090"
+                           class="text-sm transition-colors duration-200 hover:text-white flex items-center gap-2 group"
+                           style="color: #9E9189;">
+                            <i class="fas fa-chevron-right text-[0.55rem] transition-transform duration-200 group-hover:translate-x-0.5"
+                               style="color: #B85C4A;"></i>
+                            Home
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="http://localhost:8090/about"
+                           class="text-sm transition-colors duration-200 hover:text-white flex items-center gap-2 group"
+                           style="color: #9E9189;">
+                            <i class="fas fa-chevron-right text-[0.55rem] transition-transform duration-200 group-hover:translate-x-0.5"
+                               style="color: #B85C4A;"></i>
+                            About Us
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="http://localhost:8090/services"
+                           class="text-sm transition-colors duration-200 hover:text-white flex items-center gap-2 group"
+                           style="color: #9E9189;">
+                            <i class="fas fa-chevron-right text-[0.55rem] transition-transform duration-200 group-hover:translate-x-0.5"
+                               style="color: #B85C4A;"></i>
+                            Services
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="http://localhost:8090/portfolio"
+                           class="text-sm transition-colors duration-200 hover:text-white flex items-center gap-2 group"
+                           style="color: #9E9189;">
+                            <i class="fas fa-chevron-right text-[0.55rem] transition-transform duration-200 group-hover:translate-x-0.5"
+                               style="color: #B85C4A;"></i>
+                            Portfolio
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="http://localhost:8090/cost-estimator"
+                           class="text-sm transition-colors duration-200 hover:text-white flex items-center gap-2 group"
+                           style="color: #9E9189;">
+                            <i class="fas fa-chevron-right text-[0.55rem] transition-transform duration-200 group-hover:translate-x-0.5"
+                               style="color: #B85C4A;"></i>
+                            Cost Estimator
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="http://localhost:8090/consultation"
+                           class="text-sm transition-colors duration-200 hover:text-white flex items-center gap-2 group"
+                           style="color: #9E9189;">
+                            <i class="fas fa-chevron-right text-[0.55rem] transition-transform duration-200 group-hover:translate-x-0.5"
+                               style="color: #B85C4A;"></i>
+                            Consultation
+                        </a>
+                    </li>
+                                        <li>
+                        <a href="http://localhost:8090/contact"
+                           class="text-sm transition-colors duration-200 hover:text-white flex items-center gap-2 group"
+                           style="color: #9E9189;">
+                            <i class="fas fa-chevron-right text-[0.55rem] transition-transform duration-200 group-hover:translate-x-0.5"
+                               style="color: #B85C4A;"></i>
+                            Contact
+                        </a>
+                    </li>
+                                    </ul>
+            </div>
+
+            
+            <div>
+                <h4 class="text-sm font-semibold text-white mb-4 tracking-wider uppercase">Services</h4>
+                <ul class="space-y-2.5">
+                                        <li>
+                        <span class="text-sm flex items-center gap-2" style="color: #9E9189;">
+                            <i class="fas fa-circle text-[0.3rem]" style="color: #B85C4A;"></i>
+                            Fit-Out Consultation
+                        </span>
+                    </li>
+                                        <li>
+                        <span class="text-sm flex items-center gap-2" style="color: #9E9189;">
+                            <i class="fas fa-circle text-[0.3rem]" style="color: #B85C4A;"></i>
+                            Project Plan &amp; Schedule
+                        </span>
+                    </li>
+                                        <li>
+                        <span class="text-sm flex items-center gap-2" style="color: #9E9189;">
+                            <i class="fas fa-circle text-[0.3rem]" style="color: #B85C4A;"></i>
+                            Project Budgeting
+                        </span>
+                    </li>
+                                        <li>
+                        <span class="text-sm flex items-center gap-2" style="color: #9E9189;">
+                            <i class="fas fa-circle text-[0.3rem]" style="color: #B85C4A;"></i>
+                            Digital Rendering 3D
+                        </span>
+                    </li>
+                                        <li>
+                        <span class="text-sm flex items-center gap-2" style="color: #9E9189;">
+                            <i class="fas fa-circle text-[0.3rem]" style="color: #B85C4A;"></i>
+                            Production Process
+                        </span>
+                    </li>
+                                        <li>
+                        <span class="text-sm flex items-center gap-2" style="color: #9E9189;">
+                            <i class="fas fa-circle text-[0.3rem]" style="color: #B85C4A;"></i>
+                            Fit Out &amp; Renovation
+                        </span>
+                    </li>
+                                    </ul>
+            </div>
+
+            
+            <div>
+                <h4 class="text-sm font-semibold text-white mb-4 tracking-wider uppercase">Hubungi Kami</h4>
+                <ul class="space-y-3.5">
+                    <li class="flex items-start gap-3">
+                        <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
+                             style="background-color: #3E372C;">
+                            <i class="fas fa-map-marker-alt text-xs" style="color: #B85C4A;"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-medium text-white block mb-0.5">Alamat</span>
+                            <span class="text-sm leading-relaxed" style="color: #9E9189;">
+                                Puri Orchard Apt. Orange Grove 21/09, Jakarta
+                            </span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
+                             style="background-color: #3E372C;">
+                            <i class="fab fa-whatsapp text-xs" style="color: #25D366;"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-medium text-white block mb-0.5">WhatsApp</span>
+                            <a href="https://wa.me/6282213641995" target="_blank"
+                               class="text-sm hover:text-white transition-colors" style="color: #9E9189;">
+                                +62 822 1364 1995
+                            </a>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
+                             style="background-color: #3E372C;">
+                            <i class="fas fa-envelope text-xs" style="color: #B85C4A;"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-medium text-white block mb-0.5">Email</span>
+                            <a href="mailto:pratamadsb@gmail.com"
+                               class="text-sm hover:text-white transition-colors" style="color: #9E9189;">
+                                pratamadsb@gmail.com
+                            </a>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
+                             style="background-color: #3E372C;">
+                            <i class="fab fa-instagram text-xs" style="color: #B85C4A;"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-medium text-white block mb-0.5">Instagram</span>
+                            <a href="https://instagram.com/pratamaid.studio" target="_blank"
+                               class="text-sm hover:text-white transition-colors" style="color: #9E9189;">
+                                @pratamaid.studio
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+    <div style="border-top: 1px solid #3E372C;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-xs text-center sm:text-left" style="color: #6B5F55;">
+                    &copy; 2026 <span class="text-white font-medium">PT Pratama Berkah Utama</span> / Pratama Design Studio. All Rights Reserved.
+                </p>
+                <div class="flex items-center gap-4 text-xs" style="color: #6B5F55;">
+                    <span>Jakarta, Indonesia</span>
+                    <span style="color: #3E372C;">·</span>
+                    <a href="http://localhost:8090" class="hover:text-white transition-colors">Beranda</a>
+                    <span style="color: #3E372C;">·</span>
+                    <a href="http://localhost:8090/consultation" class="hover:text-white transition-colors">Konsultasi</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    
+    <button id="back-to-top"
+            onclick="window.scrollTo({top:0,behavior:'smooth'})"
+            class="fixed bottom-6 right-6 w-10 h-10 text-white rounded-full shadow-lg flex items-center justify-center z-50 transition-all duration-300 opacity-0 pointer-events-none hover:scale-110"
+            style="background-color: #B85C4A;">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
+
+    <script>
+        // Back to top visibility
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('back-to-top');
+            if (!btn) return;
+            if (window.scrollY > 400) {
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+            } else {
+                btn.style.opacity = '0';
+                btn.style.pointerEvents = 'none';
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-navbar');
+            if (!nav) return;
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Fade-up animation on scroll
+        const fadeEls = document.querySelectorAll('.fade-up');
+        if ('IntersectionObserver' in window && fadeEls.length) {
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach((entry, i) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+            fadeEls.forEach(el => obs.observe(el));
+        } else {
+            fadeEls.forEach(el => el.classList.add('visible'));
+        }
+
+        // Auto-hide flash messages
+        setTimeout(() => {
+            document.getElementById('flash-success')?.remove();
+            document.getElementById('flash-error')?.remove();
+        }, 5000);
+    </script>
+
+    
+    <div x-data="{
+        open: false,
+        messages: [{ role: 'ai', text: 'Halo! Saya Prama, asisten virtual Pratama Design. Ada yang bisa saya bantu terkait layanan desain interior kami?' }],
+        userInput: '',
+        isLoading: false,
+        async sendMessage() {
+            if (this.userInput.trim() === '') return;
+            
+            const message = this.userInput;
+            this.messages.push({ role: 'user', text: message });
+            this.userInput = '';
+            this.isLoading = true;
+            
+            this.$nextTick(() => { this.scrollToBottom() });
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name=\'csrf-token\']').getAttribute('content')
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    this.messages.push({ role: 'ai', text: data.reply });
+                } else {
+                    this.messages.push({ role: 'ai', text: data.error || 'Maaf, terjadi kesalahan.' });
+                }
+            } catch (error) {
+                this.messages.push({ role: 'ai', text: 'Koneksi terputus. Silakan coba lagi.' });
+            } finally {
+                this.isLoading = false;
+                this.$nextTick(() => { this.scrollToBottom() });
+            }
+        },
+        scrollToBottom() {
+            const container = this.$refs.chatContainer;
+            if (container) {
+                container.scrollTop = container.scrollHeight;
+            }
+        }
+    }" 
+    class="fixed bottom-20 right-6 z-50">
+
+    <!-- Toggle Button -->
+    <button @click="open = !open" 
+        class="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-transform transform hover:scale-110 focus:outline-none flex items-center justify-center">
+        <svg x-show="!open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+        </svg>
+        <svg x-show="open" x-cloak xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+
+    <!-- Chat Box -->
+    <div x-show="open" 
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-4 scale-95"
+        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+        x-transition:leave-end="opacity-0 translate-y-4 scale-95"
+        class="absolute bottom-16 right-0 w-80 sm:w-96 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden flex flex-col" style="height: 500px; max-height: 80vh; display: none;">
+        
+        <!-- Header -->
+        <div class="bg-blue-600 text-white px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-blue-600 font-bold">P</div>
+                <div>
+                    <h3 class="font-bold text-sm">Prama AI</h3>
+                    <p class="text-xs text-blue-100">Pratama Design Studio</p>
+                </div>
+            </div>
+            <button @click="open = false" class="text-blue-100 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Messages -->
+        <div x-ref="chatContainer" class="flex-1 p-4 overflow-y-auto bg-gray-50 flex flex-col gap-3">
+            <template x-for="(msg, index) in messages" :key="index">
+                <div :class="msg.role === 'user' ? 'self-end bg-blue-600 text-white' : 'self-start bg-white border border-gray-200 text-gray-800'" 
+                     class="max-w-[80%] rounded-2xl px-4 py-2 shadow-sm text-sm"
+                     x-text="msg.text">
+                </div>
+            </template>
+            <div x-show="isLoading" class="self-start bg-white border border-gray-200 text-gray-800 rounded-2xl px-4 py-2 shadow-sm text-sm">
+                <div class="flex gap-1">
+                    <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
+                    <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                    <span class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-3 bg-white border-t border-gray-200">
+            <form @submit.prevent="sendMessage" class="flex items-center gap-2">
+                <input type="text" x-model="userInput" placeholder="Tanyakan sesuatu..." 
+                    class="flex-1 text-sm border-gray-300 rounded-full px-4 py-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-gray-100 placeholder-gray-500" 
+                    :disabled="isLoading">
+                <button type="submit" :disabled="isLoading || userInput.trim() === ''"
+                    class="bg-blue-600 text-white rounded-full p-2 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-90" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
