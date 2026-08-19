@@ -1,447 +1,573 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
-@section('meta_description', 'Pratama Design Studio — Interior & Exterior Design & Build. Kami membantu Anda mewujudkan ruang impian yang estetis, fungsional, dan berkarakter. Based in Jakarta.')
+@section('title', 'pratamaid.')
+@section('meta_description', 'Pratamaid - interior & exterior design and build studio in Jakarta.')
 
 @section('content')
 
-{{-- ============================================================ --}}
-{{-- HERO SECTION                                                  --}}
-{{-- ============================================================ --}}
-<section class="relative min-h-[92vh] flex items-center overflow-hidden"
-         style="background-color: #1E1812;">
+  {{-- Top Sticky Header (Hidden initially on top of hero, appears on scroll to About Us) --}}
+  <header class="site-header" id="top">
+    <a class="brand" href="#top" aria-label="Pratamaid home">
+      <span class="brand-icon">P</span>
+      <span class="brand-copy">
+        <span class="brand-word">Pratama Design Studio</span>
+        <span class="brand-subtitle">Interior Design &amp; Build</span>
+      </span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a class="active" href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#pricing">Cost Estimator</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      {{-- Dark / Light Mode Switcher (Matching Reference: Rounded Square Button with Moon/Sun Icon) --}}
+      <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()" type="button" aria-label="Ganti mode gelap / terang" title="Ganti Mode Gelap / Terang">
+        {{-- Moon Icon (shown in Light Mode to switch to Dark) --}}
+        <svg class="theme-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        {{-- Sun Icon (shown in Dark Mode to switch to Light) --}}
+        <svg class="theme-icon sun-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
 
-    {{-- Background pattern overlay --}}
-    <div class="absolute inset-0 opacity-[0.03]"
-         style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+      <a class="consult-button trigger-contact-modal" href="#contact">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM9 11H7V9H9V11ZM13 11H11V9H13V11ZM17 11H15V9H17V11Z"/>
+        </svg>
+        <span>Konsultasi</span>
+      </a>
 
-    {{-- Gradient overlay layers --}}
-    <div class="absolute inset-0"
-         style="background: linear-gradient(135deg, rgba(30,24,18,0.98) 0%, rgba(62,55,44,0.85) 50%, rgba(92,72,55,0.7) 100%);"></div>
-
-    {{-- Decorative circle element --}}
-    <div class="absolute -right-32 -top-32 w-96 h-96 rounded-full opacity-5"
-         style="background: radial-gradient(circle, #B85C4A 0%, transparent 70%);"></div>
-    <div class="absolute -left-20 -bottom-20 w-72 h-72 rounded-full opacity-5"
-         style="background: radial-gradient(circle, #8A6F55 0%, transparent 70%);"></div>
-
-    {{-- Hero Content --}}
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="max-w-3xl">
-
-            {{-- Label --}}
-            <div class="inline-flex items-center gap-2 mb-6">
-                <div class="w-8 h-px" style="background-color: #B85C4A;"></div>
-                <span class="text-xs font-semibold tracking-[0.2em] uppercase" style="color: #B85C4A;">
-                    Pratama Design Studio
-                </span>
-            </div>
-
-            {{-- Headline --}}
-            <h1 class="font-display text-white mb-6 leading-[1.05]"
-                style="font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 600;">
-                Transforming Ideas<br>
-                <span style="color: #C8956A; font-style: italic;">into Living Spaces</span>
-            </h1>
-
-            {{-- Subheadline --}}
-            <p class="text-base md:text-lg leading-relaxed mb-8 max-w-xl"
-               style="color: rgba(255,255,255,0.72);">
-                Kami membantu Anda menciptakan ruang yang estetis, fungsional, dan sesuai dengan kebutuhan — mulai dari desain konsep hingga proses fit-out selesai.
-            </p>
-
-            {{-- CTA Buttons --}}
-            <div class="flex flex-wrap items-center gap-4 mb-12">
-                <a href="{{ route('consultation.create') }}"
-                   class="inline-flex items-center gap-2 px-7 py-3.5 rounded text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-px"
-                   style="background-color: #B85C4A; letter-spacing: 0.04em;">
-                    <i class="fas fa-comment-dots"></i>
-                    Konsultasi Sekarang
-                </a>
-                <a href="{{ route('portfolio.index') }}"
-                   class="inline-flex items-center gap-2 px-7 py-3.5 rounded text-sm font-semibold text-white transition-all duration-200 hover:bg-white/10"
-                   style="border: 1.5px solid rgba(255,255,255,0.45); letter-spacing: 0.04em;">
-                    <i class="fas fa-images"></i>
-                    Lihat Portofolio
-                </a>
-            </div>
-
-            {{-- Credentials --}}
-            <div class="flex flex-wrap items-center gap-6">
-                <div class="flex items-center gap-2">
-                    <div class="flex -space-x-1.5">
-                        @foreach(['#B85C4A','#8A6F55','#3E372C'] as $c)
-                        <div class="w-6 h-6 rounded-full border-2 border-[#1E1812] flex items-center justify-center"
-                             style="background-color: {{ $c }};">
-                            <i class="fas fa-user text-[0.5rem] text-white"></i>
-                        </div>
-                        @endforeach
-                    </div>
-                    <span class="text-xs" style="color: rgba(255,255,255,0.55);">Klien puas &amp; terpercaya</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                    @for($i = 0; $i < 5; $i++)
-                    <i class="fas fa-star text-xs" style="color: #F59E0B;"></i>
-                    @endfor
-                    <span class="text-xs ml-1" style="color: rgba(255,255,255,0.55);">5.0 Rating</span>
-                </div>
-            </div>
-        </div>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+        <span></span><span></span>
+      </button>
     </div>
+  </header>
 
-    {{-- Scroll indicator --}}
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-        <span class="text-[10px] tracking-[0.2em] uppercase text-white">Scroll</span>
-        <div class="w-px h-10 bg-white/30 relative overflow-hidden">
-            <div class="w-full h-1/2 bg-white animate-bounce"></div>
-        </div>
+  {{-- Mobile Navigation Dropdown --}}
+  <div class="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu-top">
+      <div class="mobile-theme-switch-wrap">
+        <span class="mobile-theme-text">Mode Tampilan</span>
+        <button class="theme-toggle-btn mobile-theme-toggle" onclick="toggleTheme()" type="button" aria-label="Ganti mode gelap / terang">
+          <svg class="theme-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg class="theme-icon sun-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
     </div>
-</section>
+    <nav aria-label="Mobile navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#pricing">Cost Estimator</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
 
-{{-- ============================================================ --}}
-{{-- STATS BAR                                                     --}}
-{{-- ============================================================ --}}
-<section style="background-color: #F8F5EF; border-bottom: 1px solid #E2DDD6;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            @foreach([
-                ['20+',  'Proyek Selesai',    'fas fa-check-circle'],
-                ['4+',   'Tahun Pengalaman',  'fas fa-calendar'],
-                ['3+',   'Kota di Indonesia', 'fas fa-map-marker-alt'],
-                ['100%', 'Klien Puas',        'fas fa-heart'],
-            ] as [$num, $label, $icon])
-            <div class="flex flex-col items-center gap-1.5">
-                <i class="{{ $icon }} text-sm mb-1" style="color: #B85C4A;"></i>
-                <div class="font-display text-3xl font-semibold leading-none" style="color: #3E372C;">{{ $num }}</div>
-                <div class="text-xs text-gray-500 font-medium tracking-wide">{{ $label }}</div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- ============================================================ --}}
-{{-- ABOUT SNIPPET                                                 --}}
-{{-- ============================================================ --}}
-<section class="py-20 lg:py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
-
-            {{-- Left: Visual --}}
-            <div class="relative order-2 lg:order-1 fade-up">
-                {{-- Main decorative block --}}
-                <div class="relative">
-                    <div class="aspect-[4/3] rounded-2xl overflow-hidden"
-                         style="background: linear-gradient(135deg, #3E372C 0%, #5A4A38 40%, #8A6F55 100%);">
-                        <div class="w-full h-full flex items-center justify-center">
-                            <div class="text-center p-8">
-                                <i class="fas fa-drafting-compass text-5xl mb-4 opacity-30 text-white"></i>
-                                <p class="font-display text-2xl italic text-white opacity-40">Design & Build</p>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- Floating card --}}
-                    <div class="absolute -bottom-5 -right-5 bg-white rounded-xl p-4 shadow-xl"
-                         style="border: 1px solid #E2DDD6;">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background-color: #FEF6F4;">
-                                <i class="fas fa-award" style="color: #B85C4A;"></i>
-                            </div>
-                            <div>
-                                <div class="text-xs font-semibold" style="color: #3E372C;">Est. 2021</div>
-                                <div class="text-xs text-gray-500">Jakarta, Indonesia</div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- Accent border --}}
-                    <div class="absolute -top-3 -left-3 w-24 h-24 rounded-lg -z-10"
-                         style="background-color: #F8F5EF; border: 1px solid #E2DDD6;"></div>
-                </div>
-            </div>
-
-            {{-- Right: Text --}}
-            <div class="order-1 lg:order-2 fade-up">
-                <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">About Us</p>
-                <h2 class="font-display text-4xl lg:text-5xl font-semibold leading-tight mb-4"
-                    style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
-                    Desain yang Berbicara,<br>Ruang yang Bercerita
-                </h2>
-                <div class="w-10 h-0.5 mb-5" style="background-color: #B85C4A;"></div>
-                <p class="text-base leading-relaxed mb-5 text-gray-600">
-                    <strong class="font-semibold" style="color: #3E372C;">Pratama Design Studio</strong> adalah perusahaan desain interior dan eksterior yang berdiri sejak 2021 di Jakarta. Kami menghadirkan layanan <em>one-stop solution</em> mulai dari konsultasi, perencanaan, rendering 3D, hingga proses fit-out dan renovasi.
-                </p>
-                <p class="text-base leading-relaxed mb-7 text-gray-600">
-                    Setiap proyek kami kerjakan dengan penuh perhatian terhadap detail, anggaran yang transparan, dan hasil yang melebihi ekspektasi klien.
-                </p>
-                <div class="flex flex-wrap gap-3 mb-8">
-                    @foreach(['Free Pre-Layout Concept', 'Fleksibel Budget', 'Workshop Sendiri', 'Multi-Kota'] as $tag)
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full"
-                          style="background-color: #F8F5EF; color: #3E372C; border: 1px solid #E2DDD6;">
-                        <i class="fas fa-check text-[0.55rem]" style="color: #B85C4A;"></i>
-                        {{ $tag }}
-                    </span>
-                    @endforeach
-                </div>
-                <a href="{{ route('about') }}"
-                   class="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 group"
-                   style="color: #B85C4A;">
-                    Pelajari Lebih Lanjut
-                    <i class="fas fa-arrow-right text-xs transition-transform duration-200 group-hover:translate-x-1"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- ============================================================ --}}
-{{-- SERVICES SECTION                                              --}}
-{{-- ============================================================ --}}
-<section class="py-20 lg:py-24" style="background-color: #F8F5EF;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {{-- Section Header --}}
-        <div class="max-w-2xl mb-12 fade-up">
-            <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">What We Do</p>
-            <h2 class="font-display text-4xl lg:text-5xl font-semibold leading-tight mb-4"
-                style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
-                Layanan Kami
-            </h2>
-            <div class="w-10 h-0.5 mb-4" style="background-color: #B85C4A;"></div>
-            <p class="text-gray-600 leading-relaxed">
-                Dari konsultasi awal hingga proyek selesai, kami menyediakan solusi lengkap untuk kebutuhan desain interior dan eksterior Anda.
-            </p>
-        </div>
-
-        {{-- Services Grid --}}
-        @if($services->count())
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            @foreach($services as $service)
-            <div class="fade-up">
-                <x-service-card :service="$service" />
-            </div>
-            @endforeach
-        </div>
-        @endif
-
-        <div class="text-center fade-up">
-            <a href="{{ route('services.index') }}"
-               class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded transition-all duration-200 hover:opacity-90"
-               style="background-color: #3E372C; color: white;">
-                <i class="fas fa-layer-group"></i>
-                Lihat Semua Layanan
+  <main>
+    {{-- ============================================================ --}}
+    {{-- 1. HERO SECTION (Split Screen)                                --}}
+    {{-- ============================================================ --}}
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="hero-kicker">PT Pratama Berkah Utama <span>2026</span></div>
+        <div class="hero-main-copy">
+          <p class="eyebrow">Company Profile</p>
+          <h1 id="hero-title"><span>Pratama Design</span> Studio</h1>
+          <p class="hero-subtitle">Interior &amp; exterior design and build, established in Jakarta in 2021.</p>
+          <div class="hero-actions">
+            <a class="btn btn-cta btn-primary" href="#portfolio">
+              <span>Explore Projects</span>
+              <span class="btn-icon" aria-hidden="true">↗</span>
             </a>
+            <a class="btn btn-cta btn-secondary trigger-contact-modal" href="#contact">
+              <span>Start a Project</span>
+              <span class="btn-icon" aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
-    </div>
-</section>
+        <img class="hero-mark" src="{{ asset('assets/images/logo-mark.png') }}" alt="Pratamaid geometric mark" />
+      </div>
+      <div class="hero-image">
+        <img src="{{ asset('assets/images/hero-living.jpg') }}" alt="Warm contemporary living room interior" />
+        <div class="hero-image-overlay">
+          <span>Pratama</span>
+          <strong>Contractor</strong>
+        </div>
+        <p class="hero-vertical">Design / Build / Renovation</p>
+      </div>
+    </section>
 
-{{-- ============================================================ --}}
-{{-- PORTFOLIO SECTION                                             --}}
-{{-- ============================================================ --}}
-<section class="py-20 lg:py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{-- ============================================================ --}}
+    {{-- 2. ABOUT US SECTION                                           --}}
+    {{-- ============================================================ --}}
+    <section class="about section-pad" id="about" aria-labelledby="about-title">
+      <div class="about-heading reveal">
+        <div class="section-index">01</div>
+        <h2 id="about-title">About Us</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p class="lead">Pratama Design Studio &amp; Build specializes in interior and exterior consultancy, design, production, fit-out, and renovation.</p>
+          <p>The studio focuses on creating spaces that support the users’ needs and lifestyle, combining visual character with practical function. Based in Jakarta, the team handles residential, retail, F&amp;B, and office projects, supported by its own workshop and production facilities.</p>
+          <div class="about-values">
+            <span>Professionalism</span>
+            <span>Integrity</span>
+            <span>Innovation</span>
+            <span>Attention to Detail</span>
+          </div>
+        </div>
+        <figure class="image-frame reveal">
+          <img src="{{ asset('assets/images/about.jpg') }}" alt="Interior project with warm wood, lighting and furniture" loading="lazy" />
+          <figcaption>Pratamaid / Interior &amp; exterior design and build</figcaption>
+        </figure>
+      </div>
+    </section>
 
-        {{-- Section Header --}}
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-12 fade-up">
+    {{-- ============================================================ --}}
+    {{-- 3. WHAT WE DO / SERVICES                                      --}}
+    {{-- ============================================================ --}}
+    <section class="services section-pad" id="services" aria-labelledby="services-title">
+      <div class="section-heading reveal">
+        <div class="section-index">02</div>
+        <h2 id="services-title">What We Do</h2>
+        <p>One-stop project support from the first site conversation to installation and final touches.</p>
+      </div>
+
+      <div class="service-list reveal">
+        <article><span>01</span><h3>Fit-Out Consultation</h3><p>Planning spaces around user needs, budget and site measurements before execution.</p></article>
+        <article><span>02</span><h3>Project Plan &amp; Schedule</h3><p>Design concept, specification and technical planning organized into a clear execution path.</p></article>
+        <article><span>03</span><h3>Project Budgeting</h3><p>Cost control aimed at achieving the best possible quality within the agreed project budget.</p></article>
+        <article><span>04</span><h3>Digital Rendering</h3><p>3D visualization to align design expectations before construction and production begin.</p></article>
+        <article><span>05</span><h3>Production</h3><p>Custom interior elements produced through the workshop and coordinated with project specifications.</p></article>
+        <article><span>06</span><h3>Fit-Out &amp; Renovation</h3><p>On-site execution that transforms approved designs into functional, finished environments.</p></article>
+      </div>
+
+      <div class="service-gallery reveal" aria-label="Selected interiors">
+        <img src="{{ asset('assets/images/service-01.jpg') }}" alt="Bedroom and lounge interior" loading="lazy" />
+        <img src="{{ asset('assets/images/service-02.jpg') }}" alt="Dark contemporary living interior" loading="lazy" />
+        <img src="{{ asset('assets/images/service-03.jpg') }}" alt="Bright bedroom interior" loading="lazy" />
+      </div>
+    </section>
+
+    {{-- ============================================================ --}}
+    {{-- 4. STATEMENT BANNER                                           --}}
+    {{-- ============================================================ --}}
+    <section class="statement" aria-label="Brand statement">
+      <img src="{{ asset('assets/images/statement.jpg') }}" alt="Elegant bright living space" loading="lazy" />
+      <div class="statement-shade"></div>
+      <p class="reveal"><span>Transforming Ideas</span> into Living Spaces</p>
+    </section>
+
+    {{-- ============================================================ --}}
+    {{-- 5. PROJECT PORTFOLIO                                          --}}
+    {{-- ============================================================ --}}
+    <section class="portfolio section-pad" id="portfolio" aria-labelledby="portfolio-title">
+      <div class="section-heading portfolio-heading reveal">
+        <div>
+          <div class="section-index">03—08</div>
+          <h2 id="portfolio-title">Project Portfolio</h2>
+        </div>
+        <p>Selected projects from the company profile across landed houses, apartments, F&amp;B, booths, and offices.</p>
+      </div>
+
+      <div class="filter-bar reveal" role="group" aria-label="Portfolio filters">
+        <button class="filter-button active" type="button" data-filter="all">All</button>
+        <button class="filter-button" type="button" data-filter="landed">Landed House</button>
+        <button class="filter-button" type="button" data-filter="apartment">Apartment</button>
+        <button class="filter-button" type="button" data-filter="fnb">F&amp;B</button>
+        <button class="filter-button" type="button" data-filter="booth">Booth</button>
+        <button class="filter-button" type="button" data-filter="office">Office</button>
+      </div>
+
+      <div class="portfolio-grid" id="portfolioGrid">
+        <article class="project-card reveal" data-category="landed"><div class="project-image"><img src="{{ asset('assets/images/p-landed-01.jpg') }}" alt="Rainbow Cluster house exterior" loading="lazy" /></div><div class="project-meta"><p>Rainbow Cluster</p><span>West Kalimantan · Landed House</span></div></article>
+        <article class="project-card reveal" data-category="landed"><div class="project-image"><img src="{{ asset('assets/images/p-landed-02.jpg') }}" alt="Kitchen set project" loading="lazy" /></div><div class="project-meta"><p>Kitchen Set</p><span>PIK · Residential</span></div></article>
+        <article class="project-card reveal" data-category="landed"><div class="project-image"><img src="{{ asset('assets/images/p-landed-03.jpg') }}" alt="Master bedroom project" loading="lazy" /></div><div class="project-meta"><p>Master Bedroom</p><span>Cengkareng · Residential</span></div></article>
+        <article class="project-card reveal" data-category="landed"><div class="project-image"><img src="{{ asset('assets/images/p-landed-04.jpg') }}" alt="Residential re-facade project" loading="lazy" /></div><div class="project-meta"><p>Re-Facade</p><span>Greenlake City · Exterior</span></div></article>
+        <article class="project-card reveal" data-category="landed"><div class="project-image"><img src="{{ asset('assets/images/p-landed-05.jpg') }}" alt="Full house living room project" loading="lazy" /></div><div class="project-meta"><p>Full House</p><span>Surabaya · Residential</span></div></article>
+
+        <article class="project-card reveal" data-category="apartment"><div class="project-image"><img src="{{ asset('assets/images/p-apartment-01.jpg') }}" alt="Apartment living interior" loading="lazy" /></div><div class="project-meta"><p>3 Bedroom Unit</p><span>Meikarta · Apartment</span></div></article>
+        <article class="project-card reveal" data-category="apartment"><div class="project-image"><img src="{{ asset('assets/images/p-apartment-02.jpg') }}" alt="Apartment bedroom design" loading="lazy" /></div><div class="project-meta"><p>3 Bedroom Unit</p><span>CBD Pluit · Apartment</span></div></article>
+        <article class="project-card reveal" data-category="apartment"><div class="project-image"><img src="{{ asset('assets/images/p-apartment-03.jpg') }}" alt="Penthouse living interior" loading="lazy" /></div><div class="project-meta"><p>Pent House</p><span>Karawaci · Apartment</span></div></article>
+
+        <article class="project-card reveal" data-category="fnb"><div class="project-image"><img src="{{ asset('assets/images/p-fnb-01.jpg') }}" alt="Kampung Burger restaurant interior" loading="lazy" /></div><div class="project-meta"><p>Kampung Burger</p><span>Depok · F&amp;B</span></div></article>
+        <article class="project-card reveal" data-category="fnb"><div class="project-image"><img src="{{ asset('assets/images/p-fnb-02.jpg') }}" alt="KATA Kopi interior" loading="lazy" /></div><div class="project-meta"><p>KATA Kopi</p><span>PIK · F&amp;B</span></div></article>
+        <article class="project-card reveal" data-category="fnb"><div class="project-image"><img src="{{ asset('assets/images/p-fnb-03.jpg') }}" alt="PanMee storefront" loading="lazy" /></div><div class="project-meta"><p>PanMee</p><span>Mangga Besar · F&amp;B</span></div></article>
+
+        <article class="project-card reveal" data-category="booth"><div class="project-image"><img src="{{ asset('assets/images/p-booth-01.jpg') }}" alt="Bubee booth design" loading="lazy" /></div><div class="project-meta"><p>Bubee Booth</p><span>Tomang · Booth</span></div></article>
+        <article class="project-card reveal" data-category="booth"><div class="project-image"><img src="{{ asset('assets/images/p-booth-02.jpg') }}" alt="G-Power exhibition booth" loading="lazy" /></div><div class="project-meta"><p>G-Power Booth</p><span>ICE BSD · Booth</span></div></article>
+
+        <article class="project-card reveal" data-category="office"><div class="project-image"><img src="{{ asset('assets/images/p-office-01.jpg') }}" alt="Office lobby project" loading="lazy" /></div><div class="project-meta"><p>Lobby Lift DPR</p><span>Jakarta · Office</span></div></article>
+        <article class="project-card reveal" data-category="office"><div class="project-image"><img src="{{ asset('assets/images/p-office-02.jpg') }}" alt="Office reception project" loading="lazy" /></div><div class="project-meta"><p>Reception</p><span>PT Momodis · Jakarta</span></div></article>
+        <article class="project-card reveal" data-category="office"><div class="project-image"><img src="{{ asset('assets/images/p-office-03.jpg') }}" alt="Police lobby interior" loading="lazy" /></div><div class="project-meta"><p>Lobby Lift</p><span>DITTIPIDSIBER POLRI · Office</span></div></article>
+        <article class="project-card reveal" data-category="office"><div class="project-image"><img src="{{ asset('assets/images/p-office-04.jpg') }}" alt="DITRESSIBER office project" loading="lazy" /></div><div class="project-meta"><p>DITRESSIBER Office</p><span>POLDA · Office</span></div></article>
+      </div>
+    </section>
+
+    {{-- ============================================================ --}}
+    {{-- 6. HOW WE WORK (Process)                                      --}}
+    {{-- ============================================================ --}}
+    <section class="process" id="process" aria-labelledby="process-title">
+      <div class="process-image"><img src="{{ asset('assets/images/process.jpg') }}" alt="Office project used as process backdrop" loading="lazy" /></div>
+      <div class="process-content">
+        <div class="process-header reveal">
+          <div class="process-section-index">09</div>
+          <h2 id="process-title">How We Work</h2>
+        </div>
+        <ol class="process-steps">
+          <li class="reveal">
+            <span class="step-num">01</span>
             <div>
-                <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">Project Portfolio</p>
-                <h2 class="font-display text-4xl lg:text-5xl font-semibold leading-tight"
-                    style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
-                    Karya Kami
-                </h2>
-                <div class="w-10 h-0.5 mt-3" style="background-color: #B85C4A;"></div>
+              <h3>Meet</h3>
+              <p>We begin every project with a focused discovery session — listening to the client's vision, measuring the space, and understanding how the users will live and move within it. This stage sets the foundation for everything that follows.</p>
             </div>
-            <a href="{{ route('portfolio.index') }}"
-               class="inline-flex items-center gap-2 text-sm font-semibold transition-all duration-200 group flex-shrink-0"
-               style="color: #B85C4A;">
-                Lihat Semua Proyek
-                <i class="fas fa-arrow-right text-xs transition-transform duration-200 group-hover:translate-x-1"></i>
-            </a>
-        </div>
+          </li>
+          <li class="reveal">
+            <span class="step-num">02</span>
+            <div>
+              <h3>Research</h3>
+              <p>From the brief, we explore references, map the client's preferences, and identify spatial challenges. Brainstorming is done collaboratively so every decision is grounded in real needs — not assumption.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="step-num">03</span>
+            <div>
+              <h3>Concept</h3>
+              <p>We define the design direction: visual style, atmosphere, material palette, and color language. The concept board gives the client a clear picture of the intended spatial character before any technical work begins.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="step-num">04</span>
+            <div>
+              <h3>Design</h3>
+              <p>Space planning and layout are refined into detailed floor plans and preliminary 3D models. Every functional zone is considered — circulation, proportion, light, and the relationship between furniture and architecture.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="step-num">05</span>
+            <div>
+              <h3>Finalize</h3>
+              <p>The approved design is developed into a full documentation package: photorealistic 3D renders, technical drawings, shop drawings, and a detailed bill of quantity — giving contractors and clients a complete reference for execution.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="step-num">06</span>
+            <div>
+              <h3>Create</h3>
+              <p>Custom furniture and interior elements are produced through our own workshop. Quality is managed in-house — from raw material selection through finishing — ensuring every piece meets the agreed specifications.</p>
+            </div>
+          </li>
+          <li class="reveal">
+            <span class="step-num">07</span>
+            <div>
+              <h3>Install</h3>
+              <p>Our team executes the full on-site installation with precision. After placement, we conduct a thorough quality check and attend to all final touches before handing the completed space over to the client.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
 
-        {{-- Portfolio Grid --}}
-        @if($portfolios->count())
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($portfolios as $portfolio)
-            <div class="fade-up">
-                <x-portfolio-card :portfolio="$portfolio" />
-            </div>
-            @endforeach
+    {{-- ============================================================ --}}
+    {{-- 7. PRICE LIST SECTION                                         --}}
+    {{-- ============================================================ --}}
+    <section class="pricing section-pad" id="pricing" aria-labelledby="pricing-title">
+      <div class="pricing-mark" aria-hidden="true"><img src="{{ asset('assets/images/logo-mark.png') }}" alt="" /></div>
+      <div class="pricing-heading reveal">
+        <div class="section-index">10</div>
+        <h2 id="pricing-title">Price List</h2>
+      </div>
+      <div class="pricing-grid">
+        <article class="price-card reveal">
+          <p class="eyebrow dark">Design &amp; Consulting</p>
+          <h3>IDR 150k–250k <span>/ sqm</span></h3>
+          <p>Design services are offered within this range, while comprehensive interior and exterior packages are listed at IDR 350k–400k per sqm.</p>
+          <small>Pricing is flexible and subject to project scope, specifications and other relevant factors.</small>
+        </article>
+        <article class="price-card dark-card reveal">
+          <p class="eyebrow">Production &amp; Renovation</p>
+          <h3>Project based</h3>
+          <p>Custom production has no fixed standard price. Cost is determined by project area, specifications and material grade.</p>
+          <small>A detailed Bill of Quantity is prepared before project agreement.</small>
+        </article>
+      </div>
+    </section>
+
+    {{-- ============================================================ --}}
+    {{-- 8. PRINCIPAL (Meet Our Principal)                             --}}
+    {{-- ============================================================ --}}
+    <section class="principal section-pad" aria-labelledby="principal-title">
+      <div class="principal-grid">
+        <div class="principal-copy reveal">
+          <div class="section-index">11</div>
+          <h2 id="principal-title">Meet Our Principal</h2>
+          <p class="eyebrow dark">Founder &amp; CEO</p>
+          <h3>Kaleb Wahyu Pratama</h3>
+          <p>Pratamaid was established at the end of 2021 and has grown across residential, retail and office work. The studio’s stated commitment is to deliver spaces that are both visually considered and highly functional.</p>
         </div>
-        @else
-        <div class="text-center py-16 text-gray-400">
-            <i class="fas fa-images text-4xl mb-3 opacity-40"></i>
-            <p class="text-sm">Belum ada portofolio tersedia.</p>
+        <figure class="team-figure reveal">
+          <div class="team-bg"></div>
+          <img src="{{ asset('assets/images/team.png') }}" alt="Pratamaid team" loading="lazy" />
+          <figcaption>Pratamaid studio team</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  {{-- ============================================================ --}}
+  {{-- 9. INTERACTIVE CONTACT & CONSULTATION MODAL                   --}}
+  {{-- ============================================================ --}}
+  <dialog id="contactModal" class="contact-modal" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+      <button type="button" class="modal-close" id="closeContactModal" aria-label="Close dialog">&times;</button>
+      <div class="modal-header">
+        <div class="card-kicker">
+          <svg class="kicker-diamond" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+            <path d="M6 0L12 6L6 12L0 6Z"/>
+          </svg>
+          <span>KONSULTASI DESAIN</span>
         </div>
-        @endif
+        <h3 id="modalTitle">Mulai Proyek Anda</h3>
+        <p>Diskusikan kebutuhan interior atau eksterior Anda dengan tim desainer dan kontraktor Pratama.</p>
+      </div>
+      <form id="contactForm" class="contact-form" action="{{ route('consultation.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+          <label for="formName">Nama Lengkap</label>
+          <input type="text" id="formName" name="name" placeholder="Nama Anda" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="formEmail">Email</label>
+            <input type="email" id="formEmail" name="email" placeholder="nama@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="formPhone">Nomor WhatsApp / HP</label>
+            <input type="tel" id="formPhone" name="phone" placeholder="+62 8..." required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="formSubject">Jenis Layanan</label>
+          <select id="formSubject" name="subject">
+            <option value="residential">Interior Rumah Tinggal (Landed House)</option>
+            <option value="apartment">Interior Apartemen</option>
+            <option value="commercial">Komersial / F&amp;B / Cafe / Resto</option>
+            <option value="office">Kantor / Office &amp; Reception</option>
+            <option value="booth">Booth Pameran</option>
+            <option value="consultation">Konsultasi &amp; Estimasi Biaya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="formMessage">Detail Proyek / Pesan</label>
+          <textarea id="formMessage" name="message" rows="4" placeholder="Ceritakan ukuran lokasi, konsep yang diinginkan, atau estimasi jadwal..." required></textarea>
+        </div>
+        <button type="submit" class="btn-modal-submit">
+          <span>Kirim Pesan Konsultasi</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </form>
+      <div id="formSuccessToast" class="form-toast" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span>Terima kasih! Pesan Anda telah terkirim. Tim Pratama akan segera menghubungi Anda.</span>
+      </div>
     </div>
-</section>
+  </dialog>
 
-{{-- ============================================================ --}}
-{{-- HOW WE WORK                                                   --}}
-{{-- ============================================================ --}}
-<section class="py-20 lg:py-24" style="background-color: #2A2219;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {{-- Header --}}
-        <div class="text-center mb-14 fade-up">
-            <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">Cara Kerja Kami</p>
-            <h2 class="font-display text-4xl lg:text-5xl font-semibold text-white leading-tight"
-                style="font-family: 'Cormorant Garamond', serif;">
-                How We Work
-            </h2>
-            <div class="w-10 h-0.5 mx-auto mt-4" style="background-color: #B85C4A;"></div>
+  {{-- ============================================================ --}}
+  {{-- 10. 4-COLUMN CONTACT & FOOTER SECTION                         --}}
+  {{-- ============================================================ --}}
+  <footer class="contact-footer" id="contact" aria-labelledby="contact-title">
+    <div class="contact-footer-inner">
+      
+      <!-- Column 1: Brand Info & Social Media -->
+      <div class="footer-col footer-col-brand reveal">
+        <div class="brand-badge-row">
+          <span class="brand-icon-sm">P</span>
+          <div class="brand-title-wrap">
+            <strong id="contact-title" class="brand-main-title">Pratama Design Studio</strong>
+            <span class="brand-sub-title">PT Pratama Berkah Utama</span>
+          </div>
         </div>
-
-        {{-- Steps --}}
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            @foreach([
-                ['01', 'fas fa-comments',      'Konsultasi Awal',          'Diskusi kebutuhan, lokasi, budget, dan style desain yang Anda inginkan.'],
-                ['02', 'fas fa-pencil-ruler',   'Perencanaan & Konsep',     'Kami menyusun rencana desain, denah, dan timeline proyek yang terstruktur.'],
-                ['03', 'fas fa-display',        'Visualisasi 3D',           'Anda dapat melihat hasil desain secara nyata sebelum pengerjaan dimulai.'],
-                ['04', 'fas fa-hammer',         'Produksi & Fit-Out',       'Eksekusi desain dengan standar kualitas tinggi hingga ruang siap digunakan.'],
-            ] as [$num, $icon, $title, $desc])
-            <div class="relative fade-up text-center lg:text-left">
-                {{-- Step number --}}
-                <div class="text-[4.5rem] font-bold leading-none mb-3 select-none"
-                     style="font-family: 'Cormorant Garamond', serif; color: rgba(255,255,255,0.06);">
-                    {{ $num }}
-                </div>
-                <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4 mx-auto lg:mx-0"
-                     style="background-color: rgba(184,92,74,0.2);">
-                    <i class="{{ $icon }}" style="color: #B85C4A;"></i>
-                </div>
-                <h3 class="font-semibold text-white mb-2 text-base">{{ $title }}</h3>
-                <p class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.55);">{{ $desc }}</p>
-
-                {{-- Arrow between steps (desktop only) --}}
-                @if(!$loop->last)
-                <div class="hidden lg:block absolute top-16 -right-4 text-gray-600">
-                    <i class="fas fa-chevron-right text-sm" style="color: rgba(184,92,74,0.35);"></i>
-                </div>
-                @endif
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- ============================================================ --}}
-{{-- TESTIMONIALS                                                  --}}
-{{-- ============================================================ --}}
-@if($testimonials->count())
-<section class="py-20 lg:py-24" style="background-color: #F8F5EF;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {{-- Header --}}
-        <div class="text-center mb-12 fade-up">
-            <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">Testimoni</p>
-            <h2 class="font-display text-4xl lg:text-5xl font-semibold leading-tight"
-                style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
-                Kata Klien Kami
-            </h2>
-            <div class="w-10 h-0.5 mx-auto mt-4" style="background-color: #B85C4A;"></div>
-        </div>
-
-        {{-- Testimonial Grid --}}
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($testimonials->take(3) as $testimonial)
-            <div class="fade-up bg-white rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1"
-                 style="border: 1px solid #E2DDD6; box-shadow: 0 2px 8px rgba(0,0,0,0.04);"
-                 onmouseover="this.style.boxShadow='0 12px 32px rgba(62,55,44,0.1)'"
-                 onmouseout="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.04)'">
-
-                {{-- Stars --}}
-                <div class="flex gap-0.5 mb-4">
-                    @for($i = 1; $i <= 5; $i++)
-                    <i class="fas fa-star text-sm {{ $i <= $testimonial->rating ? 'text-amber-400' : 'text-gray-200' }}"></i>
-                    @endfor
-                </div>
-
-                {{-- Quote --}}
-                <div class="mb-5">
-                    <i class="fas fa-quote-left text-2xl mb-3" style="color: #E2DDD6;"></i>
-                    <p class="text-sm leading-relaxed text-gray-600 italic">
-                        "{{ Str::limit($testimonial->message, 150) }}"
-                    </p>
-                </div>
-
-                {{-- Client --}}
-                <div class="flex items-center gap-3 pt-4" style="border-top: 1px solid #F0EDEA;">
-                    <div class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-white"
-                         style="background-color: #3E372C;">
-                        {{ strtoupper(substr($testimonial->client_name, 0, 1)) }}
-                    </div>
-                    <div>
-                        <div class="text-sm font-semibold" style="color: #3E372C;">
-                            {{ $testimonial->client_name }}
-                        </div>
-                        @if($testimonial->project_name)
-                        <div class="text-xs" style="color: #8A6F55;">{{ $testimonial->project_name }}</div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
-
-{{-- ============================================================ --}}
-{{-- WHATSAPP / CTA SECTION                                        --}}
-{{-- ============================================================ --}}
-<section class="py-16 lg:py-20 relative overflow-hidden" style="background-color: #3E372C;">
-    {{-- Background pattern --}}
-    <div class="absolute inset-0 opacity-[0.04]"
-         style="background-image: url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'1\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'1\'/%3E%3C/g%3E%3C/svg%3E');"></div>
-
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-up">
-        <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5"
-             style="background-color: rgba(184,92,74,0.2);">
-            <i class="fas fa-headset text-xl" style="color: #B85C4A;"></i>
-        </div>
-        <h2 class="font-display text-3xl lg:text-4xl font-semibold text-white mb-4"
-            style="font-family: 'Cormorant Garamond', serif;">
-            Siap Mewujudkan Ruang Impian Anda?
-        </h2>
-        <p class="text-base mb-8 max-w-lg mx-auto" style="color: rgba(255,255,255,0.65);">
-            Konsultasikan kebutuhan desain interior Anda bersama tim kami. Gratis pre-layout concept dan estimasi awal.
+        <p class="brand-desc">
+          Pratama Design Studio &amp; Build spesialis konsultasi interior dan eksterior, desain arsitektur, perencanaan tata ruang, produksi custom workshop, dan renovasi di Jakarta.
         </p>
-
-        <div class="flex flex-wrap justify-center gap-4">
-            <a href="https://wa.me/6282213641995?text=Halo%20Pratama%20Design%20Studio%2C%20saya%20ingin%20konsultasi%20desain%20interior."
-               target="_blank"
-               class="inline-flex items-center gap-3 px-7 py-4 rounded-lg text-white font-semibold text-sm transition-all duration-200 hover:opacity-90 hover:-translate-y-px"
-               style="background-color: #25D366; box-shadow: 0 4px 16px rgba(37,211,102,0.3);">
-                <i class="fab fa-whatsapp text-xl"></i>
-                Chat via WhatsApp
-            </a>
-            <a href="{{ route('consultation.create') }}"
-               class="inline-flex items-center gap-2 px-7 py-4 rounded-lg text-white font-semibold text-sm transition-all duration-200 hover:bg-white hover:text-gray-900 hover:-translate-y-px"
-               style="border: 1.5px solid rgba(255,255,255,0.4);">
-                <i class="fas fa-file-alt"></i>
-                Isi Form Konsultasi
-            </a>
+        <div class="social-icon-row" aria-label="Media Sosial Pratama">
+          <a href="https://instagram.com/pratamaid.studio" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="https://wa.me/6282213641995" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="WhatsApp">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </a>
+          <a href="mailto:pratamadsb@gmail.com" class="social-circle-btn" aria-label="Email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </a>
+          <a href="https://pratamadesign.com" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="Website">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </a>
         </div>
+      </div>
 
-        {{-- Contact info pills --}}
-        <div class="flex flex-wrap justify-center gap-4 mt-8">
-            <span class="inline-flex items-center gap-2 text-sm" style="color: rgba(255,255,255,0.5);">
-                <i class="fas fa-phone-alt text-xs"></i>
-                +62 822 1364 1995
+      <!-- Column 2: Menu Utama -->
+      <div class="footer-col footer-col-menu reveal">
+        <h3 class="footer-col-title">Menu Utama</h3>
+        <div class="footer-title-bar"></div>
+        <ul class="footer-menu-list">
+          <li><a href="#home"><span class="menu-chevron">&gt;</span> Home</a></li>
+          <li><a href="#about"><span class="menu-chevron">&gt;</span> About Us</a></li>
+          <li><a href="#services"><span class="menu-chevron">&gt;</span> Services</a></li>
+          <li><a href="#portfolio"><span class="menu-chevron">&gt;</span> Portfolio</a></li>
+          <li><a href="#process"><span class="menu-chevron">&gt;</span> How We Work</a></li>
+          <li><a href="{{ route('estimator.index') }}"><span class="menu-chevron">&gt;</span> Price List</a></li>
+          <li><a href="#contact" class="trigger-contact-modal"><span class="menu-chevron">&gt;</span> Konsultasi Form</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Hubungi Kami -->
+      <div class="footer-col footer-col-contact reveal">
+        <h3 class="footer-col-title">Hubungi Kami</h3>
+        <div class="footer-title-bar"></div>
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <span class="info-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
             </span>
-            <span style="color: rgba(255,255,255,0.25);">·</span>
-            <span class="inline-flex items-center gap-2 text-sm" style="color: rgba(255,255,255,0.5);">
-                <i class="fas fa-envelope text-xs"></i>
-                pratamadsb@gmail.com
+            <div class="info-content">
+              <span>Puri Orchard Apt. Orange Grove 21/09, Jakarta Barat 11740</span>
+            </div>
+          </div>
+
+          <a href="tel:+6282213641995" class="contact-info-item contact-info-link">
+            <span class="info-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
             </span>
-            <span style="color: rgba(255,255,255,0.25);">·</span>
-            <span class="inline-flex items-center gap-2 text-sm" style="color: rgba(255,255,255,0.5);">
-                <i class="fab fa-instagram text-xs"></i>
-                @pratamaid.studio
+            <div class="info-content">
+              <span>Telepon: +62 822 1364 1995</span>
+            </div>
+          </a>
+
+          <a href="mailto:pratamadsb@gmail.com" class="contact-info-item contact-info-link">
+            <span class="info-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
             </span>
+            <div class="info-content">
+              <span>pratamadsb@gmail.com</span>
+            </div>
+          </a>
+
+          <a href="https://wa.me/6282213641995" target="_blank" rel="noopener noreferrer" class="contact-info-item contact-info-link">
+            <span class="info-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+              </svg>
+            </span>
+            <div class="info-content">
+              <span>WA / SMS: +62 822 1364 1995</span>
+            </div>
+          </a>
+
+          <div class="contact-info-item">
+            <span class="info-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </span>
+            <div class="info-content">
+              <span>Jam Kerja: Senin – Sabtu 08:30 – 17:30</span>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <!-- Column 4: Lokasi Kami (Map) -->
+      <div class="footer-col footer-col-location reveal">
+        <h3 class="footer-col-title">Lokasi Kami</h3>
+        <div class="footer-title-bar"></div>
+        <div class="map-card-container">
+          <a href="https://maps.google.com/?q=Puri+Orchard+Apartment+Jakarta" target="_blank" rel="noopener noreferrer" class="map-open-badge">
+            <span>Open In Maps</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+          <iframe 
+            src="https://maps.google.com/maps?q=Puri+Orchard+Apartment+Jakarta&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+            class="map-frame" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade" 
+            title="Lokasi Kantor Pratama Design Studio">
+          </iframe>
+        </div>
+      </div>
+
     </div>
-</section>
+
+    <!-- Sub-Footer Copyright Bar -->
+    <div class="footer-bottom-bar">
+      <p class="copyright-text">&copy; 2026 PT Pratama Berkah Utama. All rights reserved.</p>
+      <p class="tagline-text">Interior &amp; Exterior Design and Build &middot; Jakarta</p>
+    </div>
+
+    <!-- Floating Back to Top Button -->
+    <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+      </svg>
+    </a>
+  </footer>
 
 @endsection
