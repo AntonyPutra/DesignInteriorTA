@@ -152,5 +152,7 @@
     </script>
 
     @yield('scripts')
+
+    <x-chatbot-widget />
 </body>
 </html>

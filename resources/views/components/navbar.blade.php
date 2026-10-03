@@ -30,7 +30,7 @@
             </a>
 
             {{-- Desktop Navigation Links --}}
-            <div class="hidden lg:flex items-center gap-8">
+            <div class="hidden lg:flex items-center gap-6">
                 <a href="{{ $isHome ? '#hero' : route('home') }}"
                    @click="activeSection = 'home'"
                    :class="activeSection === 'home' ? 'text-[#B85C4A] font-semibold' : 'text-[#4A453E] hover:text-[#B85C4A]'"
@@ -84,6 +84,17 @@
                     <span :class="activeSection === 'contact' || '{{ request()->routeIs('contact') }}' === '1' ? 'w-full' : 'w-0 group-hover:w-full'"
                           class="absolute -bottom-0.5 left-0 h-[2px] rounded-full transition-all duration-200 bg-[#B85C4A]"></span>
                 </a>
+
+                <a href="{{ route('ai-portfolio.index') }}"
+                   class="relative text-[13.5px] font-medium tracking-wide transition-colors py-1 group {{ request()->routeIs('ai-portfolio.*') ? 'text-[#B85C4A] font-semibold' : 'text-[#4A453E] hover:text-[#B85C4A]' }}">
+                    <i class="fas fa-search text-xs mr-1 opacity-70"></i> Cari
+                    <span class="absolute -bottom-0.5 left-0 h-[2px] rounded-full transition-all duration-200 bg-[#B85C4A] {{ request()->routeIs('ai-portfolio.*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+                </a>
+
+                <a href="{{ route('ai-estimator.index') }}"
+                   class="relative text-[13.5px] font-medium tracking-wide transition-colors py-1 group {{ request()->routeIs('ai-estimator.*') ? 'text-[#B85C4A] font-semibold' : 'text-[#4A453E] hover:text-[#B85C4A]' }}">
+                    <i class="fas fa-robot text-xs mr-1 opacity-70"></i> AI Estimator
+                    <span class="absolute -bottom-0.5 left-0 h-[2px] rounded-full transition-all duration-200 bg-[#B85C4A] {{ request()->routeIs('ai-estimator.*') ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
             </div>
 
             {{-- Desktop CTA + Mobile Hamburger --}}
@@ -173,6 +184,20 @@
            class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50 text-gray-800">
             <i class="fas fa-envelope w-4 text-center text-[#8C7355]"></i>
             Contact
+        </a>
+        <a href="{{ route('ai-portfolio.index') }}"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
+                  {{ request()->routeIs('ai-portfolio.*') ? 'font-semibold' : 'text-gray-700' }}"
+           style="{{ request()->routeIs('ai-portfolio.*') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
+            <i class="fas fa-search w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
+            Cari
+        </a>
+        <a href="{{ route('ai-estimator.index') }}"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
+                  {{ request()->routeIs('ai-estimator.*') ? 'font-semibold' : 'text-gray-700' }}"
+           style="{{ request()->routeIs('ai-estimator.*') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
+            <i class="fas fa-robot w-4 text-center" style="color: #8A6F55; font-size: 0.8rem;"></i>
+            AI Estimator
         </a>
 
         <div class="pt-3 border-t border-[#E5E0D8]">

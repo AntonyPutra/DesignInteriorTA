@@ -10,7 +10,10 @@ use App\Http\Controllers\Admin\AdminTestimonialController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\CostEstimatorController;
+use App\Http\Controllers\AIEstimatorController;
+use App\Http\Controllers\AIPortfolioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ServiceController;
@@ -40,8 +43,18 @@ Route::post('/consultation', [ConsultationController::class, 'store'])->name('co
 // Cost Estimator
 Route::get('/cost-estimator', [CostEstimatorController::class, 'index'])->name('estimator.index');
 
+// AI Smart Cost Estimator
+Route::get('/ai-estimator', [AIEstimatorController::class, 'index'])->name('ai-estimator.index');
+Route::post('/ai-estimator/generate', [AIEstimatorController::class, 'generateEstimate'])->name('ai-estimator.generate');
+
+// AI Portfolio Search
+Route::get('/ai-portfolio', [AIPortfolioController::class, 'index'])->name('ai-portfolio.index');
+
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+// Chatbot AI
+Route::post('/chat', [ChatbotController::class, 'chat'])->name('chat');
 
 // ============================================================
 // AUTH ROUTES (Breeze)
