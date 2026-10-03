@@ -10,10 +10,16 @@
             <h2 class="text-lg font-semibold text-gray-800">Daftar Portofolio Proyek</h2>
             <p class="text-sm text-gray-500 mt-1">Kelola data proyek yang telah selesai dikerjakan.</p>
         </div>
-        <a href="{{ route('admin.portfolio.create') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-red-800 hover:bg-red-900 text-white text-sm font-medium rounded-lg transition-colors shadow-sm">
-            <i class="fas fa-plus text-xs"></i>
-            Tambah Proyek
-        </a>
+        <div class="flex items-center gap-3">
+            <a href="{{ route('admin.portfolio-categories.index') }}" class="inline-flex items-center justify-center gap-2 px-3.5 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-colors">
+                <i class="fas fa-tags text-xs"></i>
+                Kelola Kategori
+            </a>
+            <a href="{{ route('admin.portfolio.create') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-red-800 hover:bg-red-900 text-white text-sm font-medium rounded-lg transition-colors shadow-sm">
+                <i class="fas fa-plus text-xs"></i>
+                Tambah Proyek
+            </a>
+        </div>
     </div>
 
     <div class="overflow-x-auto">

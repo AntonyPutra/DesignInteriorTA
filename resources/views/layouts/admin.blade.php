@@ -56,11 +56,12 @@
                 @php
                     $navItems = [
                         ['Dashboard', 'admin.dashboard', 'fas fa-home'],
-                        ['Services', 'admin.services.index', 'fas fa-layer-group'],
-                        ['Portfolio', 'admin.portfolio.index', 'fas fa-images'],
-                        ['Consultations', 'admin.consultations.index', 'fas fa-comment-dots'],
-                        ['Testimonials', 'admin.testimonials.index', 'fas fa-star'],
-                        ['Company Profile', 'admin.company-profile.edit', 'fas fa-building'],
+                        ['Layanan', 'admin.services.index', 'fas fa-layer-group'],
+                        ['Portofolio', 'admin.portfolio.index', 'fas fa-images'],
+                        ['Kategori Portofolio', 'admin.portfolio-categories.index', 'fas fa-folder-tree'],
+                        ['Konsultasi', 'admin.consultations.index', 'fas fa-comment-dots'],
+                        ['Testimoni', 'admin.testimonials.index', 'fas fa-star'],
+                        ['Profil Perusahaan', 'admin.company-profile.edit', 'fas fa-building'],
                     ];
                 @endphp
 
