@@ -1,138 +1,150 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<!doctype html>
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="@yield('meta_description', 'Pratama Design Studio — Interior & Exterior Design & Build Company. Kami menghadirkan solusi desain yang estetis, fungsional, dan sesuai kebutuhan Anda.')">
-    <title>@yield('title', 'Pratama Design Studio') | PT Pratama Berkah Utama</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="description" content="@yield('meta_description', 'Pratamaid - interior & exterior design and build studio in Jakarta.')" />
+    <title>@yield('title', 'pratamaid.') — Design Studio & Contractor</title>
 
-    <!-- Google Fonts: Cormorant Garamond (display) + Inter (body) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- Vite: Tailwind CSS + Alpine.js -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Self-Contained Theme Controller & Initialization -->
+    <script>
+        (function() {
+            window.setTheme = function(theme, animate) {
+                var isDark = (theme === 'dark');
+                var root = document.documentElement;
+                var body = document.body;
+
+                if (animate && body) {
+                    root.classList.add('theme-in-transition');
+
+                    // Phase 1: fade-in the directional veil
+                    var ripple = document.createElement('div');
+                    ripple.className = 'theme-transition-ripple ' + (isDark ? 'to-dark' : 'to-light');
+                    body.appendChild(ripple);
+
+                    // Kick off the fade-in on next frame
+                    requestAnimationFrame(function() {
+                        requestAnimationFrame(function() {
+                            ripple.classList.add('is-active');
+                        });
+                    });
+
+                    // Phase 2: mid-point — apply the theme while veil is opaque
+                    setTimeout(function() {
+                        applyThemeClasses(isDark, root, body);
+
+                        // Phase 3: fade the veil back out
+                        ripple.classList.remove('is-active');
+                        ripple.classList.add('is-out');
+
+                        setTimeout(function() {
+                            if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
+                            root.classList.remove('theme-in-transition');
+                        }, 600);
+                    }, 350);
+
+                } else {
+                    applyThemeClasses(isDark, root, body);
+                }
+
+                try { localStorage.setItem('pratama_theme', theme); } catch (e) {}
+
+                var allButtons = document.querySelectorAll('.theme-toggle-btn');
+                allButtons.forEach(function(btn) {
+                    btn.setAttribute('aria-pressed', String(isDark));
+                    btn.setAttribute('title', isDark ? 'Beralih ke Mode Terang' : 'Beralih ke Mode Gelap');
+                    btn.classList.toggle('is-dark', isDark);
+                });
+            };
+
+            function applyThemeClasses(isDark, root, body) {
+                if (isDark) {
+                    root.setAttribute('data-theme', 'dark');
+                    root.classList.add('dark-theme');
+                    if (body) { body.setAttribute('data-theme', 'dark'); body.classList.add('dark-theme'); }
+                } else {
+                    root.setAttribute('data-theme', 'light');
+                    root.classList.remove('dark-theme');
+                    if (body) { body.setAttribute('data-theme', 'light'); body.classList.remove('dark-theme'); }
+                }
+            }
+
+            window.toggleTheme = function() {
+                var current = document.documentElement.getAttribute('data-theme') ||
+                              (document.body && document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+                var target = (current === 'dark') ? 'light' : 'dark';
+                window.setTheme(target, true);
+            };
+
+            try {
+                var stored = localStorage.getItem('pratama_theme');
+                var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var initial = stored ? stored : (prefersDark ? 'dark' : 'light');
+                if (initial === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    document.documentElement.classList.add('dark-theme');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    document.documentElement.classList.remove('dark-theme');
+                }
+            } catch (e) {}
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var active = document.documentElement.getAttribute('data-theme') || 'light';
+                window.setTheme(active, false);
+            });
+
+            document.addEventListener('click', function(e) {
+                var btn = e.target.closest && e.target.closest('.theme-toggle-btn');
+                if (btn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.toggleTheme();
+                }
+            });
+        })();
+    </script>
+
+    <!-- Core Stylesheet with Cache-Busting -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ file_exists(public_path('css/style.css')) ? filemtime(public_path('css/style.css')) : time() }}" />
 
     @yield('head')
 
-    <style>
-        /* Ensure fonts load correctly */
-        body { font-family: 'Inter', sans-serif; }
-        .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
-
-        /* Navbar transition */
-        #main-navbar.scrolled {
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-        }
-
-        /* Page-level padding for fixed navbar */
-        .page-content-top { padding-top: 0; }
-    </style>
+    <!-- Deferred Application Logic with Cache-Busting -->
+    <script defer src="{{ asset('js/app.js') }}?v={{ file_exists(public_path('js/app.js')) ? filemtime(public_path('js/app.js')) : time() }}"></script>
 </head>
-<body class="bg-white text-[#1F1F1F] antialiased">
+<body>
 
     {{-- Flash Alert: Success --}}
     @if(session('success'))
-    <div id="flash-success" class="fixed top-20 right-4 z-[60] max-w-sm w-full animate-[slideIn_0.3s_ease]">
-        <div class="flex items-start gap-3 bg-white border border-green-200 rounded-lg shadow-lg p-4">
-            <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                <i class="fas fa-check text-green-600 text-sm"></i>
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-gray-800">Berhasil!</p>
-                <p class="text-sm text-gray-600 mt-0.5">{{ session('success') }}</p>
-            </div>
-            <button onclick="document.getElementById('flash-success').remove()" class="text-gray-400 hover:text-gray-600">
-                <i class="fas fa-times text-xs"></i>
-            </button>
-        </div>
+    <div id="flash-success" style="position: fixed; top: 90px; right: 20px; z-index: 999; background: #ffffff; border: 1px solid #c3e6cb; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: 16px 20px; display: flex; align-items: center; gap: 12px; max-width: 380px;">
+        <span style="color: #155724; font-size: 18px;">✓</span>
+        <div style="font-size: 13px; color: #155724;">{{ session('success') }}</div>
+        <button onclick="document.getElementById('flash-success').remove()" style="margin-left: auto; background: none; border: none; font-size: 16px; cursor: pointer; color: #888;">&times;</button>
     </div>
     @endif
 
+    {{-- Flash Alert: Error --}}
     @if(session('error'))
-    <div id="flash-error" class="fixed top-20 right-4 z-[60] max-w-sm w-full">
-        <div class="flex items-start gap-3 bg-white border border-red-200 rounded-lg shadow-lg p-4">
-            <div class="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-                <i class="fas fa-exclamation text-red-600 text-sm"></i>
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-gray-800">Terjadi Kesalahan</p>
-                <p class="text-sm text-gray-600 mt-0.5">{{ session('error') }}</p>
-            </div>
-            <button onclick="document.getElementById('flash-error').remove()" class="text-gray-400 hover:text-gray-600">
-                <i class="fas fa-times text-xs"></i>
-            </button>
-        </div>
+    <div id="flash-error" style="position: fixed; top: 90px; right: 20px; z-index: 999; background: #ffffff; border: 1px solid #f5c6cb; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); padding: 16px 20px; display: flex; align-items: center; gap: 12px; max-width: 380px;">
+        <span style="color: #721c24; font-size: 18px;">⚠</span>
+        <div style="font-size: 13px; color: #721c24;">{{ session('error') }}</div>
+        <button onclick="document.getElementById('flash-error').remove()" style="margin-left: auto; background: none; border: none; font-size: 16px; cursor: pointer; color: #888;">&times;</button>
     </div>
     @endif
 
-    {{-- Navbar --}}
-    <x-navbar />
-
-    {{-- Main Content --}}
-    <main>
-        @yield('content')
-    </main>
-
-    {{-- Footer --}}
-    <x-footer />
-
-    {{-- Back to Top Button --}}
-    <button id="back-to-top"
-            onclick="window.scrollTo({top:0,behavior:'smooth'})"
-            class="fixed bottom-6 right-6 w-10 h-10 text-white rounded-full shadow-lg flex items-center justify-center z-50 transition-all duration-300 opacity-0 pointer-events-none hover:scale-110"
-            style="background-color: #B85C4A;">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
-        </svg>
-    </button>
+    @yield('content')
 
     <script>
-        // Back to top visibility
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('back-to-top');
-            if (!btn) return;
-            if (window.scrollY > 400) {
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-            } else {
-                btn.style.opacity = '0';
-                btn.style.pointerEvents = 'none';
-            }
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('main-navbar');
-            if (!nav) return;
-            if (window.scrollY > 20) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Fade-up animation on scroll
-        const fadeEls = document.querySelectorAll('.fade-up');
-        if ('IntersectionObserver' in window && fadeEls.length) {
-            const obs = new IntersectionObserver((entries) => {
-                entries.forEach((entry, i) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => entry.target.classList.add('visible'), i * 60);
-                        obs.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
-            fadeEls.forEach(el => obs.observe(el));
-        } else {
-            fadeEls.forEach(el => el.classList.add('visible'));
-        }
-
-        // Auto-hide flash messages
         setTimeout(() => {
             document.getElementById('flash-success')?.remove();
             document.getElementById('flash-error')?.remove();
