@@ -19,25 +19,25 @@
     $imageUrl = $hasMainImage ? Storage::url($portfolio->main_image) : asset($fallbackImage);
 @endphp
 
-<div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 bg-white border border-[#E5E0D8]"
-     style="box-shadow: 0 2px 10px rgba(46,42,35,0.06);"
-     onmouseover="this.style.boxShadow='0 16px 36px rgba(46,42,35,0.14)';"
-     onmouseout="this.style.boxShadow='0 2px 10px rgba(46,42,35,0.06)';">
+<div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 bg-white border border-[#e4dfd7]"
+     style="box-shadow: 0 2px 10px rgba(36, 33, 29, 0.05);"
+     onmouseover="this.style.boxShadow='0 16px 36px rgba(48, 44, 36, 0.12)';"
+     onmouseout="this.style.boxShadow='0 2px 10px rgba(36, 33, 29, 0.05)';">
 
     {{-- Image Container --}}
-    <div class="relative overflow-hidden aspect-[4/3] bg-[#2E2A23]">
+    <div class="relative overflow-hidden aspect-[4/3] bg-[#302c24]">
         <img src="{{ $imageUrl }}"
              alt="{{ $portfolio->title }}"
              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
 
         {{-- Dark overlay on hover --}}
         <div class="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-             style="background: linear-gradient(to top, rgba(30,24,18,0.85) 0%, rgba(30,24,18,0.2) 60%, transparent 100%);"></div>
+             style="background: linear-gradient(to top, rgba(36, 33, 29, 0.9) 0%, rgba(36, 33, 29, 0.25) 60%, transparent 100%);"></div>
 
         {{-- Category Badge --}}
         <div class="absolute top-3 left-3">
             <span class="inline-flex items-center px-2.5 py-1 rounded text-[11px] font-semibold tracking-wide text-white shadow-sm"
-                  style="background-color: rgba(184,92,74,0.92); backdrop-filter: blur(4px);">
+                  style="background-color: rgba(181, 91, 72, 0.92); backdrop-filter: blur(4px);">
                 {{ $portfolio->category->name ?? 'Interior' }}
             </span>
         </div>
@@ -46,7 +46,7 @@
         @if($portfolio->year)
         <div class="absolute top-3 right-3">
             <span class="inline-flex items-center px-2.5 py-1 rounded text-[11px] font-medium text-white shadow-sm"
-                  style="background-color: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">
+                  style="background-color: rgba(0, 0, 0, 0.45); backdrop-filter: blur(4px);">
                 {{ $portfolio->year }}
             </span>
         </div>
@@ -55,8 +55,8 @@
         {{-- View Detail Overlay Button --}}
         <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
             <a href="{{ route('portfolio.show', $portfolio->slug) }}"
-               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold text-white transition-all duration-200 hover:scale-105 transform translate-y-2 group-hover:translate-y-0 shadow-lg"
-               style="background-color: #B85C4A; backdrop-filter: blur(4px);">
+               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-white transition-all duration-200 hover:scale-105 transform translate-y-2 group-hover:translate-y-0 shadow-lg"
+               style="background-color: #b55b48; backdrop-filter: blur(4px);">
                 <i class="fas fa-eye text-xs"></i>
                 Lihat Detail
             </a>
@@ -67,20 +67,20 @@
     <div class="p-4 bg-white">
         <div class="flex items-start justify-between gap-2">
             <div class="flex-1 min-w-0">
-                <h3 class="font-semibold text-base leading-snug truncate mb-1 transition-colors duration-200 group-hover:text-[#B85C4A]"
-                    style="font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: #2E2A23;">
+                <h3 class="font-semibold text-base leading-snug truncate mb-1 transition-colors duration-200 group-hover:text-[#b55b48]"
+                    style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.2rem; color: #24211d;">
                     {{ $portfolio->title }}
                 </h3>
-                <div class="flex items-center gap-3 text-xs" style="color: #8C7355;">
+                <div class="flex items-center gap-3 text-xs" style="color: #777166;">
                     @if($portfolio->project_type)
                     <span class="flex items-center gap-1 font-medium">
-                        <i class="fas fa-tag text-[0.6rem]"></i>
+                        <i class="fas fa-tag text-[0.6rem] text-[#b55b48]"></i>
                         {{ $portfolio->project_type }}
                     </span>
                     @endif
                     @if($portfolio->location)
                     <span class="flex items-center gap-1">
-                        <i class="fas fa-map-marker-alt text-[0.6rem]"></i>
+                        <i class="fas fa-map-marker-alt text-[0.6rem] text-[#777166]"></i>
                         {{ $portfolio->location }}
                     </span>
                     @endif
@@ -88,9 +88,9 @@
             </div>
             <a href="{{ route('portfolio.show', $portfolio->slug) }}"
                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-               style="background-color: #F8F5EF;"
+               style="background-color: #faf8f5;"
                title="Lihat Detail">
-                <i class="fas fa-arrow-right text-xs" style="color: #8C7355;"></i>
+                <i class="fas fa-arrow-right text-xs" style="color: #b55b48;"></i>
             </a>
         </div>
     </div>

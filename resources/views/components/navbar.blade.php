@@ -2,24 +2,24 @@
 <nav id="main-navbar"
      x-data="{ open: false }"
      class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md transition-all duration-300 ease-in-out border-b"
-     style="border-color: #E8E3DC;">
+     style="border-color: rgba(36, 33, 29, 0.12);">
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-[72px]">
+        <div class="flex items-center justify-between h-[74px]">
 
             {{-- Brand / Logo --}}
-            <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+            <a href="{{ route('home') }}" class="flex items-center gap-3.5 group">
                 <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-sm"
-                     style="background-color: #2E2A23;">
+                     style="background-color: #302c24;">
                     <span class="text-white font-bold text-lg leading-none font-display tracking-widest">P</span>
                 </div>
                 <div class="leading-tight">
                     <div class="font-semibold tracking-wide leading-none"
-                         style="font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: #2E2A23;">
+                         style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem; color: #24211d;">
                         Pratama Design Studio
                     </div>
-                    <div class="text-[9.5px] tracking-[0.2em] uppercase font-semibold mt-1"
-                         style="color: #8C7355;">Interior Design & Build</div>
+                    <div class="text-[9.5px] tracking-[0.22em] uppercase font-semibold mt-1"
+                         style="color: #777166;">Interior Design & Build</div>
                 </div>
             </a>
 
@@ -42,15 +42,15 @@
                     <a href="{{ route($link['route']) }}"
                        class="relative text-sm font-medium transition-colors duration-200 pb-0.5 group
                               {{ request()->routeIs($link['match']) ? 'font-semibold' : '' }}"
-                       style="{{ request()->routeIs($link['match']) ? 'color: #B85C4A;' : 'color: #4A453E;' }}">
+                       style="{{ request()->routeIs($link['match']) ? 'color: #b55b48;' : 'color: #766d61;' }}">
                         @if(isset($link['icon']))
-                            <i class="{{ $link['icon'] }} text-xs mr-1 opacity-70"></i>
+                            <i class="{{ $link['icon'] }} text-xs mr-1 opacity-75"></i>
                         @endif
                         {{ $link['label'] }}
                         {{-- Active indicator --}}
                         <span class="absolute -bottom-0.5 left-0 h-0.5 rounded-full transition-all duration-300
                                      {{ request()->routeIs($link['match']) ? 'w-full' : 'w-0 group-hover:w-full' }}"
-                              style="background-color: #B85C4A;"></span>
+                              style="background-color: #b55b48;"></span>
                     </a>
                 @endforeach
             </div>
@@ -58,15 +58,15 @@
             {{-- Desktop CTA + Mobile Toggle --}}
             <div class="flex items-center gap-3">
                 <a href="{{ route('consultation.create') }}"
-                   class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-xs font-semibold uppercase tracking-wider text-white transition-all duration-200 hover:opacity-90 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
-                   style="background-color: #B85C4A;">
+                   class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-xs font-semibold uppercase tracking-wider text-white transition-all duration-200 hover:opacity-95 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+                   style="background-color: #b55b48;">
                     <i class="fas fa-comment-dots text-xs"></i>
                     Konsultasi
                 </a>
 
                 {{-- Mobile Hamburger --}}
                 <button @click="open = !open"
-                        class="lg:hidden w-9 h-9 flex items-center justify-center rounded text-gray-700 hover:bg-gray-100 transition-colors"
+                        class="lg:hidden w-9 h-9 flex items-center justify-center rounded text-[#24211d] hover:bg-[#f2f0eb] transition-colors"
                         :aria-expanded="open"
                         aria-label="Menu navigasi">
                     <svg x-show="!open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -89,69 +89,69 @@
          x-transition:leave-start="opacity-100 translate-y-0"
          x-transition:leave-end="opacity-0 -translate-y-2"
          class="lg:hidden bg-white border-t px-4 pt-3 pb-5 space-y-1 shadow-xl"
-         style="border-color: #E8E3DC; display: none;">
+         style="border-color: rgba(36, 33, 29, 0.12); display: none;">
 
         <a href="{{ route('home') }}"
-           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
-                  {{ request()->routeIs('home') ? 'font-semibold' : 'text-gray-800' }}"
-           style="{{ request()->routeIs('home') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
-            <i class="fas fa-home w-4 text-center text-[#8C7355]"></i>
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
+                  {{ request()->routeIs('home') ? 'font-semibold' : 'text-[#24211d]' }}"
+           style="{{ request()->routeIs('home') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
+            <i class="fas fa-home w-4 text-center text-[#777166]"></i>
             Home
         </a>
         <a href="{{ route('about') }}"
-           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
-                  {{ request()->routeIs('about') ? 'font-semibold' : 'text-gray-800' }}"
-           style="{{ request()->routeIs('about') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
-            <i class="fas fa-building w-4 text-center text-[#8C7355]"></i>
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
+                  {{ request()->routeIs('about') ? 'font-semibold' : 'text-[#24211d]' }}"
+           style="{{ request()->routeIs('about') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
+            <i class="fas fa-building w-4 text-center text-[#777166]"></i>
             About
         </a>
         <a href="{{ route('services.index') }}"
-           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
-                  {{ request()->routeIs('services.*') ? 'font-semibold' : 'text-gray-800' }}"
-           style="{{ request()->routeIs('services.*') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
-            <i class="fas fa-layer-group w-4 text-center text-[#8C7355]"></i>
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
+                  {{ request()->routeIs('services.*') ? 'font-semibold' : 'text-[#24211d]' }}"
+           style="{{ request()->routeIs('services.*') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
+            <i class="fas fa-layer-group w-4 text-center text-[#777166]"></i>
             Services
         </a>
         <a href="{{ route('portfolio.index') }}"
-           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
-                  {{ request()->routeIs('portfolio.*') ? 'font-semibold' : 'text-gray-800' }}"
-           style="{{ request()->routeIs('portfolio.*') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
-            <i class="fas fa-images w-4 text-center text-[#8C7355]"></i>
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
+                  {{ request()->routeIs('portfolio.*') ? 'font-semibold' : 'text-[#24211d]' }}"
+           style="{{ request()->routeIs('portfolio.*') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
+            <i class="fas fa-images w-4 text-center text-[#777166]"></i>
             Portfolio
         </a>
         <a href="{{ route('estimator.index') }}"
-           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
-                  {{ request()->routeIs('estimator.*') ? 'font-semibold' : 'text-gray-800' }}"
-           style="{{ request()->routeIs('estimator.*') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
-            <i class="fas fa-calculator w-4 text-center text-[#8C7355]"></i>
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
+                  {{ request()->routeIs('estimator.*') ? 'font-semibold' : 'text-[#24211d]' }}"
+           style="{{ request()->routeIs('estimator.*') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
+            <i class="fas fa-calculator w-4 text-center text-[#777166]"></i>
             Cost Estimator
         </a>
         <a href="{{ route('contact') }}"
-           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
-                  {{ request()->routeIs('contact') ? 'font-semibold' : 'text-gray-800' }}"
-           style="{{ request()->routeIs('contact') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
-            <i class="fas fa-envelope w-4 text-center text-[#8C7355]"></i>
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
+                  {{ request()->routeIs('contact') ? 'font-semibold' : 'text-[#24211d]' }}"
+           style="{{ request()->routeIs('contact') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
+            <i class="fas fa-envelope w-4 text-center text-[#777166]"></i>
             Contact
         </a>
         <a href="{{ route('ai-portfolio.index') }}"
-           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
-                  {{ request()->routeIs('ai-portfolio.*') ? 'font-semibold' : 'text-gray-800' }}"
-           style="{{ request()->routeIs('ai-portfolio.*') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
-            <i class="fas fa-search w-4 text-center text-[#8C7355]"></i>
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
+                  {{ request()->routeIs('ai-portfolio.*') ? 'font-semibold' : 'text-[#24211d]' }}"
+           style="{{ request()->routeIs('ai-portfolio.*') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
+            <i class="fas fa-search w-4 text-center text-[#777166]"></i>
             Cari AI
         </a>
         <a href="{{ route('ai-estimator.index') }}"
-           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50
-                  {{ request()->routeIs('ai-estimator.*') ? 'font-semibold' : 'text-gray-800' }}"
-           style="{{ request()->routeIs('ai-estimator.*') ? 'color: #B85C4A; background-color: #FEF6F4;' : '' }}">
-            <i class="fas fa-robot w-4 text-center text-[#8C7355]"></i>
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
+                  {{ request()->routeIs('ai-estimator.*') ? 'font-semibold' : 'text-[#24211d]' }}"
+           style="{{ request()->routeIs('ai-estimator.*') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
+            <i class="fas fa-robot w-4 text-center text-[#777166]"></i>
             AI Estimator
         </a>
 
-        <div class="pt-3 border-t" style="border-color: #E8E3DC;">
+        <div class="pt-3 border-t" style="border-color: rgba(36, 33, 29, 0.12);">
             <a href="{{ route('consultation.create') }}"
-               class="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg text-xs font-semibold uppercase tracking-wider text-white transition-opacity hover:opacity-90"
-               style="background-color: #B85C4A;">
+               class="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg text-xs font-semibold uppercase tracking-wider text-white transition-opacity hover:opacity-90 shadow-sm"
+               style="background-color: #b55b48;">
                 <i class="fas fa-comment-dots"></i>
                 Konsultasi Sekarang
             </a>
@@ -160,4 +160,4 @@
 </nav>
 
 {{-- Navbar spacer --}}
-<div style="height: 72px;"></div>
+<div style="height: 74px;"></div>

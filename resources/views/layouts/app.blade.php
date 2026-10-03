@@ -7,10 +7,10 @@
     <meta name="description" content="@yield('meta_description', 'Pratama Design Studio — Interior & Exterior Design & Build Company. Kami menghadirkan solusi desain yang estetis, fungsional, dan sesuai kebutuhan Anda.')">
     <title>@yield('title', 'Pratama Design Studio') | PT Pratama Berkah Utama</title>
 
-    <!-- Google Fonts: Cormorant Garamond (display) + Inter (body) -->
+    <!-- Google Fonts: Cormorant Garamond (display) + Plus Jakarta Sans & Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -20,18 +20,18 @@
 
     @yield('head')
 </head>
-<body class="bg-white text-[#2D2823] antialiased">
+<body class="bg-[#ffffff] text-[#24211d] antialiased selection:bg-[#b55b48] selection:text-white">
 
     {{-- Flash Alert: Success --}}
     @if(session('success'))
     <div id="flash-success" class="fixed top-24 right-4 z-[60] max-w-sm w-full transition-all duration-300">
-        <div class="flex items-start gap-3 bg-white border border-green-200 rounded-lg shadow-lg p-4">
+        <div class="flex items-start gap-3 bg-white border border-green-200 rounded-xl shadow-lg p-4">
             <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                 <i class="fas fa-check text-green-600 text-sm"></i>
             </div>
             <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold text-gray-800">Berhasil!</p>
-                <p class="text-xs text-gray-600 mt-0.5">{{ session('success') }}</p>
+                <p class="text-sm font-semibold text-[#24211d]">Berhasil!</p>
+                <p class="text-xs text-[#564e42] mt-0.5">{{ session('success') }}</p>
             </div>
             <button onclick="document.getElementById('flash-success').remove()" class="text-gray-400 hover:text-gray-600">
                 <i class="fas fa-times text-xs"></i>
@@ -43,13 +43,13 @@
     {{-- Flash Alert: Error --}}
     @if(session('error'))
     <div id="flash-error" class="fixed top-24 right-4 z-[60] max-w-sm w-full transition-all duration-300">
-        <div class="flex items-start gap-3 bg-white border border-red-200 rounded-lg shadow-lg p-4">
+        <div class="flex items-start gap-3 bg-white border border-red-200 rounded-xl shadow-lg p-4">
             <div class="flex-shrink-0 w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
                 <i class="fas fa-exclamation text-red-600 text-sm"></i>
             </div>
             <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold text-gray-800">Terjadi Kesalahan</p>
-                <p class="text-xs text-gray-600 mt-0.5">{{ session('error') }}</p>
+                <p class="text-sm font-semibold text-[#24211d]">Terjadi Kesalahan</p>
+                <p class="text-xs text-[#564e42] mt-0.5">{{ session('error') }}</p>
             </div>
             <button onclick="document.getElementById('flash-error').remove()" class="text-gray-400 hover:text-gray-600">
                 <i class="fas fa-times text-xs"></i>
@@ -72,8 +72,8 @@
     {{-- Back to Top Button --}}
     <button id="back-to-top"
             onclick="window.scrollTo({top:0,behavior:'smooth'})"
-            class="fixed bottom-6 right-6 w-10 h-10 text-white rounded-full shadow-lg flex items-center justify-center z-40 transition-all duration-300 opacity-0 pointer-events-none hover:scale-110"
-            style="background-color: #B85C4A;"
+            class="fixed bottom-6 right-6 w-11 h-11 text-white rounded-full shadow-lg flex items-center justify-center z-40 transition-all duration-300 opacity-0 pointer-events-none hover:scale-110 active:scale-95"
+            style="background-color: #b55b48;"
             aria-label="Kembali ke atas">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
