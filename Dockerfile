@@ -45,7 +45,9 @@ COPY . .
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Install Node dependencies and build assets
-RUN npm install && npm run build
+RUN npm config set registry https://registry.npmmirror.com \
+    && npm install --no-audit \
+    && npm run build
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
