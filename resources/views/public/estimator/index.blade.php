@@ -1,110 +1,127 @@
 @extends('layouts.app')
 
 @section('title', 'Cost Estimator')
-@section('meta_description', 'Estimasi biaya desain interior & fit-out dengan kalkulator online Pratama Design Studio. Hitung estimasi awal biaya proyek Anda.')
+@section('meta_description', 'Estimasi biaya desain interior & fit-out dengan kalkulator online Pratama Design Studio. Hitung estimasi awal biaya proyek Anda secara transparan.')
 
 @section('content')
 
-{{-- Page Hero --}}
-<section class="relative py-16 lg:py-24" style="background-color: #302c24;">
-    <div class="absolute inset-0 opacity-[0.04]"
-         style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-up">
-        <div class="flex items-center justify-center gap-2 mb-4" style="color: rgba(242,240,235,0.5);">
-            <a href="{{ route('home') }}" class="hover:text-white transition-colors text-xs uppercase tracking-wider">Home</a>
-            <i class="fas fa-chevron-right text-[0.55rem]"></i>
-            <span class="text-xs uppercase tracking-wider font-semibold" style="color: #d98d88;">Cost Estimator</span>
-        </div>
-        <p class="text-xs font-semibold tracking-[0.2em] uppercase mb-3" style="color: #d98d88;">Kalkulator Biaya</p>
-        <h1 class="font-display text-4xl lg:text-5xl font-semibold text-white tracking-tight"
-            style="font-family: 'Cormorant Garamond', Georgia, serif;">
-            Cost Estimator
-        </h1>
-        <p class="mt-4 text-sm max-w-lg mx-auto leading-relaxed" style="color: rgba(242,240,235,0.72);">
-            Hitung estimasi awal biaya desain interior &amp; fit-out Anda. Hasil kalkulasi bersifat perkiraan — anggaran final ditentukan melalui survei dan BQ (Bill of Quantity).
-        </p>
+{{-- Subpage Hero with Database Image & Gradient Blend --}}
+<x-subpage-hero
+    title="Cost Estimator"
+    eyebrow="Kalkulator Biaya Proyek"
+    description="Hitung estimasi awal biaya desain interior & fit-out secara instan dan transparan sesuai kebutuhan ruangan Anda."
+    :breadcrumbs="['Cost Estimator' => '']"
+    image-keyword="living"
+>
+    {{-- Estimator Mode Switcher Tabs --}}
+    <div class="inline-flex p-1 rounded-xl bg-black/40 backdrop-blur-md border border-white/15">
+        <a href="{{ route('estimator.index') }}"
+           class="px-4 py-2 rounded-lg text-xs font-semibold tracking-wide text-white transition-all shadow-sm"
+           style="background-color: #B85C4A;">
+            <i class="fas fa-calculator mr-1.5"></i> Kalkulator Standar
+        </a>
+        <a href="{{ route('ai-estimator.index') }}"
+           class="px-4 py-2 rounded-lg text-xs font-medium text-gray-300 hover:text-white transition-all">
+            <i class="fas fa-magic mr-1.5 text-amber-300"></i> AI Smart Estimator
+        </a>
     </div>
-</section>
+</x-subpage-hero>
 
 {{-- ============================================================ --}}
-{{-- ESTIMATOR TOOL                                                --}}
+{{-- ESTIMATOR TOOL SECTION                                        --}}
 {{-- ============================================================ --}}
-<section class="py-16 lg:py-24" style="background-color: #f2f0eb;">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-8 items-start">
+<section class="py-16 lg:py-24" style="background-color: #F8F5EF;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
 
-            {{-- Calculator Form --}}
-            <div class="bg-white rounded-2xl overflow-hidden border border-[#e4dfd7]" style="box-shadow: 0 4px 24px rgba(36,33,29,0.06);">
-                <div class="px-7 py-5" style="background-color: #302c24;">
+            {{-- Left Column: Calculator Form (7 cols) --}}
+            <div class="lg:col-span-7 bg-white rounded-2xl overflow-hidden shadow-sm" style="border: 1px solid #E2DDD6;">
+                <div class="px-7 py-5 flex items-center justify-between" style="background-color: #3E372C;">
                     <h2 class="text-white font-semibold text-base flex items-center gap-2.5">
-                        <i class="fas fa-calculator text-sm" style="color: #d98d88;"></i>
-                        Input Data Proyek
+                        <i class="fas fa-sliders-h text-sm" style="color: #B85C4A;"></i>
+                        Parameter Ruangan &amp; Proyek
                     </h2>
+                    <span class="text-xs text-white/60 hidden sm:inline">Langkah 1 dari 2</span>
                 </div>
 
                 <div class="p-7 space-y-6">
 
                     {{-- Jenis Layanan --}}
                     <div>
-                        <label class="form-label" for="est_service_type">Jenis Layanan</label>
-                        <select id="est_service_type" onchange="calculate()"
-                                class="form-input">
-                            <option value="">-- Pilih Jenis Layanan --</option>
-                            <optgroup label="Interior Residential">
-                                <option value="full_house"       data-min="2500000" data-max="5000000">Full Interior (Rumah/Apartemen)</option>
-                                <option value="kitchen_set"      data-min="3000000" data-max="6000000">Kitchen Set</option>
-                                <option value="bedroom"          data-min="2000000" data-max="4000000">Bedroom Set</option>
-                                <option value="living_room"      data-min="1500000" data-max="3500000">Living Room</option>
-                            </optgroup>
-                            <optgroup label="Commercial">
-                                <option value="fnb"              data-min="4000000" data-max="8000000">F&B / Café / Restaurant</option>
-                                <option value="office"           data-min="3000000" data-max="6000000">Office Interior</option>
-                                <option value="booth"            data-min="5000000" data-max="9000000">Booth / Exhibition</option>
-                            </optgroup>
-                            <optgroup label="Exterior">
-                                <option value="exterior_house"   data-min="1500000" data-max="3000000">Fasad / Exterior Rumah</option>
-                            </optgroup>
-                        </select>
-                        <p class="text-[11px] text-[#777166] mt-1.5">Harga per m² berdasarkan jenis layanan</p>
+                        <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: #3E372C;" for="est_service_type">
+                            Jenis Layanan / Ruangan <span style="color: #B85C4A;">*</span>
+                        </label>
+                        <div class="relative">
+                            <select id="est_service_type" onchange="calculate()"
+                                    class="w-full rounded-xl text-sm transition-colors py-3 px-4 appearance-none focus:outline-none focus:ring-2"
+                                    style="background-color: #FAF8F5; border: 1px solid #E2DDD6; color: #3E372C;">
+                                <option value="">-- Pilih Jenis Layanan Interior --</option>
+                                <optgroup label="Interior Residential">
+                                    <option value="full_house"       data-min="2500000" data-max="5000000">Full Interior (Rumah / Apartemen)</option>
+                                    <option value="kitchen_set"      data-min="3000000" data-max="6000000">Kitchen Set Custom</option>
+                                    <option value="bedroom"          data-min="2000000" data-max="4000000">Master Bedroom / Bedroom Set</option>
+                                    <option value="living_room"      data-min="1500000" data-max="3500000">Living Room &amp; Entertainment</option>
+                                </optgroup>
+                                <optgroup label="Commercial &amp; Retail">
+                                    <option value="fnb"              data-min="4000000" data-max="8000000">F&amp;B / Café / Restoran</option>
+                                    <option value="office"           data-min="3000000" data-max="6000000">Office Interior &amp; Co-Working</option>
+                                    <option value="booth"            data-min="5000000" data-max="9000000">Booth Exhibition &amp; Pop-up Store</option>
+                                </optgroup>
+                                <optgroup label="Exterior &amp; Fasad">
+                                    <option value="exterior_house"   data-min="1500000" data-max="3000000">Fasad &amp; Exterior Desain</option>
+                                </optgroup>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4" style="color: #8A6F55;">
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </div>
+                        </div>
+                        <p class="text-[11px] mt-1.5" style="color: #8A6F55;">Biaya per m² disesuaikan dengan tingkat kerumitan pengerjaan.</p>
                     </div>
 
                     {{-- Luas Area --}}
                     <div>
-                        <label class="form-label" for="est_area">Luas Area (m²)</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: #3E372C;" for="est_area">
+                            Perkiraan Luas Area (m²) <span style="color: #B85C4A;">*</span>
+                        </label>
                         <div class="relative">
                             <input type="number" id="est_area" min="1" step="0.5"
-                                   placeholder="0"
+                                   placeholder="Contoh: 36"
                                    oninput="calculate()"
-                                   class="form-input pr-12">
-                            <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-sm font-medium text-[#777166]">m²</span>
+                                   class="w-full rounded-xl text-sm transition-colors py-3 px-4 pr-12 focus:outline-none focus:ring-2"
+                                   style="background-color: #FAF8F5; border: 1px solid #E2DDD6; color: #3E372C;">
+                            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold" style="color: #8A6F55;">m²</span>
                         </div>
+                        <p class="text-[11px] mt-1.5" style="color: #8A6F55;">Masukkan luas lantai atau luas area yang direncanakan.</p>
                     </div>
 
-                    {{-- Kualitas Material --}}
+                    {{-- Kualitas Material (Cards) --}}
                     <div>
-                        <label class="form-label">Kualitas Material</label>
-                        <div class="grid grid-cols-3 gap-2">
+                        <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: #3E372C;">
+                            Grade Kualitas Material &amp; Finishing
+                        </label>
+                        <div class="grid grid-cols-3 gap-3">
                             @foreach([
-                                ['economy',   'Economy',   'Material standard, efisien.'],
-                                ['standard',  'Standard',  'Estetika & fungsi seimbang. (Default)'],
-                                ['premium',   'Premium',   'Detail tinggi & hasil terbaik.'],
-                            ] as [$val, $label, $desc])
+                                ['economy',   'Economy',   'Efisien & Fungsional', '×0.80'],
+                                ['standard',  'Standard',  'Paling Populer',       '×1.00'],
+                                ['premium',   'Premium',   'Luxury & Custom High', '×1.40'],
+                            ] as [$val, $label, $desc, $mult])
                             <label class="relative cursor-pointer">
                                 <input type="radio" name="est_quality" value="{{ $val }}"
                                        onchange="calculate()"
                                        {{ $val === 'standard' ? 'checked' : '' }}
-                                       class="absolute opacity-0 w-0 h-0">
-                                <div class="quality-card flex flex-col items-center p-3 rounded-xl text-center transition-all duration-200 border-2"
-                                     style="{{ $val === 'standard' ? 'border-color: #b55b48; background-color: #faf8f5;' : 'border-color: #e4dfd7; background-color: #f2f0eb;' }}"
+                                       class="sr-only">
+                                <div class="quality-card flex flex-col items-center p-3.5 rounded-xl text-center transition-all duration-200"
+                                     style="{{ $val === 'standard' ? 'border: 2px solid #B85C4A; background-color: #FEF6F4;' : 'border: 2px solid #E2DDD6; background-color: #FAF8F5;' }}"
                                      data-value="{{ $val }}">
-                                    <span class="text-xs font-bold mb-0.5"
-                                          style="{{ $val === 'standard' ? 'color: #b55b48;' : 'color: #24211d;' }}">
+                                    <span class="text-xs font-bold mb-1"
+                                          style="{{ $val === 'standard' ? 'color: #B85C4A;' : 'color: #3E372C;' }}">
                                         {{ $label }}
                                     </span>
-                                    @if($val === 'economy') <span class="text-[0.65rem] text-[#777166]">×0.80</span>
-                                    @elseif($val === 'standard') <span class="text-[0.65rem]" style="color: #b55b48;">×1.00</span>
-                                    @else <span class="text-[0.65rem] text-[#777166]">×1.40</span>
-                                    @endif
+                                    <span class="text-[10px] leading-tight mb-1" style="color: #8A6F55;">{{ $desc }}</span>
+                                    <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                                          style="{{ $val === 'standard' ? 'background-color: rgba(184,92,74,0.15); color: #B85C4A;' : 'background-color: #EDE8DF; color: #8A6F55;' }}">
+                                        {{ $mult }}
+                                    </span>
                                 </div>
                             </label>
                             @endforeach
@@ -112,156 +129,187 @@
                     </div>
 
                     {{-- Tambahan: Fee Desain --}}
-                    <div>
+                    <div class="pt-2 border-t" style="border-color: #E2DDD6;">
                         <label class="flex items-center gap-3 cursor-pointer">
                             <div class="relative">
                                 <input type="checkbox" id="incl_design_fee" onchange="calculate()" checked
                                        class="sr-only peer">
-                                <div class="w-10 h-5 rounded-full transition-colors duration-200 peer-checked:bg-[#b55b48] bg-gray-300"></div>
-                                <div class="absolute left-0.5 top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 peer-checked:translate-x-5"></div>
+                                <div class="w-11 h-6 rounded-full transition-colors duration-200 peer-checked:bg-[#B85C4A] bg-gray-300"></div>
+                                <div class="absolute left-1 top-1 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 peer-checked:translate-x-5"></div>
                             </div>
-                            <span class="text-sm font-medium text-[#564e42]">Sertakan fee desain &amp; pengawasan (est. 10-15%)</span>
+                            <div>
+                                <span class="text-xs font-semibold block" style="color: #3E372C;">
+                                    Sertakan Biaya Jasa Desain &amp; Supervisi Proyek
+                                </span>
+                                <span class="text-[11px]" style="color: #8A6F55;">
+                                    Termasuk 3D rendering, gambar kerja detail (DED), dan pengawasan berkala (est. 12.5%).
+                                </span>
+                            </div>
                         </label>
                     </div>
 
                 </div>
             </div>
 
-            {{-- Result Panel --}}
-            <div class="space-y-5">
+            {{-- Right Column: Result Panel & Breakdown (5 cols) --}}
+            <div class="lg:col-span-5 space-y-6">
 
                 {{-- Result Card --}}
-                <div id="result-card" class="bg-white rounded-2xl overflow-hidden border border-[#e4dfd7] transition-all duration-300"
-                     style="box-shadow: 0 4px 24px rgba(36,33,29,0.06);">
-                    <div class="px-7 py-5" style="background-color: #b55b48;">
-                        <h2 class="text-white font-semibold text-base flex items-center gap-2.5">
-                            <i class="fas fa-chart-bar text-sm"></i>
-                            Estimasi Biaya
+                <div id="result-card" class="bg-white rounded-2xl overflow-hidden shadow-sm transition-all duration-300"
+                     style="border: 1px solid #E2DDD6;">
+                    <div class="px-7 py-5 flex items-center justify-between" style="background-color: #B85C4A;">
+                        <h2 class="text-white font-semibold text-base flex items-center gap-2">
+                            <i class="fas fa-file-invoice-dollar text-sm"></i>
+                            Hasil Estimasi Anggaran
                         </h2>
+                        <span class="text-xs text-white/80 font-medium">Estimasi Awal</span>
                     </div>
 
-                    {{-- Placeholder state --}}
-                    <div id="result-placeholder" class="p-7 text-center py-14">
+                    {{-- Empty State (Placeholder) --}}
+                    <div id="result-placeholder" class="p-8 text-center py-16">
                         <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                             style="background-color: #f2f0eb;">
-                            <i class="fas fa-calculator text-2xl" style="color: #777166;"></i>
+                             style="background-color: #F8F5EF; border: 1px solid #E2DDD6;">
+                            <i class="fas fa-calculator text-2xl" style="color: #8A6F55;"></i>
                         </div>
-                        <p class="text-sm text-[#777166]">Lengkapi form di sebelah kiri untuk melihat estimasi biaya</p>
+                        <h3 class="text-sm font-semibold mb-1" style="color: #3E372C;">Siap Menghitung</h3>
+                        <p class="text-xs max-w-xs mx-auto leading-relaxed" style="color: #8A6F55;">
+                            Pilih jenis layanan dan tentukan luas ruangan Anda di form sebelah kiri untuk memunculkan estimasi biaya.
+                        </p>
                     </div>
 
-                    {{-- Result state (hidden by default) --}}
-                    <div id="result-content" class="p-7" style="display: none;">
+                    {{-- Active Result Content --}}
+                    <div id="result-content" class="p-7 space-y-6" style="display: none;">
 
-                        {{-- Input summary --}}
-                        <div class="mb-5 p-4 rounded-xl text-xs space-y-1.5 border border-[#e4dfd7]" style="background-color: #f2f0eb;">
-                            <div class="flex justify-between">
-                                <span class="text-[#777166]">Jenis Layanan:</span>
-                                <span class="font-semibold text-[#24211d]" id="summary-service">-</span>
+                        {{-- Parameter Summary Pill --}}
+                        <div class="p-4 rounded-xl text-xs space-y-2" style="background-color: #FAF8F5; border: 1px solid #E2DDD6;">
+                            <div class="flex justify-between items-center">
+                                <span style="color: #8A6F55;">Layanan:</span>
+                                <span class="font-semibold text-right" style="color: #3E372C;" id="summary-service">-</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span class="text-[#777166]">Luas Area:</span>
-                                <span class="font-semibold text-[#24211d]" id="summary-area">-</span>
+                            <div class="flex justify-between items-center">
+                                <span style="color: #8A6F55;">Luas Area:</span>
+                                <span class="font-semibold" style="color: #3E372C;" id="summary-area">-</span>
                             </div>
-                            <div class="flex justify-between">
-                                <span class="text-[#777166]">Kualitas:</span>
-                                <span class="font-semibold text-[#24211d]" id="summary-quality">-</span>
+                            <div class="flex justify-between items-center">
+                                <span style="color: #8A6F55;">Material Grade:</span>
+                                <span class="font-semibold" style="color: #3E372C;" id="summary-quality">-</span>
                             </div>
                         </div>
 
-                        {{-- Range --}}
-                        <div class="text-center mb-6">
-                            <div class="text-xs font-semibold uppercase tracking-wider mb-2 text-[#777166]">Estimasi Biaya Total</div>
-                            <div class="font-display text-3xl font-bold leading-tight" style="font-family: 'Cormorant Garamond', Georgia, serif; color: #24211d;">
-                                <span id="est-min" style="color: #b55b48;">Rp 0</span>
-                                <span class="text-xl text-gray-400 mx-2">—</span>
-                                <span id="est-max" style="color: #b55b48;">Rp 0</span>
+                        {{-- Total Range Box --}}
+                        <div class="text-center py-2">
+                            <div class="text-[11px] font-bold uppercase tracking-wider mb-2" style="color: #8A6F55;">
+                                Estimasi Rentang Biaya
+                            </div>
+                            <div class="font-display text-3xl sm:text-4xl font-bold leading-tight"
+                                 style="font-family: 'Cormorant Garamond', Georgia, serif; color: #3E372C;">
+                                <div class="text-[#B85C4A]" id="est-min">Rp 0</div>
+                                <div class="text-xs font-normal text-gray-400 my-1">sampai dengan</div>
+                                <div class="text-[#B85C4A]" id="est-max">Rp 0</div>
                             </div>
                         </div>
 
-                        {{-- Per m² breakdown --}}
-                        <div class="grid grid-cols-2 gap-3 mb-6">
-                            <div class="p-3.5 rounded-xl text-center border border-[#e4dfd7]" style="background-color: #f2f0eb;">
-                                <div class="text-[11px] text-[#777166] mb-1 font-medium">Min / m²</div>
-                                <div class="text-sm font-bold text-[#24211d]" id="est-per-min">-</div>
+                        {{-- Unit Cost Breakdown --}}
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="p-3.5 rounded-xl text-center" style="background-color: #FAF8F5; border: 1px solid #E2DDD6;">
+                                <div class="text-[10px] uppercase font-bold tracking-wider mb-1" style="color: #8A6F55;">Min / m²</div>
+                                <div class="text-xs sm:text-sm font-bold" style="color: #3E372C;" id="est-per-min">-</div>
                             </div>
-                            <div class="p-3.5 rounded-xl text-center border border-[#e4dfd7]" style="background-color: #f2f0eb;">
-                                <div class="text-[11px] text-[#777166] mb-1 font-medium">Maks / m²</div>
-                                <div class="text-sm font-bold text-[#24211d]" id="est-per-max">-</div>
+                            <div class="p-3.5 rounded-xl text-center" style="background-color: #FAF8F5; border: 1px solid #E2DDD6;">
+                                <div class="text-[10px] uppercase font-bold tracking-wider mb-1" style="color: #8A6F55;">Maks / m²</div>
+                                <div class="text-xs sm:text-sm font-bold" style="color: #3E372C;" id="est-per-max">-</div>
                             </div>
                         </div>
 
-                        <a href="{{ route('consultation.create') }}"
-                           class="flex items-center justify-center gap-2 w-full py-3.5 rounded-lg text-xs font-semibold uppercase tracking-wider text-white transition-opacity hover:opacity-95 shadow-md"
-                           style="background-color: #b55b48;">
-                            <i class="fas fa-comment-dots"></i>
-                            Konsultasi untuk Anggaran Akurat
-                        </a>
+                        {{-- Action Button --}}
+                        <div class="space-y-2 pt-2">
+                            <a href="{{ route('consultation.create') }}"
+                               class="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white transition-all duration-200 hover:opacity-95 shadow-md"
+                               style="background-color: #B85C4A;">
+                                <i class="fas fa-calendar-check"></i>
+                                Konsultasikan Anggaran Resmi
+                            </a>
+                            <a href="https://wa.me/6282213641995" target="_blank"
+                               class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-xs font-semibold text-[#3E372C] hover:bg-[#F8F5EF] transition-all"
+                               style="border: 1px solid #E2DDD6;">
+                                <i class="fab fa-whatsapp text-emerald-600 text-sm"></i>
+                                Diskusi via WhatsApp
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                {{-- Disclaimer Box --}}
-                <div class="rounded-2xl p-5 border border-[#e4dfd7]" style="background-color: #faf8f5;">
-                    <div class="flex items-start gap-3">
-                        <i class="fas fa-info-circle mt-0.5 flex-shrink-0" style="color: #b55b48;"></i>
+                {{-- Important Notice Card --}}
+                <div class="rounded-2xl p-6 shadow-sm" style="background-color: white; border: 1px solid #E2DDD6;">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                             style="background-color: #FEF6F4; color: #B85C4A;">
+                            <i class="fas fa-info text-xs"></i>
+                        </div>
                         <div>
-                            <h4 class="text-xs font-bold uppercase tracking-wider mb-2 text-[#24211d]">Catatan Penting</h4>
-                            <ul class="text-xs space-y-1.5 leading-relaxed text-[#564e42]">
-                                <li>• Hasil kalkulasi adalah <strong>perkiraan awal</strong> — bukan penawaran resmi.</li>
-                                <li>• Harga final ditentukan setelah <strong>survei lokasi dan penyusunan BQ (Bill of Quantity)</strong>.</li>
-                                <li>• Biaya dipengaruhi oleh spesifikasi material, kondisi lokasi, dan scope pekerjaan.</li>
-                                <li>• Untuk estimasi akurat, lakukan konsultasi dan survei bersama tim kami.</li>
+                            <h4 class="text-xs font-bold uppercase tracking-wider mb-2" style="color: #3E372C;">Catatan Estimasi</h4>
+                            <ul class="text-xs space-y-1.5 leading-relaxed" style="color: #6B6B6B;">
+                                <li>• Hasil kalkulasi ini adalah <strong>perkiraan awal</strong> berdasarkan standar luasan.</li>
+                                <li>• Anggaran resmi dan akurat ditentukan setelah <strong>survei lokasi</strong> dan penyusunan <strong>Bill of Quantity (BQ)</strong> detail.</li>
+                                <li>• Pemilihan material spesifik, aksesoris hardware, dan modifikasi sipil akan memengaruhi total biaya akhir.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                {{-- Price guide --}}
-                <div class="bg-white rounded-2xl overflow-hidden border border-[#e4dfd7]">
-                    <div class="px-5 py-3.5 border-b border-[#e4dfd7]" style="background-color: #f2f0eb;">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-[#24211d]">Range Harga per m² (Referensi)</h4>
+                {{-- Reference Price Guide --}}
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm" style="border: 1px solid #E2DDD6;">
+                    <div class="px-5 py-3.5 border-b" style="background-color: #F8F5EF; border-color: #E2DDD6;">
+                        <h4 class="text-xs font-bold uppercase tracking-wider" style="color: #3E372C;">
+                            Standar Kisaran Biaya per m²
+                        </h4>
                     </div>
-                    <div class="divide-y divide-[#ede8e1]">
+                    <div class="divide-y text-xs" style="divide-color: #E2DDD6;">
                         @foreach([
-                            ['Full Interior (Rumah)',  'Rp 2.5 — 5 Juta'],
-                            ['Kitchen Set',            'Rp 3 — 6 Juta'],
-                            ['F&B / Café',             'Rp 4 — 8 Juta'],
-                            ['Office Interior',        'Rp 3 — 6 Juta'],
-                            ['Booth / Exhibition',     'Rp 5 — 9 Juta'],
+                            ['Full Interior (Rumah / Apt)', 'Rp 2.5 — 5.0 Juta'],
+                            ['Kitchen Set Custom',           'Rp 3.0 — 6.0 Juta'],
+                            ['Master Bedroom Set',          'Rp 2.0 — 4.0 Juta'],
+                            ['F&B / Café / Restoran',        'Rp 4.0 — 8.0 Juta'],
+                            ['Office Interior',              'Rp 3.0 — 6.0 Juta'],
+                            ['Booth Exhibition',             'Rp 5.0 — 9.0 Juta'],
                         ] as [$label, $range])
-                        <div class="flex items-center justify-between px-5 py-2.5">
-                            <span class="text-xs text-[#564e42]">{{ $label }}</span>
-                            <span class="text-xs font-bold" style="color: #b55b48;">{{ $range }}</span>
+                        <div class="flex items-center justify-between px-5 py-3 hover:bg-[#FAF8F5] transition-colors">
+                            <span style="color: #3E372C;">{{ $label }}</span>
+                            <span class="font-bold" style="color: #B85C4A;">{{ $range }}</span>
                         </div>
                         @endforeach
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </section>
 
-{{-- Bottom CTA Section --}}
-<section class="py-16" style="background-color: #302c24;">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-up">
-        <h2 class="font-display text-3xl font-semibold text-white mb-3"
+{{-- ============================================================ --}}
+{{-- BOTTOM CALL TO ACTION                                         --}}
+{{-- ============================================================ --}}
+<section class="py-20" style="background-color: #302c24;">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-display text-3xl sm:text-4xl font-semibold text-white mb-3"
             style="font-family: 'Cormorant Garamond', Georgia, serif;">
-            Butuh Anggaran yang Lebih Akurat?
+            Ingin Rincian Anggaran yang Presisi?
         </h2>
-        <p class="text-sm mb-6 max-w-lg mx-auto" style="color: rgba(242,240,235,0.72);">
-            Konsultasikan rencana ruang Anda langsung dengan desainer Pratama Design Studio. Dapatkan pre-layout concept gratis!
+        <p class="text-sm mb-8 max-w-xl mx-auto leading-relaxed" style="color: rgba(255,255,255,0.7);">
+            Konsultasikan visi ruang Anda langsung dengan desainer Pratama Design Studio. Kami bantu survei lapangan, pre-layout concept, dan rincian BQ transparan.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
             <a href="{{ route('consultation.create') }}"
-               class="inline-flex items-center gap-2 px-7 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider text-white transition-all duration-200 hover:opacity-95 shadow-md"
-               style="background-color: #b55b48;">
+               class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white transition-all duration-200 hover:opacity-95 shadow-lg"
+               style="background-color: #B85C4A;">
                 <i class="fas fa-file-alt"></i>
-                Isi Form Konsultasi
+                Isi Form Konsultasi Gratis
             </a>
             <a href="https://wa.me/6282213641995" target="_blank"
-               class="inline-flex items-center gap-2 px-7 py-3 rounded-lg text-xs font-semibold uppercase tracking-wider text-white hover:bg-white/10 transition-colors"
-               style="border: 1.5px solid rgba(242,240,235,0.45);">
-                <i class="fab fa-whatsapp"></i>
-                Chat WhatsApp
+               class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white hover:bg-white/10 transition-colors"
+               style="border: 1.5px solid rgba(255,255,255,0.3);">
+                <i class="fab fa-whatsapp text-emerald-400"></i>
+                Hubungi via WhatsApp
             </a>
         </div>
     </div>
@@ -277,7 +325,7 @@
 
     function formatRp(value) {
         if (value >= 1_000_000_000) {
-            return 'Rp ' + (value / 1_000_000_000).toFixed(2) + ' M';
+            return 'Rp ' + (value / 1_000_000_000).toFixed(2) + ' Miliar';
         } else if (value >= 1_000_000) {
             return 'Rp ' + (value / 1_000_000).toFixed(1) + ' Juta';
         }
@@ -325,14 +373,17 @@
         content.style.display     = '';
     }
 
-    // Quality radio toggle styling
+    // Quality radio card styling
     document.querySelectorAll('input[name="est_quality"]').forEach(radio => {
         radio.addEventListener('change', () => {
             document.querySelectorAll('.quality-card').forEach(card => {
                 const isSelected = card.dataset.value === radio.value;
-                card.style.borderColor       = isSelected ? '#b55b48' : '#e4dfd7';
-                card.style.backgroundColor   = isSelected ? '#faf8f5' : '#f2f0eb';
-                card.querySelector('span:first-child').style.color = isSelected ? '#b55b48' : '#24211d';
+                card.style.borderColor     = isSelected ? '#B85C4A' : '#E2DDD6';
+                card.style.backgroundColor = isSelected ? '#FEF6F4' : '#FAF8F5';
+                const label = card.querySelector('span:first-child');
+                if (label) {
+                    label.style.color = isSelected ? '#B85C4A' : '#3E372C';
+                }
             });
         });
     });

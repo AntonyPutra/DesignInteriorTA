@@ -9,19 +9,10 @@
 {{-- MAIN IMAGE HERO                                               --}}
 {{-- ============================================================ --}}
 <section class="relative min-h-[55vh] flex items-end overflow-hidden" style="background-color: #1E1812;">
-    {{-- Background Image / Placeholder --}}
-    @if($portfolio->main_image && Storage::disk('public')->exists($portfolio->main_image))
-        <img src="{{ Storage::url($portfolio->main_image) }}"
-             alt="{{ $portfolio->title }}"
-             class="absolute inset-0 w-full h-full object-cover">
-    @else
-        <div class="absolute inset-0"
-             style="background: linear-gradient(135deg, #2A2219 0%, #3E372C 40%, #5A4A38 70%, #8A6F55 100%);">
-            <div class="absolute inset-0 flex items-center justify-center opacity-10">
-                <i class="fas fa-couch" style="font-size: 10rem; color: white;"></i>
-            </div>
-        </div>
-    @endif
+    {{-- Background Image with Fallback --}}
+    <img src="{{ $portfolio->image_url }}"
+         alt="{{ $portfolio->title }}"
+         class="absolute inset-0 w-full h-full object-cover">
 
     {{-- Dark gradient overlay --}}
     <div class="absolute inset-0"

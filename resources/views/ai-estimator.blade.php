@@ -1,56 +1,67 @@
 @extends('layouts.app')
 
 @section('title', 'AI Smart Cost Estimator')
-@section('meta_description', 'Kalkulasi anggaran desain interior Anda menggunakan AI canggih.')
+@section('meta_description', 'Kalkulasi estimasi anggaran desain interior otomatis menggunakan AI cerdas Pratama Design Studio.')
 
 @section('content')
 
-{{-- Page Hero --}}
-<section class="relative py-16 lg:py-24" style="background-color: #2A2219;">
-    <div class="absolute inset-0 opacity-[0.04]"
-         style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div class="flex items-center justify-center gap-2 mb-4" style="color: rgba(255,255,255,0.4);">
-            <a href="{{ route('home') }}" class="hover:text-white transition-colors text-sm">Home</a>
-            <i class="fas fa-chevron-right text-[0.6rem]"></i>
-            <span class="text-sm" style="color: #B85C4A;">AI Estimator</span>
-        </div>
-        <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">Kalkulator Cerdas</p>
-        <h1 class="font-display text-4xl lg:text-5xl font-semibold text-white"
-            style="font-family: 'Cormorant Garamond', serif;">
-            AI Smart Cost Estimator
-        </h1>
-        <p class="mt-4 text-sm max-w-lg mx-auto leading-relaxed" style="color: rgba(255,255,255,0.6);">
-            Ceritakan bayangan ruangan Anda. AI kami akan menyusun rincian Rencana Anggaran Biaya (RAB) sementara secara otomatis berdasarkan cerita Anda.
-        </p>
+{{-- Subpage Hero with Database Image & Gradient Blend --}}
+<x-subpage-hero
+    title="AI Smart Cost Estimator"
+    eyebrow="Kalkulator Cerdas Berbasis AI"
+    description="Ceritakan bayangan dan kebutuhan ruangan Anda secara bebas. AI kami akan membedah item pekerjaan, menghitung estimasi volume, dan menyusun draf RAB otomatis."
+    :breadcrumbs="['Cost Estimator' => route('estimator.index'), 'AI Smart Estimator' => '']"
+    image-keyword="bedroom"
+>
+    {{-- Estimator Mode Switcher Tabs --}}
+    <div class="inline-flex p-1 rounded-xl bg-black/40 backdrop-blur-md border border-white/15">
+        <a href="{{ route('estimator.index') }}"
+           class="px-4 py-2 rounded-lg text-xs font-medium text-gray-300 hover:text-white transition-all">
+            <i class="fas fa-calculator mr-1.5"></i> Kalkulator Standar
+        </a>
+        <a href="{{ route('ai-estimator.index') }}"
+           class="px-4 py-2 rounded-lg text-xs font-semibold tracking-wide text-white transition-all shadow-sm"
+           style="background-color: #B85C4A;">
+            <i class="fas fa-magic mr-1.5 text-amber-300"></i> AI Smart Estimator
+        </a>
     </div>
-</section>
+</x-subpage-hero>
 
 {{-- ============================================================ --}}
-{{-- AI ESTIMATOR TOOL                                            --}}
+{{-- AI ESTIMATOR TOOL SECTION                                    --}}
 {{-- ============================================================ --}}
-<section class="py-16 lg:py-20" style="background-color: #F8F5EF; min-height: 600px;">
+<section class="py-16 lg:py-24" style="background-color: #F8F5EF; min-height: 600px;">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {{-- Input Prompt Card --}}
         <div class="bg-white rounded-2xl overflow-hidden shadow-sm transition-all duration-300" style="border: 1px solid #E2DDD6;">
-            <div class="px-7 py-5" style="background-color: #3E372C;">
-                <h2 class="text-white font-semibold text-base flex items-center gap-2">
+            <div class="px-7 py-5 flex items-center justify-between" style="background-color: #3E372C;">
+                <h2 class="text-white font-semibold text-base flex items-center gap-2.5">
                     <i class="fas fa-robot text-sm" style="color: #B85C4A;"></i>
-                    Ceritakan Rencana Anda
+                    Ceritakan Rencana &amp; Kebutuhan Ruang Anda
                 </h2>
+                <span class="text-xs text-white/60 hidden sm:inline">Didukung AI Studio</span>
             </div>
             
             <div class="p-7">
                 <form id="ai-estimator-form">
                     @csrf
                     <div class="mb-5">
-                        <label for="prompt" class="block text-sm font-medium text-gray-700 mb-3 leading-relaxed">
-                            Jelaskan ruangan yang ingin direnovasi, ukuran (misal 4x4m), gaya interior yang diinginkan, dan kebutuhan material secara spesifik. Semakin detail, estimasi semakin akurat.
+                        <label for="prompt" class="block text-xs font-bold uppercase tracking-wider mb-2.5" style="color: #3E372C;">
+                            Deskripsi Ruangan, Ukuran, &amp; Gaya Interior <span style="color: #B85C4A;">*</span>
                         </label>
-                        <textarea id="prompt" name="prompt" rows="5" class="w-full form-input rounded-xl border-gray-300 shadow-sm focus:border-[#B85C4A] focus:ring focus:ring-[#B85C4A] focus:ring-opacity-20 p-4 text-sm" placeholder="Contoh: Saya punya kamar ukuran 4x4 meter. Saya ingin didesain dengan gaya Japandi. Saya butuh lemari pakaian custom full plafon, ranjang kayu solid 160x200, nakas, meja kerja lipat, dan lantai vinyl motif kayu..."></textarea>
+                        <textarea id="prompt" name="prompt" rows="5"
+                                  class="w-full rounded-xl text-sm transition-all p-4 focus:outline-none focus:ring-2 leading-relaxed"
+                                  style="background-color: #FAF8F5; border: 1px solid #E2DDD6; color: #3E372C;"
+                                  placeholder="Contoh: Saya memiliki master bedroom ukuran 4x5 meter di apartemen. Saya menyukai gaya Japandi Modern dengan sentuhan warm wood. Saya membutuhkan wardrobe custom full plafon dengan pintu cermin, bed frame 180x200 dengan headboard fabric, meja rias gantung, nakas kanan-kiri, dan panel kisi-kisi kayu di dinding utama..."></textarea>
+                        <p class="text-[11px] mt-2" style="color: #8A6F55;">
+                            Tips: Semakin detail Anda menyebutkan luasan ruangan, perabot yang diinginkan, dan preferensi finishing, estimasi AI akan semakin presisi.
+                        </p>
                     </div>
-                    <button type="submit" id="btn-generate" class="w-full py-3.5 rounded-xl text-sm font-bold text-white transition-all hover:opacity-90 flex justify-center items-center gap-2 shadow-md" style="background-color: #B85C4A;">
-                        <i class="fas fa-magic"></i> Buat Estimasi dengan AI
+                    <button type="submit" id="btn-generate"
+                            class="w-full py-4 rounded-xl text-xs font-bold uppercase tracking-wider text-white transition-all hover:opacity-95 flex justify-center items-center gap-2 shadow-md"
+                            style="background-color: #B85C4A;">
+                        <i class="fas fa-magic text-amber-300"></i> Buat Estimasi Rincian RAB dengan AI
                     </button>
                 </form>
             </div>
@@ -58,49 +69,49 @@
         
         <!-- Loading State -->
         <div id="loading-state" class="hidden text-center mt-12 mb-12 animate-pulse">
-            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: #FEF6F4;">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style="background-color: #FEF6F4; border: 1px solid #FDDDD8;">
                 <i class="fas fa-spinner fa-spin text-2xl" style="color: #B85C4A;"></i>
             </div>
-            <h3 class="text-lg font-semibold text-gray-800 mb-1">AI sedang menganalisis...</h3>
-            <p class="text-sm text-gray-500">Menyusun item pekerjaan, menghitung volume, dan mencari standar harga pasar.</p>
+            <h3 class="text-base font-bold mb-1" style="color: #3E372C;">AI sedang menganalisis spesifikasi ruangan...</h3>
+            <p class="text-xs" style="color: #8A6F55;">Menyusun item pekerjaan konstruksi, menghitung volume, dan mencocokkan standar harga material interior.</p>
         </div>
 
         <!-- Result Section -->
-        <div id="result-section" class="hidden mt-12 bg-white rounded-2xl overflow-hidden shadow-xl" style="border: 1px solid #E2DDD6;">
+        <div id="result-section" class="hidden mt-12 bg-white rounded-2xl overflow-hidden shadow-lg" style="border: 1px solid #E2DDD6;">
             <div class="px-7 py-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3" style="background-color: #B85C4A;">
                 <h2 class="text-white font-semibold text-base flex items-center gap-2">
                     <i class="fas fa-file-invoice-dollar text-sm"></i>
-                    Estimasi Anggaran Biaya (RAB)
+                    Draf Estimasi Rencana Anggaran Biaya (RAB)
                 </h2>
-                <button onclick="window.print()" class="text-white hover:text-gray-200 text-sm flex items-center gap-2 bg-white/10 px-4 py-2 rounded-lg transition-colors">
+                <button onclick="window.print()" class="text-white hover:text-white/80 text-xs font-semibold flex items-center gap-2 bg-white/15 px-4 py-2 rounded-lg transition-colors">
                     <i class="fas fa-print"></i> Cetak / Simpan PDF
                 </button>
             </div>
             
             <div class="p-7 overflow-x-auto print:p-0">
                 <div class="mb-6 hidden print:block text-center">
-                    <h1 class="text-2xl font-bold text-gray-900">Rencana Anggaran Biaya (Estimasi AI)</h1>
-                    <p class="text-sm text-gray-500">Pratama Design Studio</p>
+                    <h1 class="text-2xl font-bold" style="color: #3E372C;">Rencana Anggaran Biaya (Estimasi AI)</h1>
+                    <p class="text-xs" style="color: #8A6F55;">Pratama Design Studio — Interior &amp; Exterior Design</p>
                 </div>
                 
-                <table class="w-full text-sm text-left mb-6" style="border: 1px solid #E2DDD6;">
-                    <thead class="text-xs uppercase" style="background-color: #F8F5EF; color: #3E372C;">
+                <table class="w-full text-xs sm:text-sm text-left mb-6" style="border: 1px solid #E2DDD6;">
+                    <thead class="text-[11px] uppercase tracking-wider" style="background-color: #F8F5EF; color: #3E372C;">
                         <tr>
-                            <th class="px-5 py-4 border-b">No</th>
-                            <th class="px-5 py-4 border-b">Nama Pekerjaan/Material</th>
-                            <th class="px-5 py-4 border-b text-center">Vol</th>
-                            <th class="px-5 py-4 border-b text-center">Sat</th>
-                            <th class="px-5 py-4 border-b text-right">Harga Satuan</th>
-                            <th class="px-5 py-4 border-b text-right">Total</th>
+                            <th class="px-5 py-3.5 border-b" style="border-color: #E2DDD6;">No</th>
+                            <th class="px-5 py-3.5 border-b" style="border-color: #E2DDD6;">Nama Pekerjaan / Material</th>
+                            <th class="px-5 py-3.5 border-b text-center" style="border-color: #E2DDD6;">Vol</th>
+                            <th class="px-5 py-3.5 border-b text-center" style="border-color: #E2DDD6;">Sat</th>
+                            <th class="px-5 py-3.5 border-b text-right" style="border-color: #E2DDD6;">Harga Satuan</th>
+                            <th class="px-5 py-3.5 border-b text-right" style="border-color: #E2DDD6;">Total</th>
                         </tr>
                     </thead>
-                    <tbody id="rab-table-body" class="divide-y" style="divide-color: #E2DDD6;">
+                    <tbody id="rab-table-body" class="divide-y text-xs" style="divide-color: #E2DDD6;">
                         <!-- Items will be injected here -->
                     </tbody>
                     <tfoot>
-                        <tr class="font-bold bg-gray-50">
-                            <td colspan="5" class="px-5 py-5 text-right uppercase tracking-wide text-xs" style="color: #3E372C;">Grand Total Estimasi</td>
-                            <td class="px-5 py-5 text-right text-xl" style="color: #B85C4A;" id="rab-grand-total">Rp 0</td>
+                        <tr class="font-bold" style="background-color: #FAF8F5;">
+                            <td colspan="5" class="px-5 py-4 text-right uppercase tracking-wider text-xs" style="color: #3E372C;">Grand Total Estimasi</td>
+                            <td class="px-5 py-4 text-right font-display text-xl sm:text-2xl font-bold" style="color: #B85C4A; font-family: 'Cormorant Garamond', Georgia, serif;" id="rab-grand-total">Rp 0</td>
                         </tr>
                     </tfoot>
                 </table>
@@ -109,20 +120,23 @@
                     <div class="flex items-start gap-3">
                         <i class="fas fa-info-circle mt-0.5 flex-shrink-0" style="color: #B85C4A;"></i>
                         <div>
-                            <h4 class="text-sm font-semibold mb-1" style="color: #3E372C;">Catatan AI Estimator:</h4>
-                            <p class="text-sm leading-relaxed" style="color: #8A4A3A;" id="rab-catatan">-</p>
+                            <h4 class="text-xs font-bold uppercase tracking-wider mb-1" style="color: #3E372C;">Analisis AI:</h4>
+                            <p class="text-xs leading-relaxed" style="color: #8A4A3A;" id="rab-catatan">-</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="text-xs text-center text-gray-400 mt-6 print:mt-12">
-                    *Dokumen ini adalah estimasi yang dihasilkan oleh Artificial Intelligence berdasarkan cerita Anda dan standar harga perkiraan.<br>
-                    Untuk RAB resmi yang akurat, silakan jadwalkan konsultasi dan survei lokasi dengan tim Pratama Design Studio.
+                <div class="text-[11px] text-center mt-6 leading-relaxed print:mt-12" style="color: #8A6F55;">
+                    *Dokumen ini merupakan estimasi awal yang disimulasikan oleh Artificial Intelligence berdasarkan cerita Anda.<br>
+                    Untuk penawaran resmi, spesifikasi teknis akurat, dan kepastian biaya, jadwalkan konsultasi serta survei lokasi bersama tim Pratama Design Studio.
                 </div>
                 
-                <div class="mt-8 text-center print:hidden">
-                    <a href="{{ route('consultation.create') }}" class="inline-flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90 shadow-md" style="background-color: #3E372C;">
-                        <i class="fas fa-calendar-check"></i> Jadwalkan Survei Lokasi Sekarang
+                <div class="mt-8 text-center print:hidden flex flex-wrap justify-center gap-4">
+                    <a href="{{ route('consultation.create') }}" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white transition-all hover:opacity-95 shadow-md" style="background-color: #B85C4A;">
+                        <i class="fas fa-calendar-check"></i> Jadwalkan Survei &amp; Konsultasi Desain
+                    </a>
+                    <a href="https://wa.me/6282213641995" target="_blank" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-[#3E372C] hover:bg-[#FAF8F5] transition-all" style="border: 1px solid #E2DDD6;">
+                        <i class="fab fa-whatsapp text-emerald-600 text-sm"></i> Chat dengan Tim Desainer
                     </a>
                 </div>
             </div>
@@ -165,7 +179,7 @@
 
         // UI Changes
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Sedang Menganalisis...';
         btn.classList.add('opacity-70');
         loading.classList.remove('hidden');
         resultSection.classList.add('hidden');
@@ -195,13 +209,13 @@
                 let i = 1;
                 data.data.items.forEach(item => {
                     tbody.innerHTML += `
-                        <tr class="transition-colors hover:bg-gray-50">
-                            <td class="px-5 py-4 border-b text-gray-500">${i++}</td>
-                            <td class="px-5 py-4 border-b font-medium text-gray-900">${item.nama_pekerjaan}</td>
-                            <td class="px-5 py-4 border-b text-center text-gray-600">${item.volume}</td>
-                            <td class="px-5 py-4 border-b text-center text-gray-500">${item.satuan}</td>
-                            <td class="px-5 py-4 border-b text-right text-gray-600">${formatRp(item.harga_satuan)}</td>
-                            <td class="px-5 py-4 border-b text-right font-semibold" style="color: #3E372C;">${formatRp(item.total)}</td>
+                        <tr class="transition-colors hover:bg-[#FAF8F5]">
+                            <td class="px-5 py-3.5 border-b text-gray-500" style="border-color: #E2DDD6;">${i++}</td>
+                            <td class="px-5 py-3.5 border-b font-medium" style="border-color: #E2DDD6; color: #3E372C;">${item.nama_pekerjaan}</td>
+                            <td class="px-5 py-3.5 border-b text-center text-gray-600" style="border-color: #E2DDD6;">${item.volume}</td>
+                            <td class="px-5 py-3.5 border-b text-center text-gray-500" style="border-color: #E2DDD6;">${item.satuan}</td>
+                            <td class="px-5 py-3.5 border-b text-right text-gray-600" style="border-color: #E2DDD6;">${formatRp(item.harga_satuan)}</td>
+                            <td class="px-5 py-3.5 border-b text-right font-semibold" style="border-color: #E2DDD6; color: #3E372C;">${formatRp(item.total)}</td>
                         </tr>
                     `;
                 });
@@ -222,7 +236,7 @@
             alert(error.message);
         } finally {
             btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-magic"></i> Buat Estimasi dengan AI';
+            btn.innerHTML = '<i class="fas fa-magic text-amber-300"></i> Buat Estimasi Rincian RAB dengan AI';
             btn.classList.remove('opacity-70');
             loading.classList.add('hidden');
         }

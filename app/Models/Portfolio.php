@@ -66,4 +66,53 @@ class Portfolio extends Model
     {
         return $query->where('status', 'published');
     }
+
+    /**
+     * Accessor: URL gambar utama (Storage disk public atau fallback aset berkualitas).
+     */
+    public function getImageUrlAttribute(): string
+    {
+        if ($this->main_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->main_image)) {
+            return \Illuminate\Support\Facades\Storage::url($this->main_image);
+        }
+
+        $fallbacks = [
+            1 => 'assets/images/p-landed-03.jpg',    // Kitchen Set PIK
+            2 => 'assets/images/p-landed-02.jpg',    // Master Bedroom Cengkareng
+            3 => 'assets/images/p-landed-01.jpg',    // Full House Jelambar
+            4 => 'assets/images/p-apartment-01.jpg', // Apartment Studio Bekasi
+            5 => 'assets/images/p-fnb-01.jpg',       // KATA Kopi PIK
+            6 => 'assets/images/p-office-01.jpg',    // Office Interior Jakarta
+        ];
+
+        return asset($fallbacks[$this->id] ?? 'assets/images/hero-living.jpg');
+    }
+
+    /**
+     * Helper untuk mengambil gambar hero header dari database (dengan fallback).
+     */
+    public static function getHeaderImage(?string $keyword = null): string
+    {
+        $query = static::query();
+
+        if ($keyword) {
+            $matched = (clone $query)->where(function ($q) use ($keyword) {
+                $q->where('slug', 'like', "%{$keyword}%")
+                  ->orWhere('title', 'like', "%{$keyword}%")
+                  ->orWhere('room_type', 'like', "%{$keyword}%")
+                  ->orWhere('project_type', 'like', "%{$keyword}%");
+            })->first();
+
+            if ($matched) {
+                return $matched->image_url;
+            }
+        }
+
+        $any = $query->first();
+        if ($any) {
+            return $any->image_url;
+        }
+
+        return asset('assets/images/hero-living.jpg');
+    }
 }

@@ -5,29 +5,22 @@
 
 @section('content')
 
-{{-- Page Hero --}}
-<section class="relative py-16 lg:py-24" style="background-color: #2A2219;">
-    <div class="absolute inset-0 opacity-[0.04]"
-         style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">Hubungi Kami</p>
-        <h1 class="font-display text-4xl lg:text-5xl font-semibold text-white"
-            style="font-family: 'Cormorant Garamond', serif;">
-            Form Konsultasi
-        </h1>
-        <p class="mt-4 text-sm max-w-lg mx-auto leading-relaxed" style="color: rgba(255,255,255,0.6);">
-            Ceritakan kebutuhan desain interior Anda. Tim kami akan menghubungi Anda dalam 1×24 jam untuk konsultasi lebih lanjut.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4 mt-5">
-            @foreach(['✓ Gratis Pre-Layout Concept', '✓ Tanpa Biaya Konsultasi', '✓ Respon 1x24 Jam'] as $item)
-            <span class="text-xs font-medium px-3 py-1.5 rounded-full"
-                  style="background-color: rgba(184,92,74,0.2); color: #E8A898; border: 1px solid rgba(184,92,74,0.3);">
-                {{ $item }}
-            </span>
-            @endforeach
-        </div>
+<x-subpage-hero
+    title="Form Konsultasi"
+    eyebrow="Hubungi Kami"
+    description="Ceritakan kebutuhan desain interior Anda. Tim desainer kami siap memberikan saran terbaik dan menyusun estimasi rencana ruang impian Anda."
+    :breadcrumbs="['Konsultasi' => '']"
+    image-keyword="apartment"
+>
+    <div class="flex flex-wrap gap-2.5">
+        @foreach(['✓ Gratis Pre-Layout Concept', '✓ Tanpa Biaya Konsultasi', '✓ Respon Cepat 1×24 Jam'] as $item)
+        <span class="text-xs font-medium px-3 py-1.5 rounded-full"
+              style="background-color: rgba(184,92,74,0.22); color: #F5CAC1; border: 1px solid rgba(184,92,74,0.35);">
+            {{ $item }}
+        </span>
+        @endforeach
     </div>
-</section>
+</x-subpage-hero>
 
 {{-- ============================================================ --}}
 {{-- CONSULTATION FORM                                             --}}

@@ -5,26 +5,13 @@
 
 @section('content')
 
-{{-- Page Hero --}}
-<section class="relative py-20 lg:py-28" style="background-color: #2A2219;">
-    <div class="absolute inset-0 opacity-[0.04]"
-         style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-2 text-sm mb-4" style="color: rgba(255,255,255,0.45);">
-            <a href="{{ route('home') }}" class="hover:text-white transition-colors">Home</a>
-            <i class="fas fa-chevron-right text-[0.6rem]"></i>
-            <span style="color: #B85C4A;">Portfolio</span>
-        </div>
-        <p class="text-xs font-semibold tracking-[0.18em] uppercase mb-3" style="color: #B85C4A;">Project Portfolio</p>
-        <h1 class="font-display text-4xl lg:text-6xl font-semibold text-white leading-tight"
-            style="font-family: 'Cormorant Garamond', serif;">
-            Karya Kami
-        </h1>
-        <p class="mt-4 text-base max-w-xl leading-relaxed" style="color: rgba(255,255,255,0.6);">
-            Setiap proyek adalah cerminan dari kolaborasi kami dengan klien — menciptakan ruang yang fungsional, estetis, dan penuh makna.
-        </p>
-    </div>
-</section>
+<x-subpage-hero
+    title="Karya Kami"
+    eyebrow="Project Portfolio"
+    description="Setiap proyek adalah cerminan dari kolaborasi kami dengan klien — menciptakan ruang yang fungsional, estetis, dan penuh makna."
+    :breadcrumbs="['Portfolio' => '']"
+    image-keyword="landed"
+/>
 
 {{-- ============================================================ --}}
 {{-- FILTER + PORTFOLIO GRID                                       --}}
