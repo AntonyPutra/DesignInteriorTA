@@ -10,52 +10,60 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
+        body { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; background-color: #f8f6f2; color: #24211d; }
+        .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
         [x-cloak] { display: none !important; }
         
         /* Custom scrollbar for sidebar */
         .sidebar-scroll::-webkit-scrollbar { width: 4px; }
         .sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
-        .sidebar-scroll::-webkit-scrollbar-thumb { background: #4B5563; border-radius: 4px; }
+        .sidebar-scroll::-webkit-scrollbar-thumb { background: #3d372e; border-radius: 4px; }
     </style>
     @stack('styles')
 </head>
-<body class="font-sans antialiased text-gray-900" x-data="{ sidebarOpen: false }">
+<body class="antialiased text-[#24211d] bg-[#f8f6f2]" x-data="{ sidebarOpen: false }">
     <div class="min-h-screen flex h-screen overflow-hidden">
         
         <!-- Sidebar Backdrop -->
         <div x-show="sidebarOpen" x-transition.opacity 
              @click="sidebarOpen = false"
-             class="fixed inset-0 z-20 bg-gray-900/50 lg:hidden" x-cloak></div>
+             class="fixed inset-0 z-20 bg-[#24211d]/60 backdrop-blur-sm lg:hidden" x-cloak></div>
 
         <!-- Sidebar -->
         <aside :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}"
-               class="fixed inset-y-0 left-0 z-30 w-64 bg-gray-900 text-white transition-transform duration-300 lg:static lg:translate-x-0 flex flex-col h-full shadow-xl">
+               class="fixed inset-y-0 left-0 z-30 w-64 bg-[#24211d] text-[#e8e4dc] transition-transform duration-300 lg:static lg:translate-x-0 flex flex-col h-full shadow-2xl border-r border-[#353029]">
             
             <!-- Sidebar Header -->
-            <div class="flex items-center justify-between h-16 px-6 bg-gray-950/50 border-b border-gray-800">
-                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 font-semibold text-lg tracking-wide">
-                    <div class="w-8 h-8 rounded bg-red-800 flex items-center justify-center text-white">
+            <div class="flex items-center justify-between h-20 px-6 bg-[#1e1b17] border-b border-[#353029]">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-[#b55b48] flex items-center justify-center text-white font-display text-2xl font-bold shadow-md shadow-[#b55b48]/30 group-hover:scale-105 transition-transform">
                         P
                     </div>
-                    <span>Pratama Admin</span>
+                    <div>
+                        <span class="font-display text-xl font-bold text-white tracking-wide block leading-tight">Pratama</span>
+                        <span class="text-[10px] tracking-[0.2em] uppercase font-sans text-[#b8b0a2] block">Interior Admin</span>
+                    </div>
                 </a>
-                <button @click="sidebarOpen = false" class="lg:hidden text-gray-400 hover:text-white">
-                    <i class="fas fa-times"></i>
+                <button @click="sidebarOpen = false" class="lg:hidden text-[#9e9689] hover:text-white p-1">
+                    <i class="fas fa-times text-lg"></i>
                 </button>
             </div>
 
             <!-- Sidebar Navigation -->
-            <nav class="flex-1 overflow-y-auto sidebar-scroll py-4 px-3 space-y-1">
+            <nav class="flex-1 overflow-y-auto sidebar-scroll py-6 px-3.5 space-y-1.5">
+                <div class="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8c8477]">
+                    Menu Utama
+                </div>
+
                 @php
                     $navItems = [
-                        ['Dashboard', 'admin.dashboard', 'fas fa-home'],
+                        ['Dashboard', 'admin.dashboard', 'fas fa-chart-pie'],
                         ['Layanan', 'admin.services.index', 'fas fa-layer-group'],
                         ['Portofolio', 'admin.portfolio.index', 'fas fa-images'],
                         ['Kategori Portofolio', 'admin.portfolio-categories.index', 'fas fa-folder-tree'],
@@ -67,28 +75,28 @@
 
                 @foreach($navItems as [$label, $route, $icon])
                 <a href="{{ route($route) }}" 
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors group {{ request()->routeIs($route . '*') ? 'bg-red-800/80 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }}">
-                    <i class="{{ $icon }} w-5 text-center {{ request()->routeIs($route . '*') ? 'text-white' : 'text-gray-400 group-hover:text-white' }}"></i>
-                    <span class="text-sm font-medium">{{ $label }}</span>
+                   class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all duration-200 group {{ request()->routeIs($route . '*') ? 'bg-[#b55b48] text-white shadow-md shadow-[#b55b48]/25 font-semibold' : 'text-[#c7bfb2] hover:bg-white/5 hover:text-white' }}">
+                    <i class="{{ $icon }} w-5 text-center text-sm {{ request()->routeIs($route . '*') ? 'text-white' : 'text-[#8c8477] group-hover:text-[#e8e4dc]' }}"></i>
+                    <span class="text-sm font-medium tracking-tight">{{ $label }}</span>
                 </a>
                 @endforeach
             </nav>
 
             <!-- User Area -->
-            <div class="p-4 border-t border-gray-800 bg-gray-950/30">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-9 h-9 rounded-full bg-gray-700 flex items-center justify-center text-sm font-bold">
+            <div class="p-4 border-t border-[#353029] bg-[#1a1815]">
+                <div class="flex items-center gap-3 mb-3.5 px-1">
+                    <div class="w-10 h-10 rounded-xl bg-[#353029] border border-[#484239] flex items-center justify-center text-sm font-bold text-[#e8e4dc]">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium truncate">{{ Auth::user()->name }}</p>
-                        <p class="text-xs text-gray-400 truncate">{{ Auth::user()->email }}</p>
+                        <p class="text-sm font-semibold text-white truncate">{{ Auth::user()->name }}</p>
+                        <p class="text-xs text-[#9e9689] truncate">{{ Auth::user()->email }}</p>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white transition-colors">
-                        <i class="fas fa-sign-out-alt w-5 text-center"></i>
+                    <button type="submit" class="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-[#b55b48] bg-[#b55b48]/10 hover:bg-[#b55b48] hover:text-white rounded-xl transition-all duration-200">
+                        <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </button>
                 </form>
@@ -96,21 +104,23 @@
         </aside>
 
         <!-- Main Content Wrapper -->
-        <div class="flex-1 flex flex-col min-w-0 bg-gray-50 h-full overflow-hidden">
+        <div class="flex-1 flex flex-col min-w-0 bg-[#f8f6f2] h-full overflow-hidden">
             
             <!-- Topbar -->
-            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6 z-10 shrink-0">
+            <header class="h-20 bg-white/90 backdrop-blur-md border-b border-[#e8e4dc] flex items-center justify-between px-6 sm:px-8 z-10 shrink-0">
                 <div class="flex items-center gap-4">
-                    <button @click="sidebarOpen = true" class="lg:hidden text-gray-500 hover:text-gray-700">
-                        <i class="fas fa-bars text-lg"></i>
+                    <button @click="sidebarOpen = true" class="lg:hidden text-[#564e42] hover:text-[#24211d] p-2 rounded-lg hover:bg-[#f2f0eb]">
+                        <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <h1 class="text-xl font-semibold text-gray-800 hidden sm:block">@yield('title')</h1>
+                    <div>
+                        <h1 class="font-display text-2xl sm:text-3xl font-bold text-[#24211d] leading-none">@yield('title')</h1>
+                    </div>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <a href="{{ route('home') }}" target="_blank" class="text-sm font-medium text-gray-500 hover:text-gray-900 flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-md transition-colors">
-                        <i class="fas fa-external-link-alt"></i>
-                        <span class="hidden sm:inline">Lihat Website</span>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('home') }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wide uppercase text-[#b55b48] bg-[#f5ecea] hover:bg-[#b55b48] hover:text-white border border-[#eed0cb] transition-all duration-200 shadow-sm">
+                        <span>Lihat Website</span>
+                        <i class="fas fa-external-link-alt text-[10px]"></i>
                     </a>
                 </div>
             </header>
@@ -119,22 +129,22 @@
             <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
                 <!-- Flash Messages -->
                 @if (session('success'))
-                    <div x-data="{ show: true }" x-show="show" x-transition class="mb-6 bg-green-50 border border-green-200 text-green-800 rounded-lg p-4 flex items-start gap-3">
-                        <i class="fas fa-check-circle text-green-600 mt-0.5"></i>
+                    <div x-data="{ show: true }" x-show="show" x-transition class="mb-6 bg-[#eef4ee] border border-[#cbe3cc] text-[#245427] rounded-2xl p-4 flex items-start gap-3 shadow-sm">
+                        <i class="fas fa-check-circle text-[#2e6930] mt-0.5 text-base"></i>
                         <div class="flex-1">
-                            <p class="text-sm font-medium">{{ session('success') }}</p>
+                            <p class="text-sm font-semibold">{{ session('success') }}</p>
                         </div>
-                        <button @click="show = false" class="text-green-600 hover:text-green-800"><i class="fas fa-times"></i></button>
+                        <button @click="show = false" class="text-[#2e6930] hover:text-[#18391a]"><i class="fas fa-times"></i></button>
                     </div>
                 @endif
                 
                 @if (session('error'))
-                    <div x-data="{ show: true }" x-show="show" x-transition class="mb-6 bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 flex items-start gap-3">
-                        <i class="fas fa-exclamation-circle text-red-600 mt-0.5"></i>
+                    <div x-data="{ show: true }" x-show="show" x-transition class="mb-6 bg-[#fbf0ee] border border-[#f3cec7] text-[#9c3623] rounded-2xl p-4 flex items-start gap-3 shadow-sm">
+                        <i class="fas fa-exclamation-circle text-[#b55b48] mt-0.5 text-base"></i>
                         <div class="flex-1">
-                            <p class="text-sm font-medium">{{ session('error') }}</p>
+                            <p class="text-sm font-semibold">{{ session('error') }}</p>
                         </div>
-                        <button @click="show = false" class="text-red-600 hover:text-red-800"><i class="fas fa-times"></i></button>
+                        <button @click="show = false" class="text-[#b55b48] hover:text-[#782819]"><i class="fas fa-times"></i></button>
                     </div>
                 @endif
 

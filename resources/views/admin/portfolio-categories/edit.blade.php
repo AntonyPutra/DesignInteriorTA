@@ -5,17 +5,17 @@
 @section('content')
 <div class="mb-6 flex items-center justify-between">
     <div class="flex items-center gap-3">
-        <a href="{{ route('admin.portfolio-categories.index') }}" class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white border border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
-            <i class="fas fa-arrow-left"></i>
+        <a href="{{ route('admin.portfolio-categories.index') }}" class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white border border-[#e8e4dc] text-[#564e42] hover:text-[#24211d] hover:bg-[#f2f0eb] transition-all shadow-xs">
+            <i class="fas fa-arrow-left text-xs"></i>
         </a>
         <div>
-            <h2 class="text-xl font-bold text-gray-800">Edit Kategori</h2>
-            <p class="text-sm text-gray-500">Perbarui data kategori: {{ $portfolioCategory->name }}</p>
+            <h2 class="font-display text-2xl font-bold text-[#24211d]">Edit Kategori: {{ $portfolioCategory->name }}</h2>
+            <p class="text-xs text-[#777166]">Perbarui nama kategori, deskripsi, atau status ketersediaan.</p>
         </div>
     </div>
 </div>
 
-<div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden max-w-2xl">
+<div class="bg-white rounded-3xl shadow-sm border border-[#e8e4dc] overflow-hidden max-w-2xl">
     <form action="{{ route('admin.portfolio-categories.update', $portfolioCategory) }}" method="POST" class="p-6 sm:p-8">
         @csrf
         @method('PUT')
@@ -23,51 +23,51 @@
         <div class="space-y-6">
             {{-- Name --}}
             <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
-                    Nama Kategori <span class="text-red-500">*</span>
+                <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-[#564e42] mb-1.5">
+                    Nama Kategori <span class="text-[#b55b48]">*</span>
                 </label>
                 <input type="text" id="name" name="name" value="{{ old('name', $portfolioCategory->name) }}" required
-                       class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('name') border-red-500 @enderror">
+                       class="w-full rounded-xl border-[#d8d2c6] shadow-2xs focus:border-[#b55b48] focus:ring-[#b55b48]/20 text-[#24211d] @error('name') border-[#b55b48] @enderror">
                 @error('name')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    <p class="mt-1 text-xs text-[#b55b48] font-medium">{{ $message }}</p>
                 @enderror
-                <p class="mt-1 text-xs text-gray-500">Slug: <span class="font-mono text-gray-700">{{ $portfolioCategory->slug }}</span></p>
+                <p class="mt-1.5 text-[11px] text-[#8c8477]">Slug saat ini: <code class="bg-[#f2f0eb] text-[#24211d] px-1.5 py-0.5 rounded">{{ $portfolioCategory->slug }}</code></p>
             </div>
 
             {{-- Description --}}
             <div>
-                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">
-                    Deskripsi Kategori
+                <label for="description" class="block text-xs font-semibold uppercase tracking-wider text-[#564e42] mb-1.5">
+                    Deskripsi Kategori (Opsional)
                 </label>
                 <textarea id="description" name="description" rows="3"
-                          class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('description') border-red-500 @enderror">{{ old('description', $portfolioCategory->description) }}</textarea>
+                          class="w-full rounded-xl border-[#d8d2c6] shadow-2xs focus:border-[#b55b48] focus:ring-[#b55b48]/20 text-[#24211d] @error('description') border-[#b55b48] @enderror">{{ old('description', $portfolioCategory->description) }}</textarea>
                 @error('description')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    <p class="mt-1 text-xs text-[#b55b48] font-medium">{{ $message }}</p>
                 @enderror
             </div>
 
             {{-- Status --}}
             <div>
-                <label for="status" class="block text-sm font-medium text-gray-700 mb-1">
-                    Status <span class="text-red-500">*</span>
+                <label for="status" class="block text-xs font-semibold uppercase tracking-wider text-[#564e42] mb-1.5">
+                    Status <span class="text-[#b55b48]">*</span>
                 </label>
                 <select id="status" name="status" required
-                        class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500 @error('status') border-red-500 @enderror">
-                    <option value="active" {{ old('status', $portfolioCategory->status) === 'active' ? 'selected' : '' }}>Aktif (Dapat dipilih di portofolio)</option>
-                    <option value="inactive" {{ old('status', $portfolioCategory->status) === 'inactive' ? 'selected' : '' }}>Nonaktif</option>
+                        class="w-full rounded-xl border-[#d8d2c6] shadow-2xs focus:border-[#b55b48] focus:ring-[#b55b48]/20 text-[#24211d] @error('status') border-[#b55b48] @enderror">
+                    <option value="active" {{ old('status', $portfolioCategory->status) === 'active' ? 'selected' : '' }}>Aktif (Dapat dipilih pada portofolio)</option>
+                    <option value="inactive" {{ old('status', $portfolioCategory->status) === 'inactive' ? 'selected' : '' }}>Nonaktif (Sembunyikan)</option>
                 </select>
                 @error('status')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    <p class="mt-1 text-xs text-[#b55b48] font-medium">{{ $message }}</p>
                 @enderror
             </div>
         </div>
 
-        <div class="mt-8 pt-6 border-t border-gray-200 flex items-center justify-end gap-3">
-            <a href="{{ route('admin.portfolio-categories.index') }}" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-lg transition-colors">
+        <div class="mt-8 pt-6 border-t border-[#f0ece4] flex items-center justify-end gap-3">
+            <a href="{{ route('admin.portfolio-categories.index') }}" class="px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-[#564e42] bg-[#f2f0eb] hover:bg-[#e8e4dc] border border-[#d8d2c6] rounded-xl transition-all">
                 Batal
             </a>
-            <button type="submit" class="px-5 py-2 bg-red-800 hover:bg-red-900 text-white text-sm font-medium rounded-lg transition-colors shadow-sm flex items-center gap-2">
-                <i class="fas fa-save text-xs"></i>
+            <button type="submit" class="px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#b55b48] hover:bg-[#9c4c3b] rounded-xl shadow-md shadow-[#b55b48]/25 transition-all flex items-center gap-2">
+                <i class="fas fa-save text-[11px]"></i>
                 Perbarui Kategori
             </button>
         </div>
