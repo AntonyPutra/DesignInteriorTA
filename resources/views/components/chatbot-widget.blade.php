@@ -3,8 +3,16 @@
         messages: [{ role: 'ai', text: 'Halo! Saya Prama, asisten virtual Pratama Design. Ada yang bisa saya bantu terkait layanan desain interior kami?' }],
         userInput: '',
         isLoading: false,
+        resize(e) {
+            e.target.style.height = 'auto';
+            e.target.style.height = e.target.scrollHeight + 'px';
+        },
         async sendMessage() {
             if (this.userInput.trim() === '') return;
+            
+            if(this.$refs.messageInput) {
+                this.$refs.messageInput.style.height = 'auto';
+            }
             
             const message = this.userInput;
             this.messages.push({ role: 'user', text: message });
@@ -103,12 +111,15 @@
 
         <!-- Input Area -->
         <div class="p-3 bg-white border-t border-gray-200">
-            <form @submit.prevent="sendMessage" class="flex items-center gap-2">
-                <input type="text" x-model="userInput" placeholder="Tanyakan sesuatu..." 
-                    class="flex-1 text-sm border-gray-300 rounded-full px-4 py-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-gray-100 placeholder-gray-500" 
-                    :disabled="isLoading">
+            <form @submit.prevent="sendMessage" class="flex items-end gap-2">
+                <textarea x-ref="messageInput" x-model="userInput" placeholder="Tanyakan sesuatu..." 
+                    @input="resize"
+                    @keydown.enter.prevent="if(!$event.shiftKey && userInput.trim() !== '') { sendMessage() }"
+                    rows="1"
+                    class="flex-1 text-sm border-gray-300 rounded-2xl px-4 py-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-gray-100 placeholder-gray-500 resize-none overflow-y-auto min-h-[40px] max-h-[120px]" 
+                    :disabled="isLoading"></textarea>
                 <button type="submit" :disabled="isLoading || userInput.trim() === ''"
-                    class="bg-blue-600 text-white rounded-full p-2 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    class="bg-blue-600 text-white rounded-full p-2 mb-0.5 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-90" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                     </svg>
