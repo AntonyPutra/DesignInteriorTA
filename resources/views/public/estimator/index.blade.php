@@ -222,7 +222,16 @@
                         </div>
 
                         {{-- Action Button --}}
-                        <div class="space-y-2 pt-2">
+                        <div class="space-y-2.5 pt-2">
+                            {{-- Tombol Bagikan dengan URL Acak Unik --}}
+                            <button type="button" onclick="shareEstimate()"
+                                    class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:bg-[#FEF6F4] border"
+                                    style="border-color: #B85C4A; color: #B85C4A;"
+                                    title="Dapatkan link acak unik untuk dibagikan">
+                                <i class="fas fa-share-alt"></i>
+                                <span id="btn-share-text">Bagikan Link Hasil Estimasi</span>
+                            </button>
+
                             <a href="{{ route('consultation.create') }}"
                                class="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white transition-all duration-200 hover:opacity-95 shadow-md"
                                style="background-color: #B85C4A;">
@@ -373,6 +382,42 @@
         content.style.display     = '';
     }
 
+    // Function to generate random shareable URL and copy to clipboard
+    function shareEstimate() {
+        const serviceEl = document.getElementById('est_service_type');
+        const areaEl    = document.getElementById('est_area');
+        const qualityEl = document.querySelector('input[name="est_quality"]:checked');
+
+        const service = serviceEl.value;
+        const area    = areaEl.value;
+        const quality = qualityEl ? qualityEl.value : 'standard';
+
+        if (!service || !area) {
+            alert('Silakan pilih jenis layanan dan isi luas area terlebih dahulu untuk membagikan estimasi.');
+            return;
+        }
+
+        // Buat kode referensi acak unik (contoh: EST-9K7F2P)
+        const randomRef = 'EST-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+        
+        const shareUrl = `${window.location.origin}${window.location.pathname}?ref=${randomRef}&service=${encodeURIComponent(service)}&area=${encodeURIComponent(area)}&quality=${encodeURIComponent(quality)}`;
+
+        navigator.clipboard.writeText(shareUrl).then(() => {
+            const btnText = document.getElementById('btn-share-text');
+            const originalText = btnText.textContent;
+            btnText.textContent = `✓ Link #${randomRef} Berhasil Disalin!`;
+            
+            // Perbarui URL browser tanpa reload
+            window.history.replaceState({}, '', shareUrl);
+
+            setTimeout(() => {
+                btnText.textContent = originalText;
+            }, 3000);
+        }).catch(() => {
+            prompt('Salin link hasil estimasi unik ini:', shareUrl);
+        });
+    }
+
     // Quality radio card styling
     document.querySelectorAll('input[name="est_quality"]').forEach(radio => {
         radio.addEventListener('change', () => {
@@ -386,6 +431,30 @@
                 }
             });
         });
+    });
+
+    // Otomatis isi form jika URL memiliki parameter acak unik (?ref=EST-XXXX)
+    window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('service')) {
+            const serviceEl = document.getElementById('est_service_type');
+            if (serviceEl) serviceEl.value = params.get('service');
+        }
+        if (params.has('area')) {
+            const areaEl = document.getElementById('est_area');
+            if (areaEl) areaEl.value = params.get('area');
+        }
+        if (params.has('quality')) {
+            const qualityVal = params.get('quality');
+            const radio = document.querySelector(`input[name="est_quality"][value="${qualityVal}"]`);
+            if (radio) {
+                radio.checked = true;
+                radio.dispatchEvent(new Event('change'));
+            }
+        }
+        if (params.has('service') && params.has('area')) {
+            calculate();
+        }
     });
 </script>
 @endsection

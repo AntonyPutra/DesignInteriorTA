@@ -28,17 +28,24 @@ class Portfolio extends Model
         'status',
     ];
 
+    /**
+     * Otomatis sertakan atribut ini ke JSON / API.
+     */
+    protected $appends = [
+        'image_url',
+    ];
+
     protected static function booted(): void
     {
         static::creating(function (Portfolio $portfolio) {
             if (empty($portfolio->slug)) {
-                $portfolio->slug = Str::slug($portfolio->title);
+                $portfolio->slug = Str::slug($portfolio->title) . '-' . rand(1000, 9999);
             }
         });
 
         static::updating(function (Portfolio $portfolio) {
             if ($portfolio->isDirty('title') && !$portfolio->isDirty('slug')) {
-                $portfolio->slug = Str::slug($portfolio->title);
+                $portfolio->slug = Str::slug($portfolio->title) . '-' . rand(1000, 9999);
             }
         });
     }
@@ -72,8 +79,18 @@ class Portfolio extends Model
      */
     public function getImageUrlAttribute(): string
     {
-        if ($this->main_image && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->main_image)) {
-            return \Illuminate\Support\Facades\Storage::url($this->main_image);
+        if ($this->main_image) {
+            if (str_starts_with($this->main_image, 'http://') || str_starts_with($this->main_image, 'https://')) {
+                return $this->main_image;
+            }
+
+            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($this->main_image)) {
+                return asset('storage/' . ltrim($this->main_image, '/'));
+            }
+
+            if (file_exists(public_path($this->main_image))) {
+                return asset($this->main_image);
+            }
         }
 
         $fallbacks = [

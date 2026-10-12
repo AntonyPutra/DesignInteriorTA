@@ -25,6 +25,21 @@ class Consultation extends Model
     ];
 
     /**
+     * Otomatis sertakan kode tiket unik acak ke JSON / API.
+     */
+    protected $appends = [
+        'ticket_code',
+    ];
+
+    /**
+     * Kode unik tiket konsultasi acak anti-intip (contoh: PRT-8A2F9C).
+     */
+    public function getTicketCodeAttribute(): string
+    {
+        return 'PRT-' . strtoupper(substr(md5($this->id . 'pratama_salt_2026'), 0, 6));
+    }
+
+    /**
      * Status badge color helper.
      */
     public function statusBadgeClass(): string

@@ -45,7 +45,7 @@ class ConsultationController extends Controller
             $filePath = $request->file('reference_file')->store('consultations/references', 'public');
         }
 
-        Consultation::create([
+        $consultation = Consultation::create([
             'name'             => $validated['name'],
             'whatsapp'         => $validated['whatsapp'],
             'email'            => $validated['email'] ?? null,
@@ -61,6 +61,6 @@ class ConsultationController extends Controller
         ]);
 
         return redirect()->route('consultation.create')
-            ->with('success', 'Terima kasih! Form konsultasi Anda telah terkirim. Tim kami akan menghubungi Anda dalam 1x24 jam.');
+            ->with('success', "Terima kasih! Form konsultasi berhasil dikirim. Nomor Referensi Tiket Anda: #{$consultation->ticket_code}. Tim kami akan menghubungi Anda segera.");
     }
 }

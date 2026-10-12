@@ -41,6 +41,8 @@ class PortfolioSeeder extends Seeder
                 'design_style' => 'Modern Minimalist',
                 'year'         => 2023,
                 'description'  => 'Proyek kitchen set modern minimalist dengan material HPL premium dan finishing duco putih. Desain mengutamakan efisiensi ruang dan kemudahan akses untuk kegiatan memasak sehari-hari.',
+                'main_image'   => 'assets/images/p-landed-03.jpg',
+                'gallery'      => ['assets/images/p-landed-04.jpg', 'assets/images/p-landed-05.jpg'],
             ],
             [
                 'category'     => 'Landed House',
@@ -52,6 +54,8 @@ class PortfolioSeeder extends Seeder
                 'design_style' => 'Modern Luxury',
                 'year'         => 2023,
                 'description'  => 'Desain kamar tidur utama dengan nuansa mewah dan elegan. Menggunakan material premium seperti wallpaper tekstur, headboard custom, dan pencahayaan ambient yang hangat.',
+                'main_image'   => 'assets/images/p-landed-02.jpg',
+                'gallery'      => ['assets/images/p-landed-01.jpg'],
             ],
             [
                 'category'     => 'Landed House',
@@ -63,6 +67,8 @@ class PortfolioSeeder extends Seeder
                 'design_style' => 'Modern Contemporary',
                 'year'         => 2022,
                 'description'  => 'Proyek full house renovation mencakup seluruh ruangan rumah 2 lantai. Desain kontemporer dengan sentuhan warna earth tone yang hangat dan fungsional untuk keluarga.',
+                'main_image'   => 'assets/images/p-landed-01.jpg',
+                'gallery'      => ['assets/images/p-landed-02.jpg', 'assets/images/p-landed-03.jpg'],
             ],
             [
                 'category'     => 'Apartment',
@@ -74,6 +80,8 @@ class PortfolioSeeder extends Seeder
                 'design_style' => 'Japandi',
                 'year'         => 2023,
                 'description'  => 'Desain studio apartment dengan konsep Japandi — perpaduan Jepang dan Skandinavia. Mengutamakan kesederhanaan, material alami (kayu, rotan), dan ketenangan visual.',
+                'main_image'   => 'assets/images/p-apartment-01.jpg',
+                'gallery'      => ['assets/images/p-apartment-02.jpg', 'assets/images/p-apartment-03.jpg'],
             ],
             [
                 'category'     => 'F&B',
@@ -85,6 +93,8 @@ class PortfolioSeeder extends Seeder
                 'design_style' => 'Modern Industrial',
                 'year'         => 2022,
                 'description'  => 'Desain coffee shop dengan tema industrial modern. Kombinasi exposed bricks, besi hitam, dan kayu reclaimed menciptakan suasana yang cozy namun tetap stylish untuk pelanggan.',
+                'main_image'   => 'assets/images/p-fnb-01.jpg',
+                'gallery'      => ['assets/images/p-fnb-02.jpg', 'assets/images/p-fnb-03.jpg'],
             ],
             [
                 'category'     => 'Office',
@@ -96,11 +106,26 @@ class PortfolioSeeder extends Seeder
                 'design_style' => 'Modern Professional',
                 'year'         => 2023,
                 'description'  => 'Desain interior kantor modern yang mendorong produktivitas dan kolaborasi tim. Layout open plan dengan area meeting room, pantry, dan workstation yang ergonomis.',
+                'main_image'   => 'assets/images/p-office-01.jpg',
+                'gallery'      => ['assets/images/p-office-02.jpg', 'assets/images/p-office-03.jpg'],
+            ],
+            [
+                'category'     => 'Booth',
+                'title'        => 'Exhibition Booth ICE BSD',
+                'client_name'  => 'Brand Partner',
+                'location'     => 'ICE BSD, Tangerang',
+                'project_type' => 'Exhibition Booth',
+                'room_type'    => 'Commercial Booth',
+                'design_style' => 'Modern Contemporary',
+                'year'         => 2023,
+                'description'  => 'Desain dan fabrikasi custom booth pameran dengan pencahayaan LED accent dan display produk interaktif.',
+                'main_image'   => 'assets/images/p-booth-01.jpg',
+                'gallery'      => ['assets/images/p-booth-02.jpg'],
             ],
         ];
 
         foreach ($portfolios as $p) {
-            Portfolio::updateOrCreate(
+            $portfolio = Portfolio::updateOrCreate(
                 ['slug' => Str::slug($p['title'])],
                 [
                     'portfolio_category_id' => $categoryMap[$p['category']],
@@ -113,10 +138,20 @@ class PortfolioSeeder extends Seeder
                     'design_style'          => $p['design_style'],
                     'description'           => $p['description'],
                     'year'                  => $p['year'],
-                    'main_image'            => null,
+                    'main_image'            => $p['main_image'],
                     'status'                => 'published',
                 ]
             );
+
+            // Seed galeri gambar jika belum ada
+            if (!empty($p['gallery'])) {
+                foreach ($p['gallery'] as $galleryImg) {
+                    \App\Models\PortfolioImage::firstOrCreate([
+                        'portfolio_id' => $portfolio->id,
+                        'image'        => $galleryImg,
+                    ]);
+                }
+            }
         }
     }
 }

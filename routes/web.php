@@ -78,11 +78,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified'])->group(
     Route::resource('portfolio-categories', AdminPortfolioCategoryController::class)
         ->except(['show'])
         ->names([
-            'index'   => 'portfolio-categories.index',
-            'create'  => 'portfolio-categories.create',
-            'store'   => 'portfolio-categories.store',
-            'edit'    => 'portfolio-categories.edit',
-            'update'  => 'portfolio-categories.update',
+            'index' => 'portfolio-categories.index',
+            'create' => 'portfolio-categories.create',
+            'store' => 'portfolio-categories.store',
+            'edit' => 'portfolio-categories.edit',
+            'update' => 'portfolio-categories.update',
             'destroy' => 'portfolio-categories.destroy',
         ]);
 

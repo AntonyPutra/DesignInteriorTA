@@ -31,8 +31,11 @@ class PortfolioController extends Controller
     public function show(string $slug)
     {
         $portfolio = Portfolio::with(['category', 'images'])
-            ->where('slug', $slug)
             ->where('status', 'published')
+            ->where(function ($q) use ($slug) {
+                $q->where('slug', $slug)
+                  ->orWhere('slug', 'like', $slug . '-%');
+            })
             ->firstOrFail();
 
         // Portofolio terkait (sama kategori, beda slug)
