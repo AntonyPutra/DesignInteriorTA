@@ -13,7 +13,8 @@
 
   let ticking = false;
 
-  const aboutSection = document.querySelector('#about');
+  const introSection = document.querySelector('#introduction');
+  const tocSection = document.querySelector('#toc');
   const desktopNavLinks = document.querySelectorAll('.desktop-nav a');
   const sections = Array.from(desktopNavLinks).map(link => {
     const targetId = link.getAttribute('href');
@@ -31,8 +32,10 @@
     if (!siteHeader) return;
 
     const currentScrollY = window.scrollY;
-    const aboutOffset = aboutSection ? aboutSection.offsetTop : window.innerHeight;
-    const threshold = aboutOffset - 80; // Triggers slightly before the About section starts
+    // Navbar only appears once user reaches Table of Contents (#toc)
+    const triggerSection = tocSection || introSection;
+    const triggerOffset = triggerSection ? triggerSection.offsetTop : window.innerHeight * 2;
+    const threshold = triggerOffset - 80;
 
     if (currentScrollY >= threshold) {
       siteHeader.classList.add('is-visible');
@@ -75,11 +78,10 @@
     if (event.key === 'Escape') setMenu(false);
   });
 
-  const filterButtons = document.querySelectorAll('.filter-button');
-  const projects     = document.querySelectorAll('.project-card');
-  const STAGGER      = 60; // ms delay between each card
-
-  /* ── Timer registry — cancel old timers before starting new animation ── */
+  /* ── Portfolio cards: staggered entrance when grid scrolls into view ── */
+  const projects     = Array.from(document.querySelectorAll('.project-card'));
+  const STAGGER      = 80; // ms delay between each card
+  let portfolioTriggered = false;
   let pendingTimers = [];
 
   const clearPendingTimers = () => {
@@ -87,92 +89,35 @@
     pendingTimers = [];
   };
 
-  /* ── Staggered entrance for a set of cards ── */
   const animateCardsIn = (cards) => {
     clearPendingTimers();
     cards.forEach((card, i) => {
-      // Reset to invisible start state
       card.classList.remove('card-visible', 'card-exit');
-      void card.offsetWidth; // force reflow so CSS transition fires fresh
-      const id = setTimeout(() => {
-        card.classList.add('card-visible');
-      }, i * STAGGER);
+      void card.offsetWidth; // force reflow
+      const id = setTimeout(() => card.classList.add('card-visible'), i * STAGGER);
       pendingTimers.push(id);
     });
   };
 
-  /* ── Fast staggered exit, then call done() ── */
-  const animateCardsOut = (cards, done) => {
-    clearPendingTimers();
-    if (!cards.length) { done(); return; }
-    cards.forEach((card) => {
-      card.classList.remove('card-visible');
-      card.classList.add('card-exit');
-    });
-    const id = setTimeout(done, 280);
-    pendingTimers.push(id);
-  };
-
-  /* ── Filter button handler ── */
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const filter = button.dataset.filter;
-      filterButtons.forEach((item) => item.classList.toggle('active', item === button));
-
-      const toShow = [];
-      const toHide = [];
-
-      projects.forEach((project) => {
-        const match = filter === 'all' || project.dataset.category === filter;
-        if (match) {
-          toShow.push(project);
-        } else {
-          toHide.push(project);
-        }
-      });
-
-      // 1. Exit currently-visible cards that don't belong to new filter
-      animateCardsOut(toHide, () => {
-        // 2. Hide exited cards, reset incoming cards to invisible state
-        toHide.forEach((card) => {
-          card.classList.add('is-hidden');
-          card.classList.remove('card-exit');
-        });
-        toShow.forEach((card) => {
-          card.classList.remove('is-hidden');
-          card.classList.remove('card-visible', 'card-exit');
-          void card.offsetWidth; // force layout before transition
-        });
-        // 3. Stagger-in the new cards
-        animateCardsIn(toShow);
-      });
-    });
-  });
-
   /* ── Page-load: staggered entrance when grid scrolls into view ── */
   const portfolioGrid = document.querySelector('#portfolioGrid');
-
-  const triggerPortfolioEntrance = () => {
-    const visibleCards = Array.from(projects).filter(
-      (c) => !c.classList.contains('is-hidden')
-    );
-    animateCardsIn(visibleCards);
-  };
 
   if (portfolioGrid && 'IntersectionObserver' in window) {
     const gridObserver = new IntersectionObserver((entries, obs) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          triggerPortfolioEntrance();
+        if (entry.isIntersecting && !portfolioTriggered) {
+          portfolioTriggered = true;
+          animateCardsIn(projects);
           obs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
     gridObserver.observe(portfolioGrid);
   } else {
     projects.forEach((c) => c.classList.add('card-visible'));
   }
+
 
   const revealItems = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
@@ -189,6 +134,8 @@
   } else {
     revealItems.forEach((item) => item.classList.add('is-visible'));
   }
+
+  /* Introduction and TOC scroll animations are handled dynamically in onScroll via applySectionScrollTransition */
 
   /* ── Contact Modal & Form Handling ── */
   const contactModal = document.querySelector('#contactModal');
@@ -356,9 +303,107 @@
     });
   }
 
+  /* ── Hero Scroll Fade-Out Transition ── */
+  const heroContentWrapper = hero?.querySelector('.hero-content-wrapper');
+  const heroImageOverlay = hero?.querySelector('.hero-image-overlay');
+  const heroImageEl = hero?.querySelector('.hero-image > img');
+
+  const updateHeroScrollEffects = () => {
+    if (!hero) return;
+    const scrollY = window.scrollY;
+
+    if (scrollY <= 0) {
+      if (heroContentWrapper) {
+        heroContentWrapper.style.opacity = '';
+        heroContentWrapper.style.transform = '';
+      }
+      if (heroImageOverlay) {
+        heroImageOverlay.style.opacity = '';
+        heroImageOverlay.style.transform = '';
+      }
+      if (heroImageEl) {
+        heroImageEl.style.opacity = '';
+        heroImageEl.style.transform = '';
+      }
+      return;
+    }
+
+    const heroHeight = hero.offsetHeight || window.innerHeight;
+    // Fade out smoothly across the first 60% of the hero scroll
+    const fadeDistance = heroHeight * 0.6;
+    const progress = Math.min(Math.max(scrollY / fadeDistance, 0), 1);
+
+    const opacity = (1 - progress).toFixed(3);
+    const translateY = (-(progress * 35)).toFixed(1);
+
+    if (heroContentWrapper) {
+      heroContentWrapper.style.opacity = opacity;
+      heroContentWrapper.style.transform = `translateY(${translateY}px)`;
+    }
+    if (heroImageOverlay) {
+      heroImageOverlay.style.opacity = opacity;
+      heroImageOverlay.style.transform = `translateY(${translateY}px)`;
+    }
+    if (heroImageEl) {
+      heroImageEl.style.opacity = opacity;
+      heroImageEl.style.transform = `scale(${(1 + progress * 0.05).toFixed(3)}) translateY(${translateY}px)`;
+    }
+  };
+
+  /* ── Section Scroll Transitions (Fade-In on Approach, Fade-Out on Scroll Down) ── */
+  const introBar = introSection?.querySelector('.intro-bar');
+  const introPhoto = introSection?.querySelector('.intro-photo');
+  const introElements = [introBar, introPhoto].filter(Boolean);
+
+  const tocHeader = tocSection?.querySelector('.toc-header');
+  const tocBody = tocSection?.querySelector('.toc-body');
+  const tocElements = [tocHeader, tocBody].filter(Boolean);
+
+  const applySectionScrollTransition = (sectionEl, elements) => {
+    if (!sectionEl || !elements || !elements.length) return;
+    const rect = sectionEl.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const height = rect.height || vh;
+
+    // 1. Entering from bottom (Fade IN)
+    const enterRange = vh * 0.7;
+    const enterProgress = Math.min(Math.max((vh - rect.top) / enterRange, 0), 1);
+
+    // 2. Leaving out top (Fade OUT when scrolling further down past section)
+    const exitRange = Math.max(height * 0.55, vh * 0.55);
+    const exitProgress = rect.top < 0 ? Math.min(Math.max((-rect.top) / exitRange, 0), 1) : 0;
+
+    elements.forEach((el, index) => {
+      if (!el) return;
+      const stagger = index * 0.08;
+
+      let elIn = Math.min(Math.max((enterProgress - stagger) / (1 - stagger || 1), 0), 1);
+      let elOut = Math.min(Math.max((exitProgress - stagger * 0.4) / (1 - stagger * 0.4 || 1), 0), 1);
+
+      let opacity = 1;
+      let translateY = 0;
+
+      if (elOut > 0) {
+        // Fading OUT upwards as user scrolls down past section
+        opacity = 1 - elOut;
+        translateY = -(elOut * 32);
+      } else {
+        // Fading IN upwards as user scrolls into section
+        opacity = elIn;
+        translateY = (1 - elIn) * 32;
+      }
+
+      el.style.opacity = Math.max(0, Math.min(1, opacity)).toFixed(3);
+      el.style.transform = `translateY(${translateY.toFixed(1)}px)`;
+    });
+  };
+
   const onScroll = () => {
     handleScroll();
     syncBackToTop();
+    updateHeroScrollEffects();
+    applySectionScrollTransition(introSection, introElements);
+    applySectionScrollTransition(tocSection, tocElements);
   };
 
   onScroll();

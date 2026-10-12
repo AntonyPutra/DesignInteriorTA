@@ -91,35 +91,129 @@
 
   <main>
     {{-- ============================================================ --}}
-    {{-- 1. HERO SECTION (Split Screen)                                --}}
+    {{-- HERO SECTION — Split Screen                                   --}}
     {{-- ============================================================ --}}
     <section class="hero" id="home" aria-labelledby="hero-title">
+
+      {{-- LEFT PANEL: olive background --}}
       <div class="hero-copy">
-        <div class="hero-kicker">PT Pratama Berkah Utama <span>2026</span></div>
-        <div class="hero-main-copy">
-          <p class="eyebrow">Company Profile</p>
-          <h1 id="hero-title"><span>Pratama Design</span> Studio</h1>
-          <p class="hero-subtitle">Interior &amp; exterior design and build, established in Jakarta in 2021.</p>
-          <div class="hero-actions">
-            <a class="btn btn-cta btn-primary" href="#portfolio">
-              <span>Explore Projects</span>
-              <span class="btn-icon" aria-hidden="true">↗</span>
-            </a>
-            <a class="btn btn-cta btn-secondary trigger-contact-modal" href="#contact">
-              <span>Start a Project</span>
-              <span class="btn-icon" aria-hidden="true">→</span>
-            </a>
+        <div class="hero-content-wrapper">
+          
+          <div class="hero-header">
+            <img class="hero-mark" src="{{ asset('assets/images/logo-mark.png') }}" alt="Pratamaid geometric mark" />
+          </div>
+
+          <div class="hero-main-copy">
+            <p class="hero-eyebrow">PT Pratama Berkah Utama</p>
+            <h1 id="hero-title">Pratama<br><span>Design Studio</span></h1>
+            <p class="hero-desc">Elevating spaces through harmonious blend of function and aesthetic interior design.</p>
+          </div>
+
+          <div class="hero-footer">
+            <span>Company Profile</span>
+            <span>Est. 2021</span>
+            <span>pratamaid.</span>
+          </div>
+
+        </div>
+      </div>
+
+      {{-- RIGHT PANEL: interior photo + Contractor overlay --}}
+      <div class="hero-image">
+        <img src="{{ asset('assets/images/cover-armchair.jpg') }}?v={{ filemtime(public_path('assets/images/cover-armchair.jpg')) }}" alt="Elegant armchair interior by Pratama Contractor" />
+        <div class="hero-image-overlay">
+          <div class="hero-image-overlay-inner">
+            <span>Pratama</span>
+            <strong>Contractor</strong>
           </div>
         </div>
-        <img class="hero-mark" src="{{ asset('assets/images/logo-mark.png') }}" alt="Pratamaid geometric mark" />
       </div>
-      <div class="hero-image">
-        <img src="{{ asset('assets/images/hero-living.jpg') }}" alt="Warm contemporary living room interior" />
-        <div class="hero-image-overlay">
-          <span>Pratama</span>
-          <strong>Contractor</strong>
+
+    </section>
+
+    {{-- ============================================================ --}}
+    {{-- INTRODUCTION SECTION (Between Hero & About)                  --}}
+    {{-- ============================================================ --}}
+    <section class="intro-section" id="introduction" aria-labelledby="intro-title">
+
+      {{-- Top bar: olive background, two-level layout --}}
+      <div class="intro-bar intro-fade-in">
+        {{-- Row 1: brand left, year right --}}
+        <div class="intro-bar-top">
+          <span class="intro-bar-brand">pratamaid.</span>
+          <span class="intro-bar-year">2026</span>
         </div>
-        <p class="hero-vertical">Design / Build / Renovation</p>
+        {{-- Row 2: large heading left, description right --}}
+        <div class="intro-bar-main">
+          <h2 class="intro-bar-heading" id="intro-title">Introduction</h2>
+          <p class="intro-bar-desc">pratamaid. is an interior &amp; exterior design &amp; build<br>established in 2021 in Jakarta, Indonesia.</p>
+        </div>
+      </div>
+
+      {{-- Full-width interior photo --}}
+      <div class="intro-photo intro-fade-in">
+        <img src="{{ asset('assets/images/hero-living.jpg') }}?v={{ filemtime(public_path('assets/images/hero-living.jpg')) }}" alt="Pratamaid interior design showcase — living space" loading="lazy" />
+      </div>
+
+    </section>
+
+    {{-- ============================================================ --}}
+    {{-- TABLE OF CONTENTS SECTION                                     --}}
+    {{-- ============================================================ --}}
+    <section class="toc-section" id="toc" aria-labelledby="toc-title">
+
+      {{-- Top: cream background, brand/year meta + large heading --}}
+      <div class="toc-header">
+        <div class="toc-header-meta">
+          <span class="toc-meta-brand">pratamaid</span>
+          <span class="toc-meta-year">2026</span>
+        </div>
+        <h2 class="toc-heading" id="toc-title">Table Of Contents</h2>
+      </div>
+
+      {{-- Body: photo left + TOC list right --}}
+      <div class="toc-body">
+
+        {{-- Left: interior bedroom photo (full, no crop) --}}
+        <div class="toc-photo">
+          <img src="{{ asset('assets/images/toc-bedroom.jpg') }}?v={{ file_exists(public_path('assets/images/toc-bedroom.jpg')) ? filemtime(public_path('assets/images/toc-bedroom.jpg')) : time() }}" alt="Interior bedroom — Pratamaid Design Studio" loading="lazy" />
+        </div>
+
+        {{-- Right: list of sections + closing desc --}}
+        <div class="toc-content">
+          <nav class="toc-list" aria-label="Table of contents">
+            <a class="toc-item" href="#about">
+              <span class="toc-item-name">About Us</span>
+              <span class="toc-item-num">01</span>
+            </a>
+            <a class="toc-item" href="#services">
+              <span class="toc-item-name">What we do</span>
+              <span class="toc-item-num">02</span>
+            </a>
+            <a class="toc-item" href="#portfolio">
+              <span class="toc-item-name">Project portfolio</span>
+              <span class="toc-item-num">03–08</span>
+            </a>
+            <a class="toc-item" href="#process">
+              <span class="toc-item-name">How we work</span>
+              <span class="toc-item-num">09</span>
+            </a>
+            <a class="toc-item" href="#pricing">
+              <span class="toc-item-name">Price list</span>
+              <span class="toc-item-num">10</span>
+            </a>
+            <a class="toc-item" href="#principal">
+              <span class="toc-item-name">Meet our Principal</span>
+              <span class="toc-item-num">11</span>
+            </a>
+            <a class="toc-item" href="#contact">
+              <span class="toc-item-name">Contact Us</span>
+              <span class="toc-item-num">12</span>
+            </a>
+          </nav>
+          <p class="toc-closing-desc">A harmonious blend of function and aesthetic interior design, our style combines with all the color, ambiances, form, ultra premium textures, warmth, and expressive elegance.</p>
+        </div>
+
       </div>
     </section>
 
@@ -188,45 +282,69 @@
     {{-- 5. PROJECT PORTFOLIO                                          --}}
     {{-- ============================================================ --}}
     <section class="portfolio section-pad" id="portfolio" aria-labelledby="portfolio-title">
-      <div class="section-heading portfolio-heading reveal">
-        <div>
-          <div class="section-index">03—08</div>
-          <h2 id="portfolio-title">Project Portfolio</h2>
+      <div class="portfolio-top reveal">
+        <div class="portfolio-top-left">
+          <p class="portfolio-eyebrow">Project Portfolio</p>
+          <h2 id="portfolio-title">Karya Kami</h2>
         </div>
-        <p>Selected projects from the company profile across landed houses, apartments, F&amp;B, booths, and offices.</p>
-      </div>
-
-      <div class="filter-bar reveal" role="group" aria-label="Portfolio filters">
-        <button class="filter-button active" type="button" data-filter="all">All</button>
-        <button class="filter-button" type="button" data-filter="landed">Landed House</button>
-        <button class="filter-button" type="button" data-filter="apartment">Apartment</button>
-        <button class="filter-button" type="button" data-filter="fnb">F&amp;B</button>
-        <button class="filter-button" type="button" data-filter="booth">Booth</button>
-        <button class="filter-button" type="button" data-filter="office">Office</button>
+        <a href="/portfolio" class="btn-lihat-semua" aria-label="Lihat semua proyek">
+          Lihat Semua Proyek
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
 
       <div class="portfolio-grid" id="portfolioGrid">
-        <article class="project-card reveal" data-category="landed"><div class="project-image"><img src="{{ asset('assets/images/p-landed-01.jpg') }}" alt="Rainbow Cluster house exterior" loading="lazy" /></div><div class="project-meta"><p>Rainbow Cluster</p><span>West Kalimantan · Landed House</span></div></article>
-        <article class="project-card reveal" data-category="landed"><div class="project-image"><img src="{{ asset('assets/images/p-landed-02.jpg') }}" alt="Kitchen set project" loading="lazy" /></div><div class="project-meta"><p>Kitchen Set</p><span>PIK · Residential</span></div></article>
-        <article class="project-card reveal" data-category="landed"><div class="project-image"><img src="{{ asset('assets/images/p-landed-03.jpg') }}" alt="Master bedroom project" loading="lazy" /></div><div class="project-meta"><p>Master Bedroom</p><span>Cengkareng · Residential</span></div></article>
-        <article class="project-card reveal" data-category="landed"><div class="project-image"><img src="{{ asset('assets/images/p-landed-04.jpg') }}" alt="Residential re-facade project" loading="lazy" /></div><div class="project-meta"><p>Re-Facade</p><span>Greenlake City · Exterior</span></div></article>
-        <article class="project-card reveal" data-category="landed"><div class="project-image"><img src="{{ asset('assets/images/p-landed-05.jpg') }}" alt="Full house living room project" loading="lazy" /></div><div class="project-meta"><p>Full House</p><span>Surabaya · Residential</span></div></article>
 
-        <article class="project-card reveal" data-category="apartment"><div class="project-image"><img src="{{ asset('assets/images/p-apartment-01.jpg') }}" alt="Apartment living interior" loading="lazy" /></div><div class="project-meta"><p>3 Bedroom Unit</p><span>Meikarta · Apartment</span></div></article>
-        <article class="project-card reveal" data-category="apartment"><div class="project-image"><img src="{{ asset('assets/images/p-apartment-02.jpg') }}" alt="Apartment bedroom design" loading="lazy" /></div><div class="project-meta"><p>3 Bedroom Unit</p><span>CBD Pluit · Apartment</span></div></article>
-        <article class="project-card reveal" data-category="apartment"><div class="project-image"><img src="{{ asset('assets/images/p-apartment-03.jpg') }}" alt="Penthouse living interior" loading="lazy" /></div><div class="project-meta"><p>Pent House</p><span>Karawaci · Apartment</span></div></article>
+        <a href="/portfolio" class="project-card" aria-label="Full House Jelambar">
+          <div class="project-image">
+            <img src="{{ asset('assets/images/p-landed-05.jpg') }}" alt="Full House Jelambar" loading="lazy" />
+            <div class="card-overlay"><span class="card-overlay-label">Selengkapnya</span></div>
+          </div>
+          <div class="project-meta"><p>Full House</p><span>Jelambar · Landed House</span></div>
+        </a>
 
-        <article class="project-card reveal" data-category="fnb"><div class="project-image"><img src="{{ asset('assets/images/p-fnb-01.jpg') }}" alt="Kampung Burger restaurant interior" loading="lazy" /></div><div class="project-meta"><p>Kampung Burger</p><span>Depok · F&amp;B</span></div></article>
-        <article class="project-card reveal" data-category="fnb"><div class="project-image"><img src="{{ asset('assets/images/p-fnb-02.jpg') }}" alt="KATA Kopi interior" loading="lazy" /></div><div class="project-meta"><p>KATA Kopi</p><span>PIK · F&amp;B</span></div></article>
-        <article class="project-card reveal" data-category="fnb"><div class="project-image"><img src="{{ asset('assets/images/p-fnb-03.jpg') }}" alt="PanMee storefront" loading="lazy" /></div><div class="project-meta"><p>PanMee</p><span>Mangga Besar · F&amp;B</span></div></article>
+        <a href="/portfolio" class="project-card" aria-label="Master Bedroom Cengkareng">
+          <div class="project-image">
+            <img src="{{ asset('assets/images/p-landed-03.jpg') }}" alt="Master Bedroom Cengkareng" loading="lazy" />
+            <div class="card-overlay"><span class="card-overlay-label">Selengkapnya</span></div>
+          </div>
+          <div class="project-meta"><p>Master Bedroom</p><span>Cengkareng · Landed House</span></div>
+        </a>
 
-        <article class="project-card reveal" data-category="booth"><div class="project-image"><img src="{{ asset('assets/images/p-booth-01.jpg') }}" alt="Bubee booth design" loading="lazy" /></div><div class="project-meta"><p>Bubee Booth</p><span>Tomang · Booth</span></div></article>
-        <article class="project-card reveal" data-category="booth"><div class="project-image"><img src="{{ asset('assets/images/p-booth-02.jpg') }}" alt="G-Power exhibition booth" loading="lazy" /></div><div class="project-meta"><p>G-Power Booth</p><span>ICE BSD · Booth</span></div></article>
+        <a href="/portfolio" class="project-card" aria-label="Pent House Karawaci">
+          <div class="project-image">
+            <img src="{{ asset('assets/images/p-apartment-03.jpg') }}" alt="Pent House Karawaci" loading="lazy" />
+            <div class="card-overlay"><span class="card-overlay-label">Selengkapnya</span></div>
+          </div>
+          <div class="project-meta"><p>Pent House</p><span>Karawaci · Apartment</span></div>
+        </a>
 
-        <article class="project-card reveal" data-category="office"><div class="project-image"><img src="{{ asset('assets/images/p-office-01.jpg') }}" alt="Office lobby project" loading="lazy" /></div><div class="project-meta"><p>Lobby Lift DPR</p><span>Jakarta · Office</span></div></article>
-        <article class="project-card reveal" data-category="office"><div class="project-image"><img src="{{ asset('assets/images/p-office-02.jpg') }}" alt="Office reception project" loading="lazy" /></div><div class="project-meta"><p>Reception</p><span>PT Momodis · Jakarta</span></div></article>
-        <article class="project-card reveal" data-category="office"><div class="project-image"><img src="{{ asset('assets/images/p-office-03.jpg') }}" alt="Police lobby interior" loading="lazy" /></div><div class="project-meta"><p>Lobby Lift</p><span>DITTIPIDSIBER POLRI · Office</span></div></article>
-        <article class="project-card reveal" data-category="office"><div class="project-image"><img src="{{ asset('assets/images/p-office-04.jpg') }}" alt="DITRESSIBER office project" loading="lazy" /></div><div class="project-meta"><p>DITRESSIBER Office</p><span>POLDA · Office</span></div></article>
+        <a href="/portfolio" class="project-card" aria-label="KATA Kopi PIK">
+          <div class="project-image">
+            <img src="{{ asset('assets/images/p-fnb-02.jpg') }}" alt="KATA Kopi PIK" loading="lazy" />
+            <div class="card-overlay"><span class="card-overlay-label">Selengkapnya</span></div>
+          </div>
+          <div class="project-meta"><p>KATA Kopi</p><span>PIK · F&amp;B</span></div>
+        </a>
+
+        <a href="/portfolio" class="project-card" aria-label="G-Power Exhibition Booth">
+          <div class="project-image">
+            <img src="{{ asset('assets/images/p-booth-02.jpg') }}" alt="G-Power Exhibition Booth" loading="lazy" />
+            <div class="card-overlay"><span class="card-overlay-label">Selengkapnya</span></div>
+          </div>
+          <div class="project-meta"><p>G-Power Booth</p><span>ICE BSD · Booth</span></div>
+        </a>
+
+        <a href="/portfolio" class="project-card" aria-label="Lobby Lift DPR Jakarta">
+          <div class="project-image">
+            <img src="{{ asset('assets/images/p-office-01.jpg') }}" alt="Lobby Lift DPR Jakarta" loading="lazy" />
+            <div class="card-overlay"><span class="card-overlay-label">Selengkapnya</span></div>
+          </div>
+          <div class="project-meta"><p>Lobby Lift DPR</p><span>Jakarta · Office</span></div>
+        </a>
+
       </div>
     </section>
 
@@ -234,63 +352,75 @@
     {{-- 6. HOW WE WORK (Process)                                      --}}
     {{-- ============================================================ --}}
     <section class="process" id="process" aria-labelledby="process-title">
-      <div class="process-image"><img src="{{ asset('assets/images/process.jpg') }}" alt="Office project used as process backdrop" loading="lazy" /></div>
-      <div class="process-content">
-        <div class="process-header reveal">
-          <div class="process-section-index">09</div>
-          <h2 id="process-title">How We Work</h2>
+      <!-- Part 1: How We Work, Meet, Research -->
+      <div class="process-slide reveal">
+        <div class="process-banner">
+          <img src="{{ asset('assets/images/process-1.jpg') }}" alt="How We Work - Executive Office" loading="lazy" />
         </div>
-        <ol class="process-steps">
-          <li class="reveal">
-            <span class="step-num">01</span>
-            <div>
-              <h3>Meet</h3>
-              <p>We begin every project with a focused discovery session — listening to the client's vision, measuring the space, and understanding how the users will live and move within it. This stage sets the foundation for everything that follows.</p>
-            </div>
-          </li>
-          <li class="reveal">
-            <span class="step-num">02</span>
-            <div>
-              <h3>Research</h3>
-              <p>From the brief, we explore references, map the client's preferences, and identify spatial challenges. Brainstorming is done collaboratively so every decision is grounded in real needs — not assumption.</p>
-            </div>
-          </li>
-          <li class="reveal">
-            <span class="step-num">03</span>
-            <div>
-              <h3>Concept</h3>
-              <p>We define the design direction: visual style, atmosphere, material palette, and color language. The concept board gives the client a clear picture of the intended spatial character before any technical work begins.</p>
-            </div>
-          </li>
-          <li class="reveal">
-            <span class="step-num">04</span>
-            <div>
-              <h3>Design</h3>
-              <p>Space planning and layout are refined into detailed floor plans and preliminary 3D models. Every functional zone is considered — circulation, proportion, light, and the relationship between furniture and architecture.</p>
-            </div>
-          </li>
-          <li class="reveal">
-            <span class="step-num">05</span>
-            <div>
-              <h3>Finalize</h3>
-              <p>The approved design is developed into a full documentation package: photorealistic 3D renders, technical drawings, shop drawings, and a detailed bill of quantity — giving contractors and clients a complete reference for execution.</p>
-            </div>
-          </li>
-          <li class="reveal">
-            <span class="step-num">06</span>
-            <div>
-              <h3>Create</h3>
-              <p>Custom furniture and interior elements are produced through our own workshop. Quality is managed in-house — from raw material selection through finishing — ensuring every piece meets the agreed specifications.</p>
-            </div>
-          </li>
-          <li class="reveal">
-            <span class="step-num">07</span>
-            <div>
-              <h3>Install</h3>
-              <p>Our team executes the full on-site installation with precision. After placement, we conduct a thorough quality check and attend to all final touches before handing the completed space over to the client.</p>
-            </div>
-          </li>
-        </ol>
+        <div class="process-info-strip process-strip-1">
+          <div class="process-headline">
+            <h2 id="process-title"><span class="process-index">09</span> How We Work</h2>
+          </div>
+          <div class="process-col">
+            <h3>Meet</h3>
+            <ul class="process-bullet-list">
+              <li>New client meeting</li>
+              <li>Brief understanding</li>
+              <li>Measuring Spaces</li>
+              <li>Interviewing User</li>
+            </ul>
+          </div>
+          <div class="process-col">
+            <h3>Research</h3>
+            <ul class="process-bullet-list">
+              <li>Brainstorming</li>
+              <li>Mapping Client’s need</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Part 2: Concept, Design, Finalize, Create, Install -->
+      <div class="process-slide reveal">
+        <div class="process-banner">
+          <img src="{{ asset('assets/images/process-2.jpg') }}" alt="How We Work - Meeting Room" loading="lazy" />
+        </div>
+        <div class="process-info-strip process-strip-2">
+          <div class="process-col">
+            <h3>Concept</h3>
+            <ul class="process-bullet-list">
+              <li>Concepting Styles</li>
+              <li>Concepting Ambiances</li>
+              <li>Concepting Color Tone</li>
+            </ul>
+          </div>
+          <div class="process-col">
+            <h3>Design</h3>
+            <ul class="process-bullet-list">
+              <li>Layouting</li>
+              <li>3d Modeling</li>
+            </ul>
+          </div>
+          <div class="process-col">
+            <h3>Finalize</h3>
+            <ul class="process-bullet-list">
+              <li>3d Presentation</li>
+              <li>Technical &amp; Shop Drawing</li>
+            </ul>
+          </div>
+          <div class="process-col">
+            <h3>Create</h3>
+            <ul class="process-bullet-list">
+              <li>Finish Good Production</li>
+            </ul>
+          </div>
+          <div class="process-col">
+            <h3>Install</h3>
+            <ul class="process-bullet-list">
+              <li>Installation and final touches</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
