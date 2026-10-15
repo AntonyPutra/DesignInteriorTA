@@ -22,6 +22,43 @@
     <!-- Vite: Tailwind CSS + Alpine.js -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <!-- Pratama Custom Stylesheet with Cache-Busting -->
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ file_exists(public_path('css/style.css')) ? filemtime(public_path('css/style.css')) : time() }}" />
+
+    <!-- Theme Switcher Early Script -->
+    <script>
+        (function() {
+            window.setTheme = function(theme, animate) {
+                var isDark = theme === 'dark';
+                document.documentElement.setAttribute('data-theme', theme);
+                if (isDark) {
+                    document.documentElement.classList.add('dark-theme');
+                    if (document.body) document.body.classList.add('dark-theme');
+                } else {
+                    document.documentElement.classList.remove('dark-theme');
+                    if (document.body) document.body.classList.remove('dark-theme');
+                }
+                try { localStorage.setItem('pratama-theme', theme); } catch (e) {}
+            };
+            window.toggleTheme = function() {
+                var current = document.documentElement.getAttribute('data-theme') || 'light';
+                window.setTheme(current === 'dark' ? 'light' : 'dark', true);
+            };
+            try {
+                var stored = localStorage.getItem('pratama-theme');
+                var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var initial = stored ? stored : (prefersDark ? 'dark' : 'light');
+                if (initial === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    document.documentElement.classList.add('dark-theme');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    document.documentElement.classList.remove('dark-theme');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
     @yield('head')
 </head>
 
@@ -65,7 +102,9 @@
     @endif
 
     {{-- Navbar Component --}}
-    <x-navbar />
+    @unless(View::hasSection('hide_navbar'))
+        <x-navbar />
+    @endunless
 
     {{-- Main Content --}}
     <main>
@@ -73,16 +112,20 @@
     </main>
 
     {{-- Footer Component --}}
-    <x-footer />
+    @unless(View::hasSection('hide_footer'))
+        <x-footer />
+    @endunless
 
     {{-- Back to Top Button --}}
-    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
-        class="fixed bottom-6 right-6 w-11 h-11 text-white rounded-full shadow-lg flex items-center justify-center z-40 transition-all duration-300 opacity-0 pointer-events-none hover:scale-110 active:scale-95"
-        style="background-color: #b55b48;" aria-label="Kembali ke atas">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-    </button>
+    @unless(View::hasSection('hide_back_to_top'))
+        <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+            class="fixed bottom-6 right-6 w-11 h-11 text-white rounded-full shadow-lg flex items-center justify-center z-40 transition-all duration-300 opacity-0 pointer-events-none hover:scale-110 active:scale-95"
+            style="background-color: #b55b48;" aria-label="Kembali ke atas">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+        </button>
+    @endunless
 
     {{-- Dian AI Chatbot Widget --}}
     <x-chatbot-widget />
@@ -134,6 +177,9 @@
             document.getElementById('flash-error')?.remove();
         }, 5000);
     </script>
+
+    <!-- Deferred Application Logic with Cache-Busting -->
+    <script defer src="{{ asset('js/app.js') }}?v={{ file_exists(public_path('js/app.js')) ? filemtime(public_path('js/app.js')) : time() }}"></script>
 
     @yield('scripts')
 </body>
