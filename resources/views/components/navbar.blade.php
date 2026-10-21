@@ -1,152 +1,94 @@
-{{-- Navbar Component --}}
-<nav id="main-navbar" x-data="{ open: false }"
-    class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md transition-all duration-300 ease-in-out border-b"
-    style="border-color: rgba(36, 33, 29, 0.12);">
+{{-- Pratama Design Studio - Canonical Site Header --}}
+<header class="site-header" id="top">
+  <a class="brand" href="{{ route('home') }}" aria-label="Pratama Design Studio">
+    <span class="brand-icon">P</span>
+    <span class="brand-copy">
+      <span class="brand-word">Pratama Design Studio</span>
+      <span class="brand-subtitle">Interior Design &amp; Build</span>
+    </span>
+  </a>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-[74px]">
+  <nav class="desktop-nav" aria-label="Main navigation">
+    <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#home' : route('home') }}">Home</a>
+    <a class="{{ request()->routeIs('about') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#about' : route('about') }}">About</a>
+    <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#services' : route('services.index') }}">Services</a>
+    <a class="{{ request()->routeIs('portfolio.*') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#portfolio' : route('portfolio.index') }}">Portfolio</a>
+    <a class="{{ request()->routeIs('estimator.*') ? 'active' : '' }}" href="{{ route('estimator.index') }}">Cost Estimator</a>
+    <a class="{{ request()->routeIs('ai-portfolio.*') ? 'active' : '' }}" href="{{ route('ai-portfolio.index') }}">Cari AI</a>
+    <a class="{{ request()->routeIs('ai-estimator.*') ? 'active' : '' }}" href="{{ route('ai-estimator.index') }}">AI Estimator</a>
+    <a class="{{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#contact' : route('contact') }}">Contact</a>
+  </nav>
 
-            {{-- Brand / Logo --}}
-            <a href="{{ route('home') }}" class="flex items-center gap-3.5 group">
-                <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105 shadow-sm"
-                    style="background-color: #302c24;">
-                    <span class="text-white font-bold text-lg leading-none font-display tracking-widest">P</span>
-                </div>
-                <div class="leading-tight">
-                    <div class="font-semibold tracking-wide leading-none"
-                        style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem; color: #24211d;">
-                        Pratama Design Studio
-                    </div>
-                    <div class="text-[9.5px] tracking-[0.22em] uppercase font-semibold mt-1" style="color: #777166;">
-                        Interior Design & Build</div>
-                </div>
-            </a>
+  <div class="header-actions">
+    {{-- Dark / Light Mode Switcher (Matching Reference: Rounded Square Button with Moon/Sun Icon) --}}
+    <button class="theme-toggle-btn" id="themeToggle" type="button" aria-label="Ganti mode gelap / terang" title="Ganti Mode Gelap / Terang">
+      {{-- Moon Icon (shown in Light Mode to switch to Dark) --}}
+      <svg class="theme-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+      {{-- Sun Icon (shown in Dark Mode to switch to Light) --}}
+      <svg class="theme-icon sun-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </button>
 
-            {{-- Desktop Navigation --}}
-            <div class="hidden lg:flex items-center gap-7">
-                @php
-                    $navLinks = [
-                        ['route' => 'home', 'label' => 'Home', 'match' => 'home'],
-                        ['route' => 'about', 'label' => 'About', 'match' => 'about'],
-                        ['route' => 'services.index', 'label' => 'Services', 'match' => 'services.*'],
-                        ['route' => 'portfolio.index', 'label' => 'Portfolio', 'match' => 'portfolio.*'],
-                        ['route' => 'estimator.index', 'label' => 'Cost Estimator', 'match' => 'estimator.*'],
-                        ['route' => 'contact', 'label' => 'Contact', 'match' => 'contact'],
-                        ['route' => 'ai-portfolio.index', 'label' => 'Cari AI', 'match' => 'ai-portfolio.*', 'icon' => 'fas fa-search'],
-                        ['route' => 'ai-estimator.index', 'label' => 'AI Estimator', 'match' => 'ai-estimator.*', 'icon' => 'fas fa-robot'],
-                    ];
-                @endphp
+    <a class="consult-button trigger-contact-modal" href="{{ route('consultation.create') }}">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM9 11H7V9H9V11ZM13 11H11V9H13V11ZM17 11H15V9H17V11Z"/>
+      </svg>
+      <span>Konsultasi</span>
+    </a>
 
-                @foreach($navLinks as $link)
-                    <a href="{{ route($link['route']) }}" class="relative text-sm font-medium transition-colors duration-200 pb-0.5 group
-                                  {{ request()->routeIs($link['match']) ? 'font-semibold' : '' }}"
-                        style="{{ request()->routeIs($link['match']) ? 'color: #b55b48;' : 'color: #766d61;' }}">
-                        @if(isset($link['icon']))
-                            <i class="{{ $link['icon'] }} text-xs mr-1 opacity-75"></i>
-                        @endif
-                        {{ $link['label'] }}
-                        {{-- Active indicator --}}
-                        <span class="absolute -bottom-0.5 left-0 h-0.5 rounded-full transition-all duration-300
-                                         {{ request()->routeIs($link['match']) ? 'w-full' : 'w-0 group-hover:w-full' }}"
-                            style="background-color: #b55b48;"></span>
-                    </a>
-                @endforeach
-            </div>
+    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
 
-            {{-- Desktop CTA + Mobile Toggle --}}
-            <div class="flex items-center gap-3">
-                <a href="{{ route('consultation.create') }}"
-                    class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-md text-xs font-semibold uppercase tracking-wider text-white transition-all duration-200 hover:opacity-95 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
-                    style="background-color: #b55b48;">
-                    <i class="fas fa-comment-dots text-xs"></i>
-                    Konsultasi
-                </a>
-
-                {{-- Mobile Hamburger --}}
-                <button @click="open = !open"
-                    class="lg:hidden w-9 h-9 flex items-center justify-center rounded text-[#24211d] hover:bg-[#f2f0eb] transition-colors"
-                    :aria-expanded="open" aria-label="Menu navigasi">
-                    <svg x-show="!open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                    <svg x-show="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        style="display:none;">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
+{{-- Mobile Navigation Dropdown --}}
+<div class="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-top">
+    <div class="mobile-theme-switch-wrap">
+      <span class="mobile-theme-text">Mode Tampilan</span>
+      <button class="theme-toggle-btn mobile-theme-toggle" type="button" aria-label="Ganti mode gelap / terang">
+        <svg class="theme-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="theme-icon sun-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
     </div>
+  </div>
+  <nav aria-label="Mobile navigation">
+    <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#home' : route('home') }}">Home</a>
+    <a class="{{ request()->routeIs('about') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#about' : route('about') }}">About</a>
+    <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#services' : route('services.index') }}">Services</a>
+    <a class="{{ request()->routeIs('portfolio.*') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#portfolio' : route('portfolio.index') }}">Portfolio</a>
+    <a class="{{ request()->routeIs('estimator.*') ? 'active' : '' }}" href="{{ route('estimator.index') }}">Cost Estimator</a>
+    <a class="{{ request()->routeIs('ai-portfolio.*') ? 'active' : '' }}" href="{{ route('ai-portfolio.index') }}">Cari AI</a>
+    <a class="{{ request()->routeIs('ai-estimator.*') ? 'active' : '' }}" href="{{ route('ai-estimator.index') }}">AI Estimator</a>
+    <a class="{{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#contact' : route('contact') }}">Contact</a>
+  </nav>
+</div>
 
-    {{-- Mobile Dropdown Menu --}}
-    <div x-show="open" x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 -translate-y-2"
-        class="lg:hidden bg-white border-t px-4 pt-3 pb-5 space-y-1 shadow-xl"
-        style="border-color: rgba(36, 33, 29, 0.12); display: none;">
-
-        <a href="{{ route('home') }}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
-                  {{ request()->routeIs('home') ? 'font-semibold' : 'text-[#24211d]' }}"
-            style="{{ request()->routeIs('home') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
-            <i class="fas fa-home w-4 text-center text-[#777166]"></i>
-            Home
-        </a>
-        <a href="{{ route('about') }}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
-                  {{ request()->routeIs('about') ? 'font-semibold' : 'text-[#24211d]' }}"
-            style="{{ request()->routeIs('about') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
-            <i class="fas fa-building w-4 text-center text-[#777166]"></i>
-            About
-        </a>
-        <a href="{{ route('services.index') }}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
-                  {{ request()->routeIs('services.*') ? 'font-semibold' : 'text-[#24211d]' }}"
-            style="{{ request()->routeIs('services.*') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
-            <i class="fas fa-layer-group w-4 text-center text-[#777166]"></i>
-            Services
-        </a>
-        <a href="{{ route('portfolio.index') }}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
-                  {{ request()->routeIs('portfolio.*') ? 'font-semibold' : 'text-[#24211d]' }}"
-            style="{{ request()->routeIs('portfolio.*') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
-            <i class="fas fa-images w-4 text-center text-[#777166]"></i>
-            Portfolio
-        </a>
-        <a href="{{ route('estimator.index') }}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
-                  {{ request()->routeIs('estimator.*') ? 'font-semibold' : 'text-[#24211d]' }}"
-            style="{{ request()->routeIs('estimator.*') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
-            <i class="fas fa-calculator w-4 text-center text-[#777166]"></i>
-            Cost Estimator
-        </a>
-        <a href="{{ route('contact') }}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
-                  {{ request()->routeIs('contact') ? 'font-semibold' : 'text-[#24211d]' }}"
-            style="{{ request()->routeIs('contact') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
-            <i class="fas fa-envelope w-4 text-center text-[#777166]"></i>
-            Contact
-        </a>
-        <a href="{{ route('ai-portfolio.index') }}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
-                  {{ request()->routeIs('ai-portfolio.*') ? 'font-semibold' : 'text-[#24211d]' }}"
-            style="{{ request()->routeIs('ai-portfolio.*') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
-            <i class="fas fa-search w-4 text-center text-[#777166]"></i>
-            Cari AI
-        </a>
-        <a href="{{ route('ai-estimator.index') }}" class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-[#f2f0eb]
-                  {{ request()->routeIs('ai-estimator.*') ? 'font-semibold' : 'text-[#24211d]' }}"
-            style="{{ request()->routeIs('ai-estimator.*') ? 'color: #b55b48; background-color: #faf8f5;' : '' }}">
-            <i class="fas fa-robot w-4 text-center text-[#777166]"></i>
-            AI Estimator
-        </a>
-
-        <div class="pt-3 border-t" style="border-color: rgba(36, 33, 29, 0.12);">
-            <a href="{{ route('consultation.create') }}"
-                class="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg text-xs font-semibold uppercase tracking-wider text-white transition-opacity hover:opacity-90 shadow-sm"
-                style="background-color: #b55b48;">
-                <i class="fas fa-comment-dots"></i>
-                Konsultasi Sekarang
-            </a>
-        </div>
-    </div>
-</nav>
-
-{{-- Navbar spacer --}}
-<div style="height: 74px;"></div>
+{{-- Subpage Header Spacer: Prevents content from clipping under fixed 80px navbar when not on homepage --}}
+@if(!request()->routeIs('home'))
+  <div class="site-header-spacer" style="height: 80px; width: 100%; flex-shrink: 0;" aria-hidden="true"></div>
+@endif

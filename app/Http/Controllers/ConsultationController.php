@@ -14,26 +14,31 @@ class ConsultationController extends Controller
 
     public function store(Request $request)
     {
+        // Support both modal quick-consult ('phone', 'subject') and full consultation form
+        $whatsappNumber = $request->input('whatsapp') ?? $request->input('phone');
+        $request->merge([
+            'whatsapp'         => $whatsappNumber,
+            'project_location' => $request->input('project_location') ?? 'Jakarta / Jabodetabek',
+            'project_type'     => $request->input('project_type') ?? $request->input('subject') ?? 'Interior Design',
+            'room_type'        => $request->input('room_type') ?? 'General Interior',
+            'area_size'        => $request->input('area_size') ?? 1,
+        ]);
+
         $validated = $request->validate([
             'name'             => 'required|string|max:255',
             'whatsapp'         => 'required|string|max:20',
             'email'            => 'nullable|email|max:255',
-            'project_location' => 'required|string|max:255',
-            'project_type'     => 'required|string|max:100',
-            'room_type'        => 'required|string|max:100',
-            'area_size'        => 'required|numeric|min:1',
+            'project_location' => 'nullable|string|max:255',
+            'project_type'     => 'nullable|string|max:100',
+            'room_type'        => 'nullable|string|max:100',
+            'area_size'        => 'nullable|numeric|min:1',
             'estimated_budget' => 'nullable|string|max:100',
             'design_style'     => 'nullable|string|max:100',
             'message'          => 'nullable|string|max:2000',
             'reference_file'   => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
         ], [
             'name.required'             => 'Nama lengkap wajib diisi.',
-            'whatsapp.required'         => 'Nomor WhatsApp wajib diisi.',
-            'project_location.required' => 'Lokasi proyek wajib diisi.',
-            'project_type.required'     => 'Jenis proyek wajib dipilih.',
-            'room_type.required'        => 'Jenis ruangan wajib dipilih.',
-            'area_size.required'        => 'Luas ruangan wajib diisi.',
-            'area_size.numeric'         => 'Luas ruangan harus berupa angka.',
+            'whatsapp.required'         => 'Nomor WhatsApp / HP wajib diisi.',
             'email.email'               => 'Format email tidak valid.',
             'reference_file.mimes'      => 'File referensi harus berformat JPG, PNG, atau PDF.',
             'reference_file.max'        => 'Ukuran file tidak boleh lebih dari 5MB.',
@@ -49,10 +54,10 @@ class ConsultationController extends Controller
             'name'             => $validated['name'],
             'whatsapp'         => $validated['whatsapp'],
             'email'            => $validated['email'] ?? null,
-            'project_location' => $validated['project_location'],
-            'project_type'     => $validated['project_type'],
-            'room_type'        => $validated['room_type'],
-            'area_size'        => $validated['area_size'],
+            'project_location' => $validated['project_location'] ?? 'Jakarta / Jabodetabek',
+            'project_type'     => $validated['project_type'] ?? 'Interior Design',
+            'room_type'        => $validated['room_type'] ?? 'General Interior',
+            'area_size'        => $validated['area_size'] ?? 1,
             'estimated_budget' => $validated['estimated_budget'] ?? null,
             'design_style'     => $validated['design_style'] ?? null,
             'message'          => $validated['message'] ?? null,
@@ -60,7 +65,17 @@ class ConsultationController extends Controller
             'status'           => 'pending',
         ]);
 
-        return redirect()->route('consultation.create')
-            ->with('success', "Terima kasih! Form konsultasi berhasil dikirim. Nomor Referensi Tiket Anda: #{$consultation->ticket_code}. Tim kami akan menghubungi Anda segera.");
+        $message = "Terima kasih! Form konsultasi berhasil dikirim. Nomor Referensi Tiket Anda: #{$consultation->ticket_code}. Tim kami akan menghubungi Anda segera.";
+
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'success'       => true,
+                'ticket_code'   => $consultation->ticket_code,
+                'message'       => $message,
+                'whatsapp_link' => 'https://wa.me/6282213641995?text=' . urlencode("Halo Pratama Design Studio, saya baru saja mengirim form konsultasi dengan Tiket #{$consultation->ticket_code} ({$consultation->name})."),
+            ]);
+        }
+
+        return redirect()->back()->with('success', $message);
     }
 }

@@ -19,10 +19,8 @@
     $imageUrl = $hasMainImage ? Storage::url($portfolio->main_image) : asset($fallbackImage);
 @endphp
 
-<div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 bg-white border border-[#e4dfd7]"
-    style="box-shadow: 0 2px 10px rgba(36, 33, 29, 0.05);"
-    onmouseover="this.style.boxShadow='0 16px 36px rgba(48, 44, 36, 0.12)';"
-    onmouseout="this.style.boxShadow='0 2px 10px rgba(36, 33, 29, 0.05)';">
+<div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 border"
+    style="background: var(--card-bg); border-color: var(--card-border); box-shadow: var(--card-shadow);">
 
     {{-- Image Container --}}
     <div class="relative overflow-hidden aspect-[4/3] bg-[#302c24]">
@@ -58,7 +56,7 @@
             class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
             <a href="{{ route('portfolio.show', $portfolio->slug) }}"
                 class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-white transition-all duration-200 hover:scale-105 transform translate-y-2 group-hover:translate-y-0 shadow-lg"
-                style="background-color: #b55b48; backdrop-filter: blur(4px);">
+                style="background-color: var(--accent); backdrop-filter: blur(4px);">
                 <i class="fas fa-eye text-xs"></i>
                 Lihat Detail
             </a>
@@ -66,23 +64,23 @@
     </div>
 
     {{-- Card Body --}}
-    <div class="p-4 bg-white">
+    <div class="p-4" style="background: var(--card-bg);">
         <div class="flex items-start justify-between gap-2">
             <div class="flex-1 min-w-0">
-                <h3 class="font-semibold text-base leading-snug truncate mb-1 transition-colors duration-200 group-hover:text-[#b55b48]"
-                    style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.2rem; color: #24211d;">
+                <h3 class="font-semibold text-base leading-snug truncate mb-1 transition-colors duration-200 group-hover:text-[var(--accent)]"
+                    style="font-family: var(--serif); font-size: 1.2rem; color: var(--text-heading);">
                     {{ $portfolio->title }}
                 </h3>
-                <div class="flex items-center gap-3 text-xs" style="color: #777166;">
+                <div class="flex items-center gap-3 text-xs" style="color: var(--muted);">
                     @if($portfolio->project_type)
                         <span class="flex items-center gap-1 font-medium">
-                            <i class="fas fa-tag text-[0.6rem] text-[#b55b48]"></i>
+                            <i class="fas fa-tag text-[0.6rem]" style="color: var(--accent);"></i>
                             {{ $portfolio->project_type }}
                         </span>
                     @endif
                     @if($portfolio->location)
                         <span class="flex items-center gap-1">
-                            <i class="fas fa-map-marker-alt text-[0.6rem] text-[#777166]"></i>
+                            <i class="fas fa-map-marker-alt text-[0.6rem]" style="color: var(--muted);"></i>
                             {{ $portfolio->location }}
                         </span>
                     @endif
@@ -90,8 +88,8 @@
             </div>
             <a href="{{ route('portfolio.show', $portfolio->slug) }}"
                 class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-                style="background-color: #faf8f5;" title="Lihat Detail">
-                <i class="fas fa-arrow-right text-xs" style="color: #b55b48;"></i>
+                style="background-color: var(--paper); border: 1px solid var(--line);" title="Lihat Detail">
+                <i class="fas fa-arrow-right text-xs" style="color: var(--accent);"></i>
             </a>
         </div>
     </div>

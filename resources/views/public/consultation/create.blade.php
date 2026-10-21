@@ -15,7 +15,7 @@
     <div class="flex flex-wrap gap-2.5">
         @foreach(['✓ Gratis Pre-Layout Concept', '✓ Tanpa Biaya Konsultasi', '✓ Respon Cepat 1×24 Jam'] as $item)
         <span class="text-xs font-medium px-3 py-1.5 rounded-full"
-              style="background-color: rgba(184,92,74,0.22); color: #F5CAC1; border: 1px solid rgba(184,92,74,0.35);">
+              style="background-color: rgba(181,91,72,0.22); color: #f7a696; border: 1px solid rgba(181,91,72,0.35);">
             {{ $item }}
         </span>
         @endforeach
@@ -25,24 +25,24 @@
 {{-- ============================================================ --}}
 {{-- CONSULTATION FORM                                             --}}
 {{-- ============================================================ --}}
-<section class="py-16 lg:py-20" style="background-color: #F8F5EF;">
+<section class="py-16 lg:py-20" style="background-color: var(--paper);">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {{-- Success Message --}}
         @if(session('success'))
         <div class="mb-8">
-            <div class="rounded-2xl p-8 text-center" style="background-color: #ECFDF5; border: 1px solid #A7F3D0;">
+            <div class="rounded-2xl p-8 text-center border" style="background-color: rgba(37,211,102,0.08); border-color: rgba(37,211,102,0.3);">
                 <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                     style="background-color: #D1FAE5;">
+                     style="background-color: rgba(37,211,102,0.15);">
                     <i class="fas fa-check text-2xl text-green-600"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-green-800 mb-2">Form Berhasil Terkirim!</h3>
-                <p class="text-green-700 text-sm leading-relaxed mb-4">{{ session('success') }}</p>
-                <p class="text-green-600 text-xs">
+                <h3 class="text-xl font-semibold mb-2" style="font-family: var(--serif); color: var(--text-heading);">Form Berhasil Terkirim!</h3>
+                <p class="text-sm leading-relaxed mb-4" style="color: var(--text-lead);">{{ session('success') }}</p>
+                <p class="text-xs" style="color: var(--muted);">
                     Sambil menunggu, Anda bisa menghubungi kami langsung via WhatsApp:
                 </p>
-                <a href="https://wa.me/6282213641995" target="_blank"
-                   class="inline-flex items-center gap-2 mt-3 px-5 py-2.5 rounded-full text-sm font-semibold text-white"
+                <a href="https://wa.me/6282213641995" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 mt-3 px-5 py-2.5 rounded-full text-sm font-semibold text-white shadow-sm"
                    style="background-color: #25D366;">
                     <i class="fab fa-whatsapp"></i>
                     Chat WhatsApp
@@ -52,12 +52,12 @@
         @endif
 
         {{-- Form Card --}}
-        <div class="bg-white rounded-2xl overflow-hidden" style="border: 1px solid #E2DDD6; box-shadow: 0 4px 24px rgba(62,55,44,0.08);">
+        <div class="rounded-2xl overflow-hidden border" style="background-color: var(--card-bg); border-color: var(--card-border); box-shadow: var(--card-shadow);">
 
             {{-- Form Header --}}
-            <div class="px-8 py-5" style="background-color: #3E372C;">
+            <div class="px-8 py-5" style="background-color: var(--brown-deep);">
                 <h2 class="text-white font-semibold text-base">Data Konsultasi</h2>
-                <p class="text-xs mt-0.5" style="color: rgba(255,255,255,0.5);">
+                <p class="text-xs mt-0.5" style="color: rgba(255,255,255,0.6);">
                     Lengkapi formulir di bawah ini dengan informasi proyek Anda
                 </p>
             </div>
@@ -67,8 +67,8 @@
 
                 {{-- Section: Data Diri --}}
                 <div class="mb-8">
-                    <h3 class="text-sm font-semibold mb-4 flex items-center gap-2" style="color: #3E372C;">
-                        <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs text-white" style="background-color: #B85C4A; font-size: 0.6rem;">1</span>
+                    <h3 class="font-semibold mb-4 flex items-center gap-2" style="font-family: var(--serif); font-size: 1.15rem; color: var(--text-heading);">
+                        <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs text-white" style="background-color: var(--accent); font-size: 0.6rem;">1</span>
                         Data Diri
                     </h3>
                     <div class="grid sm:grid-cols-2 gap-5">
@@ -76,7 +76,7 @@
                         {{-- Nama --}}
                         <div>
                             <label class="form-label" for="name">
-                                Nama Lengkap <span style="color: #B85C4A;">*</span>
+                                Nama Lengkap <span style="color: var(--accent);">*</span>
                             </label>
                             <input type="text" id="name" name="name"
                                    value="{{ old('name') }}"
@@ -92,10 +92,10 @@
                         {{-- WhatsApp --}}
                         <div>
                             <label class="form-label" for="whatsapp">
-                                Nomor WhatsApp <span style="color: #B85C4A;">*</span>
+                                Nomor WhatsApp <span style="color: var(--accent);">*</span>
                             </label>
                             <div class="relative">
-                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium" style="color: #8A6F55;">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium" style="color: var(--muted);">
                                     <i class="fab fa-whatsapp"></i>
                                 </span>
                                 <input type="tel" id="whatsapp" name="whatsapp"
@@ -113,7 +113,7 @@
                         {{-- Email --}}
                         <div class="sm:col-span-2">
                             <label class="form-label" for="email">
-                                Email <span class="text-xs font-normal text-gray-400">(opsional)</span>
+                                Email <span class="text-xs font-normal" style="color: var(--muted);">(opsional)</span>
                             </label>
                             <input type="email" id="email" name="email"
                                    value="{{ old('email') }}"
@@ -130,8 +130,8 @@
 
                 {{-- Section: Detail Proyek --}}
                 <div class="mb-8">
-                    <h3 class="text-sm font-semibold mb-4 flex items-center gap-2" style="color: #3E372C;">
-                        <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs text-white" style="background-color: #B85C4A; font-size: 0.6rem;">2</span>
+                    <h3 class="font-semibold mb-4 flex items-center gap-2" style="font-family: var(--serif); font-size: 1.15rem; color: var(--text-heading);">
+                        <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs text-white" style="background-color: var(--accent); font-size: 0.6rem;">2</span>
                         Detail Proyek
                     </h3>
                     <div class="grid sm:grid-cols-2 gap-5">
@@ -139,7 +139,7 @@
                         {{-- Lokasi Proyek --}}
                         <div class="sm:col-span-2">
                             <label class="form-label" for="project_location">
-                                Lokasi Proyek <span style="color: #B85C4A;">*</span>
+                                Lokasi Proyek <span style="color: var(--accent);">*</span>
                             </label>
                             <input type="text" id="project_location" name="project_location"
                                    value="{{ old('project_location') }}"
@@ -155,7 +155,7 @@
                         {{-- Jenis Proyek --}}
                         <div>
                             <label class="form-label" for="project_type">
-                                Jenis Proyek <span style="color: #B85C4A;">*</span>
+                                Jenis Proyek <span style="color: var(--accent);">*</span>
                             </label>
                             <select id="project_type" name="project_type"
                                     class="form-input @error('project_type') border-red-400 @enderror">
@@ -176,7 +176,7 @@
                         {{-- Jenis Ruangan --}}
                         <div>
                             <label class="form-label" for="room_type">
-                                Jenis Ruangan <span style="color: #B85C4A;">*</span>
+                                Jenis Ruangan <span style="color: var(--accent);">*</span>
                             </label>
                             <select id="room_type" name="room_type"
                                     class="form-input @error('room_type') border-red-400 @enderror">
@@ -197,7 +197,7 @@
                         {{-- Luas Area --}}
                         <div>
                             <label class="form-label" for="area_size">
-                                Luas Area <span style="color: #B85C4A;">*</span>
+                                Luas Area <span style="color: var(--accent);">*</span>
                             </label>
                             <div class="relative">
                                 <input type="number" id="area_size" name="area_size"
@@ -205,7 +205,7 @@
                                        placeholder="0"
                                        min="1" step="0.5"
                                        class="form-input pr-12 @error('area_size') border-red-400 @enderror">
-                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-gray-400">m²</span>
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium" style="color: var(--muted);">m²</span>
                             </div>
                             @error('area_size')
                             <p class="mt-1.5 text-xs text-red-600 flex items-center gap-1">
@@ -217,7 +217,7 @@
                         {{-- Estimasi Budget --}}
                         <div>
                             <label class="form-label" for="estimated_budget">
-                                Estimasi Budget <span class="text-xs font-normal text-gray-400">(opsional)</span>
+                                Estimasi Budget <span class="text-xs font-normal" style="color: var(--muted);">(opsional)</span>
                             </label>
                             <select id="estimated_budget" name="estimated_budget"
                                     class="form-input">
@@ -241,7 +241,7 @@
                         {{-- Design Style --}}
                         <div class="sm:col-span-2">
                             <label class="form-label" for="design_style">
-                                Style Desain yang Disukai <span class="text-xs font-normal text-gray-400">(opsional)</span>
+                                Style Desain yang Disukai <span class="text-xs font-normal" style="color: var(--muted);">(opsional)</span>
                             </label>
                             <select id="design_style" name="design_style"
                                     class="form-input">
@@ -258,8 +258,8 @@
 
                 {{-- Section: Pesan & Referensi --}}
                 <div class="mb-8">
-                    <h3 class="text-sm font-semibold mb-4 flex items-center gap-2" style="color: #3E372C;">
-                        <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs text-white" style="background-color: #B85C4A; font-size: 0.6rem;">3</span>
+                    <h3 class="font-semibold mb-4 flex items-center gap-2" style="font-family: var(--serif); font-size: 1.15rem; color: var(--text-heading);">
+                        <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs text-white" style="background-color: var(--accent); font-size: 0.6rem;">3</span>
                         Pesan &amp; Referensi
                     </h3>
                     <div class="space-y-5">
@@ -267,7 +267,7 @@
                         {{-- Pesan --}}
                         <div>
                             <label class="form-label" for="message">
-                                Kebutuhan / Pesan Tambahan <span class="text-xs font-normal text-gray-400">(opsional)</span>
+                                Kebutuhan / Pesan Tambahan <span class="text-xs font-normal" style="color: var(--muted);">(opsional)</span>
                             </label>
                             <textarea id="message" name="message" rows="4"
                                       placeholder="Ceritakan lebih detail kebutuhan desain interior Anda, konsep yang diinginkan, atau pertanyaan lainnya..."
@@ -277,7 +277,7 @@
                         {{-- Upload Referensi --}}
                         <div>
                             <label class="form-label" for="reference_file">
-                                Upload Referensi <span class="text-xs font-normal text-gray-400">(opsional — JPG, PNG, PDF · Maks. 5MB)</span>
+                                Upload Referensi <span class="text-xs font-normal" style="color: var(--muted);">(opsional — JPG, PNG, PDF · Maks. 5MB)</span>
                             </label>
                             <div class="relative">
                                 <input type="file" id="reference_file" name="reference_file"
@@ -285,13 +285,13 @@
                                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                                        onchange="updateFileName(this)">
                                 <div id="file-upload-area"
-                                     class="border-2 border-dashed rounded-lg p-6 text-center transition-colors duration-200"
-                                     style="border-color: #E2DDD6; background-color: #FAFAF9;">
-                                    <i class="fas fa-cloud-upload-alt text-2xl mb-2" style="color: #C8BDB0;"></i>
-                                    <p class="text-sm font-medium" style="color: #6B6B6B;">
-                                        Drag & drop atau <span style="color: #B85C4A;">klik untuk pilih file</span>
+                                     class="border-2 border-dashed rounded-xl p-6 text-center transition-colors duration-200"
+                                     style="border-color: var(--line); background-color: var(--paper);">
+                                    <i class="fas fa-cloud-upload-alt text-2xl mb-2" style="color: var(--muted);"></i>
+                                    <p class="text-sm font-medium" style="color: var(--text-lead);">
+                                        Drag &amp; drop atau <span style="color: var(--accent);">klik untuk pilih file</span>
                                     </p>
-                                    <p id="file-name" class="text-xs mt-1 text-gray-400">Belum ada file dipilih</p>
+                                    <p id="file-name" class="text-xs mt-1" style="color: var(--muted);">Belum ada file dipilih</p>
                                 </div>
                             </div>
                             @error('reference_file')
@@ -304,15 +304,15 @@
                 </div>
 
                 {{-- Submit Button --}}
-                <div class="pt-4" style="border-top: 1px solid #F0EDEA;">
+                <div class="pt-4 border-t" style="border-color: var(--line);">
                     <button type="submit"
-                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-px"
-                            style="background-color: #B85C4A;">
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 rounded-xl text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 hover:-translate-y-px shadow-md"
+                            style="background-color: var(--accent);">
                         <i class="fas fa-paper-plane"></i>
                         Kirim Form Konsultasi
                     </button>
-                    <p class="text-xs text-gray-400 mt-3">
-                        <i class="fas fa-shield-alt mr-1" style="color: #8A6F55;"></i>
+                    <p class="text-xs mt-3" style="color: var(--muted);">
+                        <i class="fas fa-shield-alt mr-1" style="color: var(--accent);"></i>
                         Data Anda terlindungi dan tidak akan disebarkan kepada pihak ketiga.
                     </p>
                 </div>
@@ -323,19 +323,19 @@
         <div class="mt-8 grid sm:grid-cols-3 gap-4">
             @foreach([
                 ['fab fa-whatsapp',  'WhatsApp',  '+62 822 1364 1995', 'https://wa.me/6282213641995', '#25D366'],
-                ['fas fa-envelope',  'Email',     'pratamadsb@gmail.com','mailto:pratamadsb@gmail.com', '#8A6F55'],
+                ['fas fa-envelope',  'Email',     'pratamadsb@gmail.com','mailto:pratamadsb@gmail.com', '#B85C4A'],
                 ['fab fa-instagram', 'Instagram', '@pratamaid.studio', 'https://instagram.com/pratamaid.studio', '#E1306C'],
             ] as [$icon, $label, $value, $href, $color])
-            <a href="{{ $href }}" target="_blank"
-               class="flex items-center gap-3 p-4 bg-white rounded-xl transition-all duration-200 hover:-translate-y-0.5"
-               style="border: 1px solid #E2DDD6; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
+            <a href="{{ $href }}" target="_blank" rel="noopener noreferrer"
+               class="flex items-center gap-3 p-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 border"
+               style="background-color: var(--card-bg); border-color: var(--card-border); box-shadow: var(--card-shadow);">
                 <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
                      style="background-color: {{ $color }}15;">
                     <i class="{{ $icon }}" style="color: {{ $color }};"></i>
                 </div>
                 <div>
-                    <div class="text-xs font-medium text-gray-400">{{ $label }}</div>
-                    <div class="text-sm font-semibold" style="color: #3E372C;">{{ $value }}</div>
+                    <div class="text-xs font-medium" style="color: var(--muted);">{{ $label }}</div>
+                    <div class="text-sm font-semibold" style="color: var(--text-heading);">{{ $value }}</div>
                 </div>
             </a>
             @endforeach
@@ -354,14 +354,14 @@ function updateFileName(input) {
         const file = input.files[0];
         const sizeMB = (file.size / (1024*1024)).toFixed(2);
         fileNameEl.textContent = `${file.name} (${sizeMB} MB)`;
-        fileNameEl.style.color = '#3E372C';
-        uploadArea.style.borderColor = '#B85C4A';
-        uploadArea.style.backgroundColor = '#FEF6F4';
+        fileNameEl.style.color = 'var(--text-heading)';
+        uploadArea.style.borderColor = 'var(--accent)';
+        uploadArea.style.backgroundColor = 'var(--paper)';
     } else {
         fileNameEl.textContent = 'Belum ada file dipilih';
         fileNameEl.style.color = '';
-        uploadArea.style.borderColor = '#E2DDD6';
-        uploadArea.style.backgroundColor = '#FAFAF9';
+        uploadArea.style.borderColor = 'var(--line)';
+        uploadArea.style.backgroundColor = 'var(--paper)';
     }
 }
 </script>

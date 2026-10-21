@@ -21,38 +21,38 @@
     {{-- Content --}}
     <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 pt-24">
         {{-- Breadcrumb --}}
-        <div class="flex items-center gap-2 text-sm mb-4" style="color: rgba(255,255,255,0.5);">
+        <div class="flex items-center gap-2 text-sm mb-4" style="color: rgba(255,255,255,0.6);">
             <a href="{{ route('home') }}" class="hover:text-white transition-colors">Home</a>
             <i class="fas fa-chevron-right text-[0.6rem]"></i>
             <a href="{{ route('portfolio.index') }}" class="hover:text-white transition-colors">Portfolio</a>
             <i class="fas fa-chevron-right text-[0.6rem]"></i>
-            <span style="color: #B85C4A;">{{ Str::limit($portfolio->title, 30) }}</span>
+            <span style="color: var(--accent);">{{ Str::limit($portfolio->title, 30) }}</span>
         </div>
 
         {{-- Category badge --}}
         <div class="mb-3">
             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white"
-                  style="background-color: rgba(184,92,74,0.85);">
+                  style="background-color: rgba(181,91,72,0.85); backdrop-filter: blur(4px);">
                 {{ $portfolio->category->name ?? 'Portfolio' }}
             </span>
         </div>
 
         {{-- Title --}}
         <h1 class="font-display text-3xl lg:text-5xl font-semibold text-white leading-tight"
-            style="font-family: 'Cormorant Garamond', serif;">
+            style="font-family: var(--serif);">
             {{ $portfolio->title }}
         </h1>
 
         <div class="flex flex-wrap items-center gap-4 mt-3">
             @if($portfolio->location)
-            <span class="flex items-center gap-1.5 text-sm" style="color: rgba(255,255,255,0.65);">
-                <i class="fas fa-map-marker-alt text-xs" style="color: #B85C4A;"></i>
+            <span class="flex items-center gap-1.5 text-sm" style="color: rgba(255,255,255,0.7);">
+                <i class="fas fa-map-marker-alt text-xs" style="color: var(--accent);"></i>
                 {{ $portfolio->location }}
             </span>
             @endif
             @if($portfolio->year)
-            <span class="flex items-center gap-1.5 text-sm" style="color: rgba(255,255,255,0.65);">
-                <i class="fas fa-calendar text-xs" style="color: #B85C4A;"></i>
+            <span class="flex items-center gap-1.5 text-sm" style="color: rgba(255,255,255,0.7);">
+                <i class="fas fa-calendar text-xs" style="color: var(--accent);"></i>
                 {{ $portfolio->year }}
             </span>
             @endif
@@ -63,44 +63,44 @@
 {{-- ============================================================ --}}
 {{-- PROJECT DETAILS + DESCRIPTION                                 --}}
 {{-- ============================================================ --}}
-<section class="py-16 lg:py-20 bg-white">
+<section class="py-16 lg:py-20" style="background-color: var(--paper);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-3 gap-12 lg:gap-16">
 
             {{-- Left: Description --}}
             <div class="lg:col-span-2">
                 <h2 class="font-display text-2xl font-semibold mb-3"
-                    style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
+                    style="font-family: var(--serif); color: var(--text-heading);">
                     Tentang Proyek
                 </h2>
-                <div class="w-10 h-0.5 mb-6" style="background-color: #B85C4A;"></div>
+                <div class="w-10 h-0.5 mb-6" style="background-color: var(--accent);"></div>
 
                 @if($portfolio->description)
-                <div class="prose prose-sm max-w-none text-gray-600 leading-relaxed">
+                <div class="prose prose-sm max-w-none leading-relaxed" style="color: var(--text-lead);">
                     {!! nl2br(e($portfolio->description)) !!}
                 </div>
                 @else
-                <p class="text-gray-400 italic">Deskripsi proyek tidak tersedia.</p>
+                <p class="italic" style="color: var(--muted);">Deskripsi proyek tidak tersedia.</p>
                 @endif
 
                 {{-- Gallery --}}
                 @if($portfolio->images->count())
                 <div class="mt-12">
                     <h3 class="font-display text-xl font-semibold mb-2"
-                        style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
+                        style="font-family: var(--serif); color: var(--text-heading);">
                         Galeri Foto
                     </h3>
-                    <div class="w-8 h-0.5 mb-6" style="background-color: #B85C4A;"></div>
+                    <div class="w-8 h-0.5 mb-6" style="background-color: var(--accent);"></div>
 
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         @foreach($portfolio->images as $img)
-                        <div class="group relative aspect-square rounded-lg overflow-hidden cursor-pointer"
+                        <div class="group relative aspect-square rounded-xl overflow-hidden cursor-pointer border"
                              onclick="openLightbox('{{ Storage::url($img->image) }}', '{{ $img->caption }}')"
-                             style="background-color: #F8F5EF;">
+                             style="background-color: var(--card-bg); border-color: var(--card-border);">
                             <img src="{{ Storage::url($img->image) }}"
                                  alt="{{ $img->caption ?? $portfolio->title }}"
                                  class="w-full h-full object-cover transition-transform duration-400 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
                                 <i class="fas fa-expand-alt text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
                             </div>
                         </div>
@@ -110,19 +110,19 @@
                 @endif
 
                 {{-- CTA --}}
-                <div class="mt-12 p-7 rounded-2xl" style="background-color: #F8F5EF; border: 1px solid #E2DDD6;">
-                    <h3 class="font-semibold text-base mb-2" style="color: #3E372C;">Tertarik dengan Proyek Serupa?</h3>
-                    <p class="text-sm text-gray-500 mb-4">Konsultasikan kebutuhan desain Anda dan dapatkan pre-layout concept gratis.</p>
+                <div class="mt-12 p-7 rounded-2xl border" style="background-color: var(--card-bg); border-color: var(--card-border); box-shadow: var(--card-shadow);">
+                    <h3 class="font-semibold text-base mb-2" style="font-family: var(--serif); font-size: 1.25rem; color: var(--text-heading);">Tertarik dengan Proyek Serupa?</h3>
+                    <p class="text-sm mb-5 leading-relaxed" style="color: var(--text-lead);">Konsultasikan kebutuhan desain Anda dan dapatkan pre-layout concept gratis.</p>
                     <div class="flex flex-wrap gap-3">
                         <a href="{{ route('consultation.create') }}?category={{ $portfolio->category?->slug }}"
-                           class="inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-semibold text-white transition-all duration-200 hover:opacity-90"
-                           style="background-color: #B85C4A;">
+                           class="consult-button trigger-contact-modal inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 shadow-md"
+                           style="background-color: var(--accent);">
                             <i class="fas fa-comment-dots"></i>
                             Konsultasi Proyek Serupa
                         </a>
                         <a href="{{ route('portfolio.index') }}"
-                           class="inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-semibold transition-all duration-200 hover:opacity-80"
-                           style="background-color: #3E372C; color: white;">
+                           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:opacity-80"
+                           style="background-color: var(--brown-deep); color: white;">
                             <i class="fas fa-arrow-left text-xs"></i>
                             Kembali ke Portfolio
                         </a>
@@ -132,14 +132,14 @@
 
             {{-- Right: Project Details Panel --}}
             <div>
-                <div class="sticky top-24 rounded-2xl overflow-hidden" style="border: 1px solid #E2DDD6;">
+                <div class="sticky top-28 rounded-2xl overflow-hidden border" style="border-color: var(--card-border); box-shadow: var(--card-shadow);">
                     {{-- Header --}}
-                    <div class="p-5" style="background-color: #3E372C;">
+                    <div class="p-5" style="background-color: var(--brown-deep);">
                         <h3 class="font-semibold text-white text-sm tracking-wider uppercase">Detail Proyek</h3>
                     </div>
 
                     {{-- Details --}}
-                    <div class="divide-y" style="divide-color: #F0EDEA; background: white;">
+                    <div class="divide-y" style="background: var(--card-bg); divide-color: var(--line);">
                         @foreach([
                             ['fas fa-tag',          'Kategori',     $portfolio->category?->name],
                             ['fas fa-tools',        'Jenis Proyek', $portfolio->project_type],
@@ -150,14 +150,14 @@
                             ['fas fa-calendar',     'Tahun',        $portfolio->year],
                         ] as [$icon, $label, $value])
                         @if($value)
-                        <div class="flex items-start gap-3 px-5 py-3.5">
+                        <div class="flex items-start gap-3 px-5 py-3.5 border-b last:border-b-0" style="border-color: var(--line);">
                             <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
-                                 style="background-color: #FEF6F4;">
-                                <i class="{{ $icon }} text-xs" style="color: #B85C4A;"></i>
+                                 style="background-color: var(--paper); border: 1px solid var(--line);">
+                                <i class="{{ $icon }} text-xs" style="color: var(--accent);"></i>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <div class="text-[0.65rem] font-medium uppercase tracking-wider mb-0.5" style="color: #8A6F55;">{{ $label }}</div>
-                                <div class="text-sm font-medium" style="color: #3E372C;">{{ $value }}</div>
+                                <div class="text-[0.65rem] font-medium uppercase tracking-wider mb-0.5" style="color: var(--muted);">{{ $label }}</div>
+                                <div class="text-sm font-medium" style="color: var(--text-heading);">{{ $value }}</div>
                             </div>
                         </div>
                         @endif
@@ -165,10 +165,10 @@
                     </div>
 
                     {{-- WhatsApp CTA --}}
-                    <div class="p-4" style="background-color: #F8F5EF; border-top: 1px solid #E2DDD6;">
+                    <div class="p-4 border-t" style="background-color: var(--card-bg); border-color: var(--card-border);">
                         <a href="https://wa.me/6282213641995?text=Halo%2C%20saya%20tertarik%20dengan%20proyek%20{{ urlencode($portfolio->title) }}%20di%20Pratama%20Design%20Studio."
-                           target="_blank"
-                           class="flex items-center justify-center gap-2 w-full py-3 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                           target="_blank" rel="noopener noreferrer"
+                           class="flex items-center justify-center gap-2 w-full py-3 rounded-lg text-sm font-semibold text-white transition-opacity hover:opacity-90 shadow-sm"
                            style="background-color: #25D366;">
                             <i class="fab fa-whatsapp text-lg"></i>
                             Chat WhatsApp
@@ -184,10 +184,10 @@
 {{-- RELATED PORTFOLIOS                                            --}}
 {{-- ============================================================ --}}
 @if($related->count())
-<section class="py-16" style="background-color: #F8F5EF; border-top: 1px solid #E2DDD6;">
+<section class="py-16 border-t" style="background-color: var(--card-bg); border-color: var(--card-border);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="font-display text-2xl font-semibold mb-8"
-            style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
+            style="font-family: var(--serif); color: var(--text-heading);">
             Proyek Serupa
         </h2>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

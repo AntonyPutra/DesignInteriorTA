@@ -41,14 +41,14 @@
         <div class="max-w-xl lg:max-w-2xl">
             {{-- Breadcrumbs --}}
             @if(!empty($breadcrumbs))
-            <nav class="flex items-center gap-2 text-xs uppercase tracking-wider mb-4" style="color: rgba(255,255,255,0.5);">
+            <nav class="flex items-center gap-2 text-xs uppercase tracking-wider mb-4" style="color: rgba(255,255,255,0.55);">
                 <a href="{{ route('home') }}" class="hover:text-white transition-colors">Home</a>
                 @foreach($breadcrumbs as $label => $url)
                     <i class="fas fa-chevron-right text-[0.55rem] opacity-60"></i>
                     @if($url && !$loop->last)
                         <a href="{{ $url }}" class="hover:text-white transition-colors">{{ $label }}</a>
                     @else
-                        <span style="color: #B85C4A;" class="font-semibold">{{ $label }}</span>
+                        <span style="color: var(--accent);" class="font-semibold">{{ $label }}</span>
                     @endif
                 @endforeach
             </nav>
@@ -56,20 +56,20 @@
 
             {{-- Eyebrow --}}
             @if($eyebrow)
-            <p class="text-xs font-semibold tracking-[0.2em] uppercase mb-3" style="color: #B85C4A;">
+            <p class="text-xs font-semibold tracking-[0.2em] uppercase mb-3" style="color: var(--accent);">
                 {{ $eyebrow }}
             </p>
             @endif
 
             {{-- Title --}}
             <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-white leading-tight tracking-tight"
-                style="font-family: 'Cormorant Garamond', Georgia, serif;">
+                style="font-family: var(--serif);">
                 {{ $title }}
             </h1>
 
             {{-- Description --}}
             @if($description)
-            <p class="mt-4 text-sm sm:text-base leading-relaxed" style="color: rgba(255,255,255,0.72);">
+            <p class="mt-4 text-sm sm:text-base leading-relaxed" style="color: rgba(255,255,255,0.75);">
                 {{ $description }}
             </p>
             @endif

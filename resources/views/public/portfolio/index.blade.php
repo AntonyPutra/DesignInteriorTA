@@ -16,23 +16,21 @@
 {{-- ============================================================ --}}
 {{-- FILTER + PORTFOLIO GRID                                       --}}
 {{-- ============================================================ --}}
-<section class="py-16 lg:py-20 bg-white">
+<section class="py-16 lg:py-20" style="background-color: var(--paper);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {{-- Category Filter --}}
-        <div class="flex flex-wrap gap-2 mb-10 fade-up">
+        <div class="flex flex-wrap gap-2.5 mb-10 fade-up">
             <a href="{{ route('portfolio.index') }}"
                class="inline-flex items-center px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
-               style="{{ $activeCategory === 'all' ? 'background-color: #3E372C; color: white;' : 'background-color: #F8F5EF; color: #6B6B6B; border: 1px solid #E2DDD6;' }}">
+               style="{{ $activeCategory === 'all' ? 'background-color: var(--accent); color: white;' : 'background-color: var(--card-bg); color: var(--text-lead); border: 1px solid var(--card-border);' }}">
                 <i class="fas fa-th-large mr-2 text-xs"></i>
                 Semua
             </a>
             @foreach($categories as $category)
             <a href="{{ route('portfolio.index', ['category' => $category->slug]) }}"
                class="inline-flex items-center px-5 py-2 rounded-full text-sm font-medium transition-all duration-200"
-               style="{{ $activeCategory === $category->slug ? 'background-color: #B85C4A; color: white;' : 'background-color: #F8F5EF; color: #6B6B6B; border: 1px solid #E2DDD6;' }}"
-               onmouseover="{{ $activeCategory !== $category->slug ? 'this.style.backgroundColor=\'#EDE8DF\'; this.style.color=\'#3E372C\';' : '' }}"
-               onmouseout="{{ $activeCategory !== $category->slug ? 'this.style.backgroundColor=\'#F8F5EF\'; this.style.color=\'#6B6B6B\';' : '' }}">
+               style="{{ $activeCategory === $category->slug ? 'background-color: var(--accent); color: white;' : 'background-color: var(--card-bg); color: var(--text-lead); border: 1px solid var(--card-border);' }}">
                 {{ $category->name }}
             </a>
             @endforeach
@@ -40,10 +38,10 @@
 
         {{-- Portfolio Count --}}
         <div class="mb-6 fade-up">
-            <p class="text-sm" style="color: #8A6F55;">
-                Menampilkan <strong style="color: #3E372C;">{{ $portfolios->total() }}</strong> proyek
+            <p class="text-sm" style="color: var(--muted);">
+                Menampilkan <strong style="color: var(--text-heading);">{{ $portfolios->total() }}</strong> proyek
                 @if($activeCategory !== 'all')
-                dalam kategori <strong style="color: #B85C4A;">{{ $categories->firstWhere('slug', $activeCategory)?->name }}</strong>
+                dalam kategori <strong style="color: var(--accent);">{{ $categories->firstWhere('slug', $activeCategory)?->name }}</strong>
                 @endif
             </p>
         </div>
@@ -67,15 +65,15 @@
 
         @else
         <div class="text-center py-20">
-            <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4"
-                 style="background-color: #F8F5EF;">
-                <i class="fas fa-images text-2xl" style="color: #C8BDB0;"></i>
+            <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 border"
+                 style="background-color: var(--card-bg); border-color: var(--card-border);">
+                <i class="fas fa-images text-2xl" style="color: var(--muted);"></i>
             </div>
-            <h3 class="font-semibold text-lg mb-2" style="color: #3E372C;">Belum Ada Proyek</h3>
-            <p class="text-sm text-gray-400 mb-6">Proyek dalam kategori ini belum tersedia.</p>
+            <h3 class="font-semibold text-lg mb-2" style="font-family: var(--serif); font-size: 1.3rem; color: var(--text-heading);">Belum Ada Proyek</h3>
+            <p class="text-sm mb-6" style="color: var(--text-lead);">Proyek dalam kategori ini belum tersedia.</p>
             <a href="{{ route('portfolio.index') }}"
-               class="inline-flex items-center gap-2 px-5 py-2.5 rounded text-sm font-medium text-white"
-               style="background-color: #3E372C;">
+               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium text-white shadow-sm"
+               style="background-color: var(--accent);">
                 <i class="fas fa-arrow-left text-xs"></i>
                 Lihat Semua Proyek
             </a>
@@ -85,17 +83,17 @@
 </section>
 
 {{-- CTA --}}
-<section class="py-16" style="background-color: #F8F5EF; border-top: 1px solid #E2DDD6;">
+<section class="py-16 border-t" style="background-color: var(--card-bg); border-color: var(--card-border);">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-up">
-        <h2 class="font-display text-3xl font-semibold mb-3" style="font-family: 'Cormorant Garamond', serif; color: #3E372C;">
+        <h2 class="font-display text-3xl font-semibold mb-3" style="font-family: var(--serif); color: var(--text-heading);">
             Tertarik dengan Proyek Serupa?
         </h2>
-        <p class="text-sm text-gray-500 mb-6 max-w-lg mx-auto">
+        <p class="text-sm mb-6 max-w-lg mx-auto" style="color: var(--text-lead);">
             Konsultasikan kebutuhan desain interior Anda bersama kami. Gratis pre-layout concept sebelum agreement.
         </p>
         <a href="{{ route('consultation.create') }}"
-           class="inline-flex items-center gap-2 px-7 py-3.5 rounded text-sm font-semibold text-white transition-all duration-200 hover:opacity-90"
-           style="background-color: #B85C4A;">
+           class="consult-button trigger-contact-modal inline-flex items-center gap-2 px-7 py-3.5 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 shadow-md"
+           style="background-color: var(--accent);">
             <i class="fas fa-comment-dots"></i>
             Konsultasi Proyek
         </a>

@@ -38,14 +38,17 @@
                     document.documentElement.classList.remove('dark-theme');
                     if (document.body) document.body.classList.remove('dark-theme');
                 }
-                try { localStorage.setItem('pratama-theme', theme); } catch (e) {}
+                try { 
+                    localStorage.setItem('pratama-theme', theme); 
+                    localStorage.setItem('pratama_theme', theme); 
+                } catch (e) {}
             };
             window.toggleTheme = function() {
                 var current = document.documentElement.getAttribute('data-theme') || 'light';
                 window.setTheme(current === 'dark' ? 'light' : 'dark', true);
             };
             try {
-                var stored = localStorage.getItem('pratama-theme');
+                var stored = localStorage.getItem('pratama-theme') || localStorage.getItem('pratama_theme');
                 var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
                 var initial = stored ? stored : (prefersDark ? 'dark' : 'light');
                 if (initial === 'dark') {
@@ -62,7 +65,7 @@
     @yield('head')
 </head>
 
-<body class="bg-[#ffffff] text-[#24211d] antialiased selection:bg-[#b55b48] selection:text-white">
+<body class="antialiased selection:bg-[#b55b48] selection:text-white">
 
     {{-- Flash Alert: Success --}}
     @if(session('success'))
@@ -116,34 +119,10 @@
         <x-footer />
     @endunless
 
-    {{-- Back to Top Button --}}
-    @unless(View::hasSection('hide_back_to_top'))
-        <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
-            class="fixed bottom-6 right-6 w-11 h-11 text-white rounded-full shadow-lg flex items-center justify-center z-40 transition-all duration-300 opacity-0 pointer-events-none hover:scale-110 active:scale-95"
-            style="background-color: #b55b48;" aria-label="Kembali ke atas">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-        </button>
-    @endunless
-
     {{-- Dian AI Chatbot Widget --}}
     <x-chatbot-widget />
 
     <script>
-        // Back to top visibility
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('back-to-top');
-            if (!btn) return;
-            if (window.scrollY > 400) {
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-            } else {
-                btn.style.opacity = '0';
-                btn.style.pointerEvents = 'none';
-            }
-        });
-
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('main-navbar');

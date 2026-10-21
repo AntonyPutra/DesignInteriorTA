@@ -31,10 +31,17 @@
   const syncHeaderVisibility = () => {
     if (!siteHeader) return;
 
+    // On subpages (no .hero section), header is always visible
+    if (!hero) {
+      siteHeader.classList.add('is-visible');
+      siteHeader.classList.remove('is-hidden');
+      return;
+    }
+
     const currentScrollY = window.scrollY;
-    // Navbar only appears once user reaches Table of Contents (#toc)
+    // Navbar only appears once user reaches Table of Contents (#toc) or past hero
     const triggerSection = tocSection || introSection;
-    const triggerOffset = triggerSection ? triggerSection.offsetTop : window.innerHeight * 2;
+    const triggerOffset = triggerSection ? triggerSection.offsetTop : window.innerHeight * 0.7;
     const threshold = triggerOffset - 80;
 
     if (currentScrollY >= threshold) {
@@ -184,18 +191,65 @@
     }
   });
 
-  contactForm?.addEventListener('submit', (event) => {
+  contactForm?.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (formSuccessToast) {
-      formSuccessToast.hidden = false;
-      const submitBtn = contactForm.querySelector('.btn-modal-submit');
-      if (submitBtn) submitBtn.style.display = 'none';
-      setTimeout(() => {
-        contactForm.reset();
-        formSuccessToast.hidden = true;
-        if (submitBtn) submitBtn.style.display = '';
-        closeModal();
-      }, 2500);
+    const submitBtn = contactForm.querySelector('.btn-modal-submit');
+    const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Mengirim Permintaan...</span>';
+    }
+
+    try {
+      const formData = new FormData(contactForm);
+      const response = await fetch(contactForm.action || '/consultation', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      });
+      const data = await response.json();
+      if (response.ok && data.success) {
+        if (formSuccessToast) {
+          formSuccessToast.hidden = false;
+          formSuccessToast.innerHTML = `
+            <div style="display:flex; flex-direction:column; gap:8px; text-align:left;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <strong style="font-size:14px;">Berhasil Terkirim! Tiket: #${data.ticket_code}</strong>
+              </div>
+              <p style="margin:0; font-size:12px; opacity:0.95; line-height:1.5;">Permintaan konsultasi Anda telah tersimpan di sistem Pratama Design Studio. Tim desainer kami akan segera menghubungi WhatsApp Anda.</p>
+              ${data.whatsapp_link ? `<a href="${data.whatsapp_link}" target="_blank" style="display:inline-flex; align-items:center; gap:6px; margin-top:4px; font-weight:600; color:#fff; text-decoration:underline;">Chat Langsung via WhatsApp &rarr;</a>` : ''}
+            </div>
+          `;
+          if (submitBtn) submitBtn.style.display = 'none';
+          setTimeout(() => {
+            contactForm.reset();
+            formSuccessToast.hidden = true;
+            if (submitBtn) {
+              submitBtn.style.display = '';
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalBtnText;
+            }
+            closeModal();
+          }, 6000);
+        }
+      } else {
+        alert(data.message || 'Terjadi kesalahan saat mengirim. Silakan periksa kembali data Anda.');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Gagal terhubung ke server. Silakan coba lagi atau hubungi kami langsung via WhatsApp.');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }
     }
   });
 
@@ -220,7 +274,7 @@
      ══════════════════════════════════════════════════ */
   const getStoredOrPreferredTheme = () => {
     try {
-      const stored = localStorage.getItem('pratama_theme');
+      const stored = localStorage.getItem('pratama_theme') || localStorage.getItem('pratama-theme');
       if (stored === 'dark' || stored === 'light') return stored;
     } catch (e) {}
     return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
@@ -263,6 +317,7 @@
 
     try {
       localStorage.setItem('pratama_theme', theme);
+      localStorage.setItem('pratama-theme', theme);
     } catch (e) {}
 
     const allButtons = document.querySelectorAll('.theme-toggle-btn');

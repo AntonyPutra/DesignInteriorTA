@@ -1,189 +1,228 @@
-{{-- Footer Component --}}
+{{-- Pratama Design Studio - Canonical Footer & Consultation Modal Component --}}
 
-<footer style="background-color: #302c24; color: #c8c0b4;">
-
-    {{-- Main Footer Content --}}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
-
-            {{-- Brand Column --}}
-            <div class="lg:col-span-1">
-                <div class="flex items-center gap-3.5 mb-5">
-                    <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm"
-                        style="background-color: #b55b48;">
-                        <span class="text-white font-bold text-lg leading-none font-display tracking-widest">P</span>
-                    </div>
-                    <div>
-                        <div class="font-semibold tracking-wide text-white leading-none"
-                            style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.25rem;">
-                            Pratama Design Studio
-                        </div>
-                        <div class="text-[9.5px] tracking-[0.22em] uppercase font-semibold mt-1"
-                            style="color: #d98d88;">
-                            Interior Design & Build
-                        </div>
-                    </div>
-                </div>
-
-                <p class="text-sm leading-relaxed mb-6" style="color: #aba193;">
-                    Interior & exterior design & build company based in Jakarta, Indonesia. Mewujudkan ruang yang
-                    estetis, fungsional, dan sesuai kebutuhan Anda.
-                </p>
-
-                {{-- Social Media --}}
-                <div class="flex items-center gap-3">
-                    <a href="https://instagram.com/pratamaid.studio" target="_blank" rel="noopener"
-                        class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 hover:bg-[#b55b48]"
-                        style="background-color: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);"
-                        title="Instagram @pratamaid.studio">
-                        <i class="fab fa-instagram text-sm text-white"></i>
-                    </a>
-                    <a href="https://wa.me/6282213641995" target="_blank" rel="noopener"
-                        class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 hover:bg-[#25D366]"
-                        style="background-color: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);"
-                        title="WhatsApp">
-                        <i class="fab fa-whatsapp text-sm text-white"></i>
-                    </a>
-                    <a href="mailto:pratamadsb@gmail.com"
-                        class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 hover:bg-[#b55b48]"
-                        style="background-color: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);"
-                        title="Email">
-                        <i class="fas fa-envelope text-sm text-white"></i>
-                    </a>
-                </div>
-            </div>
-
-            {{-- Navigation Links --}}
-            <div>
-                <h4 class="text-xs font-bold text-white mb-4 tracking-[0.2em] uppercase">Menu</h4>
-                <ul class="space-y-2.5">
-                    @foreach([
-                            ['Home', route('home')],
-                            ['About Us', route('about')],
-                            ['Services', route('services.index')],
-                            ['Portfolio', route('portfolio.index')],
-                            ['Cost Estimator', route('estimator.index')],
-                            ['Consultation', route('consultation.create')],
-                            ['Contact', route('contact')],
-                            ['Cari AI', route('ai-portfolio.index')],
-                            ['AI Estimator', route('ai-estimator.index')],
-                        ] as [$label, $href])
-                        <li>
-                            <a href="{{ $href }}"
-                                class="text-sm transition-colors duration-200 hover:text-white flex items-center gap-2 group"
-                                style="color: #aba193;">
-                                <i class="fas fa-chevron-right text-[0.55rem] transition-transform duration-200 group-hover:translate-x-1"
-                                    style="color: #b55b48;"></i>
-                                {{ $label }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-
-            {{-- Services --}}
-            <div>
-                <h4 class="text-xs font-bold text-white mb-4 tracking-[0.2em] uppercase">Services</h4>
-                <ul class="space-y-2.5">
-                    @foreach([
-                            'Fit-Out Consultation',
-                            'Project Plan & Schedule',
-                            'Project Budgeting',
-                            'Digital Rendering 3D',
-                            'Production Process',
-                            'Fit Out & Renovation',
-                        ] as $service)
-                        <li>
-                            <span class="text-sm flex items-center gap-2" style="color: #aba193;">
-                                <i class="fas fa-circle text-[0.3rem]" style="color: #b55b48;"></i>
-                                {{ $service }}
-                            </span>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-
-            {{-- Contact Info --}}
-            <div>
-                <h4 class="text-xs font-bold text-white mb-4 tracking-[0.2em] uppercase">Hubungi Kami</h4>
-                <ul class="space-y-3.5">
-                    <li class="flex items-start gap-3">
-                        <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
-                            style="background-color: rgba(255,255,255,0.06);">
-                            <i class="fas fa-map-marker-alt text-xs" style="color: #d98d88;"></i>
-                        </div>
-                        <div>
-                            <span
-                                class="text-[11px] font-semibold text-white uppercase tracking-wider block mb-0.5">Alamat</span>
-                            <span class="text-sm leading-relaxed" style="color: #aba193;">
-                                Puri Orchard Apt. Orange Grove 21/09, Jakarta
-                            </span>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
-                            style="background-color: rgba(255,255,255,0.06);">
-                            <i class="fab fa-whatsapp text-xs" style="color: #25D366;"></i>
-                        </div>
-                        <div>
-                            <span
-                                class="text-[11px] font-semibold text-white uppercase tracking-wider block mb-0.5">WhatsApp</span>
-                            <a href="https://wa.me/6282213641995" target="_blank"
-                                class="text-sm hover:text-white transition-colors" style="color: #aba193;">
-                                +62 822 1364 1995
-                            </a>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
-                            style="background-color: rgba(255,255,255,0.06);">
-                            <i class="fas fa-envelope text-xs" style="color: #d98d88;"></i>
-                        </div>
-                        <div>
-                            <span
-                                class="text-[11px] font-semibold text-white uppercase tracking-wider block mb-0.5">Email</span>
-                            <a href="mailto:pratamadsb@gmail.com" class="text-sm hover:text-white transition-colors"
-                                style="color: #aba193;">
-                                pratamadsb@gmail.com
-                            </a>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <div class="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
-                            style="background-color: rgba(255,255,255,0.06);">
-                            <i class="fab fa-instagram text-xs" style="color: #d98d88;"></i>
-                        </div>
-                        <div>
-                            <span
-                                class="text-[11px] font-semibold text-white uppercase tracking-wider block mb-0.5">Instagram</span>
-                            <a href="https://instagram.com/pratamaid.studio" target="_blank"
-                                class="text-sm hover:text-white transition-colors" style="color: #aba193;">
-                                @pratamaid.studio
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+{{-- Interactive Consultation Modal --}}
+<dialog id="contactModal" class="contact-modal" aria-labelledby="modalTitle">
+  <div class="modal-dialog">
+    <button type="button" class="modal-close" id="closeContactModal" aria-label="Close dialog">&times;</button>
+    <div class="modal-header">
+      <div class="card-kicker">
+        <svg class="kicker-diamond" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+          <path d="M6 0L12 6L6 12L0 6Z"/>
+        </svg>
+        <span>KONSULTASI DESAIN</span>
+      </div>
+      <h3 id="modalTitle">Mulai Proyek Anda</h3>
+      <p>Diskusikan kebutuhan interior atau eksterior Anda dengan tim desainer dan kontraktor Pratama.</p>
+    </div>
+    <form id="contactForm" class="contact-form" action="{{ route('consultation.store') }}" method="POST">
+      @csrf
+      <div class="form-group">
+        <label for="formName">Nama Lengkap</label>
+        <input type="text" id="formName" name="name" placeholder="Nama Anda" required />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="formEmail">Email</label>
+          <input type="email" id="formEmail" name="email" placeholder="nama@email.com" required />
         </div>
+        <div class="form-group">
+          <label for="formPhone">Nomor WhatsApp / HP</label>
+          <input type="tel" id="formPhone" name="phone" placeholder="+62 8..." required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="formSubject">Jenis Layanan</label>
+        <select id="formSubject" name="subject">
+          <option value="residential">Interior Rumah Tinggal (Landed House)</option>
+          <option value="apartment">Interior Apartemen</option>
+          <option value="commercial">Komersial / F&amp;B / Cafe / Resto</option>
+          <option value="office">Kantor / Office &amp; Reception</option>
+          <option value="booth">Booth Pameran</option>
+          <option value="consultation">Konsultasi &amp; Estimasi Biaya</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="formMessage">Detail Proyek / Pesan</label>
+        <textarea id="formMessage" name="message" rows="4" placeholder="Ceritakan ukuran lokasi, konsep yang diinginkan, atau estimasi jadwal..." required></textarea>
+      </div>
+      <button type="submit" class="btn-modal-submit">
+        <span>Kirim Pesan Konsultasi</span>
+        <span aria-hidden="true">&rarr;</span>
+      </button>
+    </form>
+    <div id="formSuccessToast" class="form-toast" hidden>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <span>Terima kasih! Pesan Anda telah terkirim. Tim Pratama akan segera menghubungi Anda.</span>
+    </div>
+  </div>
+</dialog>
+
+{{-- 4-Column Luxury Footer --}}
+<footer class="contact-footer" id="contact" aria-labelledby="contact-title">
+  <div class="contact-footer-inner">
+    
+    <!-- Column 1: Brand Info & Social Media -->
+    <div class="footer-col footer-col-brand reveal">
+      <div class="brand-badge-row">
+        <span class="brand-icon-sm">P</span>
+        <div class="brand-title-wrap">
+          <strong id="contact-title" class="brand-main-title">Pratama Design Studio</strong>
+          <span class="brand-sub-title">PT Pratama Berkah Utama</span>
+        </div>
+      </div>
+      <p class="brand-desc">
+        Pratama Design Studio &amp; Build spesialis konsultasi interior dan eksterior, desain arsitektur, perencanaan tata ruang, produksi custom workshop, dan renovasi di Jakarta.
+      </p>
+      <div class="social-icon-row" aria-label="Media Sosial Pratama">
+        <a href="https://instagram.com/pratamaid.studio" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="https://wa.me/6282213641995" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+        </a>
+        <a href="mailto:pratamadsb@gmail.com" class="social-circle-btn" aria-label="Email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </a>
+        <a href="https://pratamadesign.com" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="Website">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+        </a>
+      </div>
     </div>
 
-    {{-- Bottom Bar --}}
-    <div style="border-top: 1px solid rgba(255,255,255,0.08);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-                <p class="text-xs text-center sm:text-left" style="color: #988e80;">
-                    &copy; {{ date('Y') }} <span class="text-white font-medium">PT Pratama Berkah Utama</span> / Pratama
-                    Design Studio. All Rights Reserved.
-                </p>
-                <div class="flex items-center gap-4 text-xs" style="color: #988e80;">
-                    <span>Jakarta, Indonesia</span>
-                    <span style="color: rgba(255,255,255,0.15);">·</span>
-                    <a href="{{ route('home') }}" class="hover:text-white transition-colors">Beranda</a>
-                    <span style="color: rgba(255,255,255,0.15);">·</span>
-                    <a href="{{ route('consultation.create') }}"
-                        class="hover:text-white transition-colors">Konsultasi</a>
-                </div>
-            </div>
-        </div>
+    <!-- Column 2: Menu Utama -->
+    <div class="footer-col footer-col-menu reveal">
+      <h3 class="footer-col-title">Menu Utama</h3>
+      <div class="footer-title-bar"></div>
+      <ul class="footer-menu-list">
+        <li><a href="{{ request()->routeIs('home') ? '#home' : route('home') }}"><span class="menu-chevron">&gt;</span> Home</a></li>
+        <li><a href="{{ request()->routeIs('home') ? '#about' : route('about') }}"><span class="menu-chevron">&gt;</span> About Us</a></li>
+        <li><a href="{{ request()->routeIs('home') ? '#services' : route('services.index') }}"><span class="menu-chevron">&gt;</span> Services</a></li>
+        <li><a href="{{ request()->routeIs('home') ? '#portfolio' : route('portfolio.index') }}"><span class="menu-chevron">&gt;</span> Portfolio</a></li>
+        <li><a href="{{ route('estimator.index') }}"><span class="menu-chevron">&gt;</span> Cost Estimator</a></li>
+        <li><a href="{{ route('ai-portfolio.index') }}"><span class="menu-chevron">&gt;</span> Cari AI Portofolio</a></li>
+        <li><a href="{{ route('ai-estimator.index') }}"><span class="menu-chevron">&gt;</span> AI Estimator</a></li>
+        <li><a href="#contact" class="trigger-contact-modal"><span class="menu-chevron">&gt;</span> Konsultasi Form</a></li>
+      </ul>
     </div>
+
+    <!-- Column 3: Hubungi Kami -->
+    <div class="footer-col footer-col-contact reveal">
+      <h3 class="footer-col-title">Hubungi Kami</h3>
+      <div class="footer-title-bar"></div>
+      <div class="contact-info-list">
+        <div class="contact-info-item">
+          <span class="info-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </span>
+          <div class="info-content">
+            <span>Puri Orchard Apt. Orange Grove 21/09, Jakarta Barat 11740</span>
+          </div>
+        </div>
+
+        <a href="tel:+6282213641995" class="contact-info-item contact-info-link">
+          <span class="info-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </span>
+          <div class="info-content">
+            <span>Telepon: +62 822 1364 1995</span>
+          </div>
+        </a>
+
+        <a href="mailto:pratamadsb@gmail.com" class="contact-info-item contact-info-link">
+          <span class="info-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </span>
+          <div class="info-content">
+            <span>pratamadsb@gmail.com</span>
+          </div>
+        </a>
+
+        <a href="https://wa.me/6282213641995" target="_blank" rel="noopener noreferrer" class="contact-info-item contact-info-link">
+          <span class="info-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </span>
+          <div class="info-content">
+            <span>WA / SMS: +62 822 1364 1995</span>
+          </div>
+        </a>
+
+        <div class="contact-info-item">
+          <span class="info-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </span>
+          <div class="info-content">
+            <span>Jam Kerja: Senin – Sabtu 08:30 – 17:30</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 4: Lokasi Kami (Map) -->
+    <div class="footer-col footer-col-location reveal">
+      <h3 class="footer-col-title">Lokasi Kami</h3>
+      <div class="footer-title-bar"></div>
+      <div class="map-card-container">
+        <a href="https://maps.google.com/?q=Puri+Orchard+Apartment+Jakarta" target="_blank" rel="noopener noreferrer" class="map-open-badge">
+          <span>Open In Maps</span>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+        <iframe 
+          src="https://maps.google.com/maps?q=Puri+Orchard+Apartment+Jakarta&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+          class="map-frame" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade" 
+          title="Lokasi Kantor Pratama Design Studio">
+        </iframe>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Sub-Footer Copyright Bar -->
+  <div class="footer-bottom-bar">
+    <p class="copyright-text">&copy; {{ date('Y') }} PT Pratama Berkah Utama. All rights reserved.</p>
+    <p class="tagline-text">Interior &amp; Exterior Design and Build &middot; Jakarta</p>
+  </div>
+
+  <!-- Floating Back to Top Button -->
+  <a href="#top" class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </a>
 </footer>
