@@ -35,25 +35,25 @@
                    @click="activeSection = 'home'"
                    :class="activeSection === 'home' ? 'text-[#B85C4A] font-semibold' : 'text-[#4A453E] hover:text-[#B85C4A]'"
                    class="relative text-[13.5px] font-medium tracking-wide transition-colors py-1 group">
-                    Home
+                    Beranda
                     <span :class="activeSection === 'home' ? 'w-full' : 'w-0 group-hover:w-full'"
                           class="absolute -bottom-0.5 left-0 h-[2px] rounded-full transition-all duration-200 bg-[#B85C4A]"></span>
                 </a>
 
-                <a href="{{ $isHome ? '#about-us-section' : route('about') }}"
+                <a href="{{ route('about') }}"
                    @click="activeSection = 'about'"
-                   :class="activeSection === 'about' ? 'text-[#B85C4A] font-semibold' : 'text-[#4A453E] hover:text-[#B85C4A]'"
+                   :class="activeSection === 'about' || '{{ request()->routeIs('about') }}' === '1' ? 'text-[#B85C4A] font-semibold' : 'text-[#4A453E] hover:text-[#B85C4A]'"
                    class="relative text-[13.5px] font-medium tracking-wide transition-colors py-1 group">
-                    About
-                    <span :class="activeSection === 'about' ? 'w-full' : 'w-0 group-hover:w-full'"
+                    <span data-i18n="nav.about">Tentang</span>
+                    <span :class="activeSection === 'about' || '{{ request()->routeIs('about') }}' === '1' ? 'w-full' : 'w-0 group-hover:w-full'"
                           class="absolute -bottom-0.5 left-0 h-[2px] rounded-full transition-all duration-200 bg-[#B85C4A]"></span>
                 </a>
 
-                <a href="{{ $isHome ? '#services-section' : route('services.index') }}"
+                <a href="{{ $isHome ? '#services' : route('services.index') }}"
                    @click="activeSection = 'services'"
                    :class="activeSection === 'services' ? 'text-[#B85C4A] font-semibold' : 'text-[#4A453E] hover:text-[#B85C4A]'"
                    class="relative text-[13.5px] font-medium tracking-wide transition-colors py-1 group">
-                    Services
+                    Layanan
                     <span :class="activeSection === 'services' ? 'w-full' : 'w-0 group-hover:w-full'"
                           class="absolute -bottom-0.5 left-0 h-[2px] rounded-full transition-all duration-200 bg-[#B85C4A]"></span>
                 </a>
@@ -62,17 +62,8 @@
                    @click="activeSection = 'portfolio'"
                    :class="activeSection === 'portfolio' || '{{ request()->routeIs('portfolio.*') }}' === '1' ? 'text-[#B85C4A] font-semibold' : 'text-[#4A453E] hover:text-[#B85C4A]'"
                    class="relative text-[13.5px] font-medium tracking-wide transition-colors py-1 group">
-                    Portfolio
+                    Portofolio
                     <span :class="activeSection === 'portfolio' || '{{ request()->routeIs('portfolio.*') }}' === '1' ? 'w-full' : 'w-0 group-hover:w-full'"
-                          class="absolute -bottom-0.5 left-0 h-[2px] rounded-full transition-all duration-200 bg-[#B85C4A]"></span>
-                </a>
-
-                <a href="{{ route('estimator.index') }}"
-                   @click="activeSection = 'estimator'"
-                   :class="activeSection === 'estimator' || '{{ request()->routeIs('estimator.*') }}' === '1' ? 'text-[#B85C4A] font-semibold' : 'text-[#4A453E] hover:text-[#B85C4A]'"
-                   class="relative text-[13.5px] font-medium tracking-wide transition-colors py-1 group">
-                    Cost Estimator
-                    <span :class="activeSection === 'estimator' || '{{ request()->routeIs('estimator.*') }}' === '1' ? 'w-full' : 'w-0 group-hover:w-full'"
                           class="absolute -bottom-0.5 left-0 h-[2px] rounded-full transition-all duration-200 bg-[#B85C4A]"></span>
                 </a>
 
@@ -80,7 +71,7 @@
                    @click="activeSection = 'contact'"
                    :class="activeSection === 'contact' || '{{ request()->routeIs('contact') }}' === '1' ? 'text-[#B85C4A] font-semibold' : 'text-[#4A453E] hover:text-[#B85C4A]'"
                    class="relative text-[13.5px] font-medium tracking-wide transition-colors py-1 group">
-                    Contact
+                    Kontak
                     <span :class="activeSection === 'contact' || '{{ request()->routeIs('contact') }}' === '1' ? 'w-full' : 'w-0 group-hover:w-full'"
                           class="absolute -bottom-0.5 left-0 h-[2px] rounded-full transition-all duration-200 bg-[#B85C4A]"></span>
                 </a>
@@ -88,6 +79,13 @@
 
             {{-- Desktop CTA + Mobile Hamburger --}}
             <div class="flex items-center gap-3">
+                {{-- Language Switcher (Switch-style toggle) --}}
+                <button class="lang-toggle-btn" onclick="window.toggleLanguage && window.toggleLanguage()" type="button" role="switch" aria-checked="false" aria-label="Ganti Bahasa (ID / EN)" title="Ubah Bahasa (ID / EN)">
+                    <span class="lang-slider" aria-hidden="true"></span>
+                    <span class="lang-label lang-label-id">ID</span>
+                    <span class="lang-label lang-label-en">EN</span>
+                </button>
+
                 <button class="theme-toggle-btn" type="button" aria-label="Ganti mode gelap / terang" title="Ganti Mode Gelap / Terang">
                     <svg class="theme-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -142,37 +140,31 @@
            @click="open = false; activeSection = 'home'"
            class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50 text-gray-800">
             <i class="fas fa-home w-4 text-center text-[#8C7355]"></i>
-            Home
+            Beranda
         </a>
-        <a href="{{ $isHome ? '#about-us-section' : route('about') }}"
+        <a href="{{ route('about') }}"
            @click="open = false; activeSection = 'about'"
            class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50 text-gray-800">
             <i class="fas fa-building w-4 text-center text-[#8C7355]"></i>
-            About
+            <span data-i18n="nav.about">Tentang</span>
         </a>
-        <a href="{{ $isHome ? '#services-section' : route('services.index') }}"
+        <a href="{{ $isHome ? '#services' : route('services.index') }}"
            @click="open = false; activeSection = 'services'"
            class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50 text-gray-800">
             <i class="fas fa-layer-group w-4 text-center text-[#8C7355]"></i>
-            Services
+            Layanan
         </a>
         <a href="{{ route('portfolio.index') }}"
            @click="open = false; activeSection = 'portfolio'"
            class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50 text-gray-800">
             <i class="fas fa-images w-4 text-center text-[#8C7355]"></i>
-            Portfolio
-        </a>
-        <a href="{{ route('estimator.index') }}"
-           @click="open = false; activeSection = 'estimator'"
-           class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50 text-gray-800">
-            <i class="fas fa-calculator w-4 text-center text-[#8C7355]"></i>
-            Cost Estimator
+            Portofolio
         </a>
         <a href="{{ route('contact') }}"
            @click="open = false; activeSection = 'contact'"
            class="flex items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-gray-50 text-gray-800">
             <i class="fas fa-envelope w-4 text-center text-[#8C7355]"></i>
-            Contact
+            Kontak
         </a>
 
         <div class="pt-3 border-t border-[#E5E0D8]">

@@ -66,4 +66,38 @@ class Portfolio extends Model
     {
         return $query->where('status', 'published');
     }
+
+    /**
+     * Accessor untuk URL gambar utama yang cerdas dan fallback resolusi tinggi.
+     */
+    public function getImageUrlAttribute(): string
+    {
+        if ($this->main_image) {
+            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($this->main_image)) {
+                return \Illuminate\Support\Facades\Storage::url($this->main_image);
+            }
+            if (file_exists(public_path($this->main_image))) {
+                return asset($this->main_image);
+            }
+        }
+
+        $titleLower = strtolower($this->title ?? '');
+        $catLower = strtolower($this->category?->slug ?? $this->category?->name ?? '');
+
+        if (str_contains($titleLower, 'master bedroom')) return asset('assets/images/p-landed-03.jpg');
+        if (str_contains($titleLower, 'full house')) return asset('assets/images/p-landed-05.jpg');
+        if (str_contains($titleLower, 'kitchen')) return asset('assets/images/p-landed-01.jpg');
+        if (str_contains($titleLower, 'kopi') || str_contains($titleLower, 'coffee') || str_contains($titleLower, 'cafe')) return asset('assets/images/p-fnb-02.jpg');
+        if (str_contains($titleLower, 'apartment') || str_contains($titleLower, 'pent house') || str_contains($titleLower, 'studio')) return asset('assets/images/p-apartment-03.jpg');
+        if (str_contains($titleLower, 'office') || str_contains($titleLower, 'dpr') || str_contains($titleLower, 'lobby')) return asset('assets/images/p-office-01.jpg');
+        if (str_contains($titleLower, 'booth') || str_contains($titleLower, 'power')) return asset('assets/images/p-booth-02.jpg');
+
+        if (str_contains($catLower, 'landed')) return asset('assets/images/p-landed-02.jpg');
+        if (str_contains($catLower, 'apart')) return asset('assets/images/p-apartment-01.jpg');
+        if (str_contains($catLower, 'f&b') || str_contains($catLower, 'fnb') || str_contains($catLower, 'commercial')) return asset('assets/images/p-fnb-01.jpg');
+        if (str_contains($catLower, 'office')) return asset('assets/images/p-office-02.jpg');
+        if (str_contains($catLower, 'booth')) return asset('assets/images/p-booth-01.jpg');
+
+        return asset('assets/images/cover-armchair.jpg');
+    }
 }

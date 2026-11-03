@@ -117,6 +117,9 @@
     <!-- Core Stylesheet with Cache-Busting -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ file_exists(public_path('css/style.css')) ? filemtime(public_path('css/style.css')) : time() }}" />
 
+    <!-- Multilingual Translations Controller -->
+    <script src="{{ asset('js/translations.js') }}?v={{ file_exists(public_path('js/translations.js')) ? filemtime(public_path('js/translations.js')) : time() }}"></script>
+
     @yield('head')
 
     <!-- Deferred Application Logic with Cache-Busting -->
@@ -145,10 +148,102 @@
     @yield('content')
 
     <script>
-        setTimeout(() => {
-            document.getElementById('flash-success')?.remove();
-            document.getElementById('flash-error')?.remove();
+        setTimeout(function() {
+            var el = document.getElementById('flash-success');
+            if (el) el.parentNode.removeChild(el);
+            var el2 = document.getElementById('flash-error');
+            if (el2) el2.parentNode.removeChild(el2);
         }, 5000);
+    </script>
+
+    <!-- =====================================================
+         LANG TOGGLE — Inline script runs AFTER full DOM load
+         Directly binds to every .lang-toggle-btn on the page.
+         Uses window.PRATAMA_TRANSLATIONS if available, else
+         just flips the data-lang attribute.
+         ===================================================== -->
+    <script>
+    (function() {
+        function applyTranslations(lang) {
+            var dict = null;
+            if (window.PRATAMA_TRANSLATIONS && window.PRATAMA_TRANSLATIONS[lang]) {
+                dict = window.PRATAMA_TRANSLATIONS[lang];
+            }
+
+            // Set lang on html + body
+            document.documentElement.setAttribute('data-lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+            if (document.body) document.body.setAttribute('data-lang', lang);
+
+            // Save preference
+            try { localStorage.setItem('pratama_lang', lang); } catch(e) {}
+
+            if (dict) {
+                // Update text
+                var textEls = document.querySelectorAll('[data-i18n]');
+                for (var i = 0; i < textEls.length; i++) {
+                    var key = textEls[i].getAttribute('data-i18n');
+                    if (dict[key] !== undefined) textEls[i].innerHTML = dict[key];
+                }
+                // Update placeholders
+                var phEls = document.querySelectorAll('[data-i18n-placeholder]');
+                for (var j = 0; j < phEls.length; j++) {
+                    var phKey = phEls[j].getAttribute('data-i18n-placeholder');
+                    if (dict[phKey] !== undefined) phEls[j].setAttribute('placeholder', dict[phKey]);
+                }
+            }
+
+            // Update button visual state
+            var btns = document.querySelectorAll('.lang-toggle-btn');
+            for (var b = 0; b < btns.length; b++) {
+                if (lang === 'en') {
+                    btns[b].classList.add('is-en');
+                } else {
+                    btns[b].classList.remove('is-en');
+                }
+                btns[b].setAttribute('aria-checked', lang === 'en' ? 'true' : 'false');
+            }
+        }
+
+        function doToggle() {
+            var cur = document.documentElement.getAttribute('data-lang') || 'id';
+            var next = (cur === 'en') ? 'id' : 'en';
+            applyTranslations(next);
+        }
+
+        // Expose globally
+        window.toggleLanguage = doToggle;
+        window.setLanguage = applyTranslations;
+
+        // Directly bind click to every .lang-toggle-btn in DOM
+        function bindLangBtns() {
+            var btns = document.querySelectorAll('.lang-toggle-btn');
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].removeAttribute('onclick');
+                (function(btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        doToggle();
+                    });
+                })(btns[i]);
+            }
+        }
+
+        function initLang() {
+            var stored = 'id';
+            try { var s = localStorage.getItem('pratama_lang'); if (s === 'id' || s === 'en') stored = s; } catch(e) {}
+            applyTranslations(stored);
+            bindLangBtns();
+        }
+
+        // DOMContentLoaded fires after deferred scripts loaded — perfect timing
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLang);
+        } else {
+            initLang();
+        }
+    })();
     </script>
 
     @yield('scripts')

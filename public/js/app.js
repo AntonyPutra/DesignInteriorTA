@@ -13,8 +13,7 @@
 
   let ticking = false;
 
-  const introSection = document.querySelector('#introduction');
-  const tocSection = document.querySelector('#toc');
+  const aboutSection = document.querySelector('#about');
   const desktopNavLinks = document.querySelectorAll('.desktop-nav a');
   const sections = Array.from(desktopNavLinks).map(link => {
     const targetId = link.getAttribute('href');
@@ -31,11 +30,17 @@
   const syncHeaderVisibility = () => {
     if (!siteHeader) return;
 
+    // Subpages always display the header
+    if (siteHeader.classList.contains('is-subpage') || !hero) {
+      siteHeader.classList.add('is-visible');
+      siteHeader.classList.remove('is-hidden');
+      return;
+    }
+
     const currentScrollY = window.scrollY;
-    // Navbar only appears once user reaches Table of Contents (#toc)
-    const triggerSection = tocSection || introSection;
-    const triggerOffset = triggerSection ? triggerSection.offsetTop : window.innerHeight * 2;
-    const threshold = triggerOffset - 80;
+    // Navbar appears when user reaches About Us (#about)
+    const triggerOffset = aboutSection ? aboutSection.offsetTop : (hero ? hero.offsetHeight : window.innerHeight);
+    const threshold = Math.max(triggerOffset - 120, 100);
 
     if (currentScrollY >= threshold) {
       siteHeader.classList.add('is-visible');
@@ -100,7 +105,7 @@
   };
 
   /* ── Page-load: staggered entrance when grid scrolls into view ── */
-  const portfolioGrid = document.querySelector('#portfolioGrid');
+  const portfolioGrid = document.querySelector('#portfolioGrid, #portfolioGalleryGrid');
 
   if (portfolioGrid && 'IntersectionObserver' in window) {
     const gridObserver = new IntersectionObserver((entries, obs) => {
@@ -350,60 +355,10 @@
     }
   };
 
-  /* ── Section Scroll Transitions (Fade-In on Approach, Fade-Out on Scroll Down) ── */
-  const introBar = introSection?.querySelector('.intro-bar');
-  const introPhoto = introSection?.querySelector('.intro-photo');
-  const introElements = [introBar, introPhoto].filter(Boolean);
-
-  const tocHeader = tocSection?.querySelector('.toc-header');
-  const tocBody = tocSection?.querySelector('.toc-body');
-  const tocElements = [tocHeader, tocBody].filter(Boolean);
-
-  const applySectionScrollTransition = (sectionEl, elements) => {
-    if (!sectionEl || !elements || !elements.length) return;
-    const rect = sectionEl.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const height = rect.height || vh;
-
-    // 1. Entering from bottom (Fade IN)
-    const enterRange = vh * 0.7;
-    const enterProgress = Math.min(Math.max((vh - rect.top) / enterRange, 0), 1);
-
-    // 2. Leaving out top (Fade OUT when scrolling further down past section)
-    const exitRange = Math.max(height * 0.55, vh * 0.55);
-    const exitProgress = rect.top < 0 ? Math.min(Math.max((-rect.top) / exitRange, 0), 1) : 0;
-
-    elements.forEach((el, index) => {
-      if (!el) return;
-      const stagger = index * 0.08;
-
-      let elIn = Math.min(Math.max((enterProgress - stagger) / (1 - stagger || 1), 0), 1);
-      let elOut = Math.min(Math.max((exitProgress - stagger * 0.4) / (1 - stagger * 0.4 || 1), 0), 1);
-
-      let opacity = 1;
-      let translateY = 0;
-
-      if (elOut > 0) {
-        // Fading OUT upwards as user scrolls down past section
-        opacity = 1 - elOut;
-        translateY = -(elOut * 32);
-      } else {
-        // Fading IN upwards as user scrolls into section
-        opacity = elIn;
-        translateY = (1 - elIn) * 32;
-      }
-
-      el.style.opacity = Math.max(0, Math.min(1, opacity)).toFixed(3);
-      el.style.transform = `translateY(${translateY.toFixed(1)}px)`;
-    });
-  };
-
   const onScroll = () => {
     handleScroll();
     syncBackToTop();
     updateHeroScrollEffects();
-    applySectionScrollTransition(introSection, introElements);
-    applySectionScrollTransition(tocSection, tocElements);
   };
 
   onScroll();
