@@ -44,13 +44,86 @@
             </div>
             
             <div class="p-7">
+                {{-- Quick Presets / Templates --}}
+                <div class="mb-6 pb-6 border-b" style="border-color: var(--line);">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--text-heading);">
+                            <i class="fas fa-bolt text-amber-500 mr-1"></i> Template Cepat / Quick Presets:
+                        </span>
+                        <span class="text-[11px]" style="color: var(--muted);">Klik untuk mengisi otomatis</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" class="preset-chip text-xs px-3.5 py-1.5 rounded-lg border transition-all text-left hover:scale-[1.02]"
+                                style="background-color: var(--paper); border-color: var(--line); color: var(--text-lead);"
+                                data-room="Master Bedroom" data-size="20" data-style="Japandi Modern"
+                                data-details="Master Bedroom ukuran 4x5 meter (20m²) di apartemen. Gaya Japandi Modern dengan sentuhan warm oak wood. Kebutuhan: wardrobe custom full plafon dengan sliding mirror door, bed frame ukuran 180x200 dengan headboard fabric linen, sepasang nakas gantung, meja rias minimalis, dan panel kisi-kisi kayu di dinding headboard.">
+                            🛏️ Master Bedroom 20m²
+                        </button>
+                        <button type="button" class="preset-chip text-xs px-3.5 py-1.5 rounded-lg border transition-all text-left hover:scale-[1.02]"
+                                style="background-color: var(--paper); border-color: var(--line); color: var(--text-lead);"
+                                data-room="Kitchen Set" data-size="9" data-style="Modern Minimalist"
+                                data-details="Kitchen Set bentuk L ukuran 3x3 meter (9m²) untuk rumah tinggal. Gaya Modern Minimalis dominan warna warm grey dan counter top granit hitam Nero Assoluto. Kebutuhan: kabinet atas full plafon bahan plywood HPL, kabinet bawah, rak piring tarik stainless, sink undermount hitam, backsplash subway tile glossy, dan instalasi hidden LED strip warm white.">
+                            🍳 Kitchen Set Minimalis L-Shape
+                        </button>
+                        <button type="button" class="preset-chip text-xs px-3.5 py-1.5 rounded-lg border transition-all text-left hover:scale-[1.02]"
+                                style="background-color: var(--paper); border-color: var(--line); color: var(--text-lead);"
+                                data-room="Apartemen Studio" data-size="24" data-style="Modern Compact Luxury"
+                                data-details="Apartemen Studio 24m² full fit-out. Konsep Modern Compact Luxury untuk unit sewa premium. Kebutuhan: compact kitchen pantry, lemari pakaian 2 pintu menyatu dengan meja kerja, backdrop TV panel marmer sintetis dengan ambalan gantung, partisi kisi-kisi pemisah tempat tidur, dan queen bed frame dengan storage laci di bawah.">
+                            🏢 Studio Apartment 24m²
+                        </button>
+                        <button type="button" class="preset-chip text-xs px-3.5 py-1.5 rounded-lg border transition-all text-left hover:scale-[1.02]"
+                                style="background-color: var(--paper); border-color: var(--line); color: var(--text-lead);"
+                                data-room="Living Room" data-size="25" data-style="Modern Contemporary"
+                                data-details="Living Room ukuran 5x5 meter (25m²). Gaya Modern Kontemporer mewah dan hangat. Kebutuhan: backdrop TV gantung dengan lighting ambient, credenza bawah 3 meter finishing duco matte, partisi sekat ruangan minimalis kayu besi, dan penataan wall paneling aksen moulding halus.">
+                            🛋️ Ruang Keluarga / Living 25m²
+                        </button>
+                    </div>
+                </div>
+
+                {{-- Structured Field Helpers --}}
+                <div class="mb-6 p-4 rounded-xl border" style="background-color: var(--paper); border-color: var(--line);">
+                    <div class="text-xs font-bold uppercase tracking-wider mb-3 flex items-center justify-between" style="color: var(--text-heading);">
+                        <span><i class="fas fa-sliders-h mr-1.5" style="color: var(--accent);"></i> Parameter Spesifikasi Ruangan:</span>
+                        <span class="text-[11px] font-normal" style="color: var(--muted);">(Opsional: Membantu AI menyusun rincian lebih akurat)</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-semibold mb-1" style="color: var(--text-heading);">Tipe Ruangan</label>
+                            <select id="param-room" class="w-full text-xs rounded-lg p-2.5 border" style="background-color: var(--card-bg); border-color: var(--line); color: var(--text-heading);">
+                                <option value="">-- Pilih Tipe --</option>
+                                <option value="Master Bedroom">Kamar Tidur Utama</option>
+                                <option value="Kitchen Set & Pantry">Dapur / Kitchen Set</option>
+                                <option value="Living & Dining Room">Ruang Keluarga & Makan</option>
+                                <option value="Apartemen Studio">Apartemen Studio</option>
+                                <option value="Kantor / Workspace">Ruang Kerja / Kantor</option>
+                                <option value="Cafe / F&B / Komersial">Cafe / Resto / Komersial</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold mb-1" style="color: var(--text-heading);">Luas Ruangan (m²)</label>
+                            <input type="number" id="param-area" min="1" step="0.5" placeholder="Contoh: 18" class="w-full text-xs rounded-lg p-2.5 border" style="background-color: var(--card-bg); border-color: var(--line); color: var(--text-heading);">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold mb-1" style="color: var(--text-heading);">Gaya Desain</label>
+                            <select id="param-style" class="w-full text-xs rounded-lg p-2.5 border" style="background-color: var(--card-bg); border-color: var(--line); color: var(--text-heading);">
+                                <option value="">-- Pilih Gaya --</option>
+                                <option value="Modern Minimalist">Modern Minimalist</option>
+                                <option value="Japandi Warm Wood">Japandi Warm Wood</option>
+                                <option value="Modern Luxury Studio">Modern Luxury Studio</option>
+                                <option value="Classic Contemporary">Classic Contemporary</option>
+                                <option value="Industrial Modern">Industrial Modern</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <form id="ai-estimator-form">
                     @csrf
                     <div class="mb-5">
                         <label for="prompt" class="block text-xs font-bold uppercase tracking-wider mb-2.5" style="color: var(--text-heading);">
-                            Deskripsi Ruangan, Ukuran, &amp; Gaya Interior <span style="color: var(--accent);">*</span>
+                            Deskripsi Rencana &amp; Kebutuhan Ruangan <span style="color: var(--accent);">*</span>
                         </label>
-                        <textarea id="prompt" name="prompt" rows="5"
+                        <textarea id="prompt" name="prompt" rows="5" required
                                   class="w-full rounded-xl text-sm transition-all p-4 focus:outline-none focus:ring-2 leading-relaxed border"
                                   style="background-color: var(--paper); border-color: var(--line); color: var(--text-heading);"
                                   placeholder="Contoh: Saya memiliki master bedroom ukuran 4x5 meter di apartemen. Saya menyukai gaya Japandi Modern dengan sentuhan warm wood. Saya membutuhkan wardrobe custom full plafon dengan pintu cermin, bed frame 180x200 dengan headboard fabric, meja rias gantung, nakas kanan-kiri, dan panel kisi-kisi kayu di dinding utama..."></textarea>
@@ -163,6 +236,43 @@
     function formatRp(angka) {
         return 'Rp ' + parseInt(angka).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
+
+    // Quick Presets Handler
+    document.querySelectorAll('.preset-chip').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const promptEl = document.getElementById('prompt');
+            promptEl.value = this.dataset.details;
+            
+            if (this.dataset.room) document.getElementById('param-room').value = this.dataset.room;
+            if (this.dataset.size) document.getElementById('param-area').value = this.dataset.size;
+            if (this.dataset.style) document.getElementById('param-style').value = this.dataset.style;
+            
+            promptEl.focus();
+        });
+    });
+
+    // Helper parameters auto-update prompt if user types/selects
+    function syncParamsToPrompt() {
+        const room = document.getElementById('param-room').value;
+        const area = document.getElementById('param-area').value;
+        const style = document.getElementById('param-style').value;
+        const promptEl = document.getElementById('prompt');
+        
+        if (room || area || style) {
+            let composed = `Rencana renovasi ${room || 'ruangan'}`;
+            if (area) composed += ` dengan luasan ${area} m²`;
+            if (style) composed += `, mengusung gaya desain ${style}.`;
+            composed += ' Kebutuhan item pekerjaan dan perabot custom: ';
+            
+            if (!promptEl.value || promptEl.value.startsWith('Rencana renovasi')) {
+                promptEl.value = composed;
+            }
+        }
+    }
+
+    document.getElementById('param-room')?.addEventListener('change', syncParamsToPrompt);
+    document.getElementById('param-area')?.addEventListener('input', syncParamsToPrompt);
+    document.getElementById('param-style')?.addEventListener('change', syncParamsToPrompt);
 
     document.getElementById('ai-estimator-form').addEventListener('submit', async function(e) {
         e.preventDefault();

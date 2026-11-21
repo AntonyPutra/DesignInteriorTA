@@ -9,6 +9,9 @@
         content="@yield('meta_description', 'Pratama Design Studio — Interior & Exterior Design & Build Company. Kami menghadirkan solusi desain yang estetis, fungsional, dan sesuai kebutuhan Anda.')">
     <title>@yield('title', 'Pratama Design Studio') | PT Pratama Berkah Utama</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-mark.png') }}">
+
     <!-- Google Fonts: Cormorant Garamond (display) + Plus Jakarta Sans & Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

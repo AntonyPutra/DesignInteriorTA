@@ -1,7 +1,9 @@
 {{-- Pratama Design Studio - Canonical Site Header --}}
 <header class="site-header" id="top">
   <a class="brand" href="{{ route('home') }}" aria-label="Pratama Design Studio">
-    <span class="brand-icon">P</span>
+    <span class="brand-icon">
+      <img src="{{ asset('assets/images/logo-mark.png') }}" alt="Pratama Design Studio" class="w-6 h-auto object-contain">
+    </span>
     <span class="brand-copy">
       <span class="brand-word">Pratama Design Studio</span>
       <span class="brand-subtitle">Interior Design &amp; Build</span>

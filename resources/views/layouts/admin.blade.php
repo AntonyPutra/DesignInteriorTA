@@ -7,6 +7,8 @@
 
     <title>@yield('title', 'Admin Dashboard') | Pratama Design Studio</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-mark.png') }}">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,8 +44,8 @@
             <!-- Sidebar Header -->
             <div class="flex items-center justify-between h-20 px-6 bg-[#1e1b17] border-b border-[#353029]">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 rounded-xl bg-[#b55b48] flex items-center justify-center text-white font-display text-2xl font-bold shadow-md shadow-[#b55b48]/30 group-hover:scale-105 transition-transform">
-                        P
+                    <div class="w-10 h-10 rounded-xl bg-[#1e1b17] border border-[#353029] flex items-center justify-center p-2 shadow-md shadow-[#b55b48]/20 group-hover:scale-105 transition-transform">
+                        <img src="{{ asset('assets/images/logo-mark.png') }}" alt="Pratama Logo" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <span class="font-display text-xl font-bold text-white tracking-wide block leading-tight">Pratama</span>

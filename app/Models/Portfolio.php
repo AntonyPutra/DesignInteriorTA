@@ -115,9 +115,9 @@ class Portfolio extends Model
         if ($keyword) {
             $matched = (clone $query)->where(function ($q) use ($keyword) {
                 $q->where('slug', 'like', "%{$keyword}%")
-                  ->orWhere('title', 'like', "%{$keyword}%")
-                  ->orWhere('room_type', 'like', "%{$keyword}%")
-                  ->orWhere('project_type', 'like', "%{$keyword}%");
+                    ->orWhere('title', 'like', "%{$keyword}%")
+                    ->orWhere('room_type', 'like', "%{$keyword}%")
+                    ->orWhere('project_type', 'like', "%{$keyword}%");
             })->first();
 
             if ($matched) {

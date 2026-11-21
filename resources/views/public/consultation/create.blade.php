@@ -80,6 +80,7 @@
                             </label>
                             <input type="text" id="name" name="name"
                                    value="{{ old('name') }}"
+                                   required
                                    placeholder="Masukkan nama lengkap Anda"
                                    class="form-input @error('name') border-red-400 @enderror">
                             @error('name')
@@ -100,6 +101,7 @@
                                 </span>
                                 <input type="tel" id="whatsapp" name="whatsapp"
                                        value="{{ old('whatsapp') }}"
+                                       required
                                        placeholder="08xx-xxxx-xxxx"
                                        class="form-input pl-9 @error('whatsapp') border-red-400 @enderror">
                             </div>
@@ -143,6 +145,7 @@
                             </label>
                             <input type="text" id="project_location" name="project_location"
                                    value="{{ old('project_location') }}"
+                                   required
                                    placeholder="Contoh: Cengkareng, Jakarta Barat"
                                    class="form-input @error('project_location') border-red-400 @enderror">
                             @error('project_location')
@@ -158,6 +161,7 @@
                                 Jenis Proyek <span style="color: var(--accent);">*</span>
                             </label>
                             <select id="project_type" name="project_type"
+                                    required
                                     class="form-input @error('project_type') border-red-400 @enderror">
                                 <option value="">-- Pilih Jenis Proyek --</option>
                                 @foreach(['Rumah', 'Apartemen', 'Café/Restaurant', 'Booth', 'Office', 'Lainnya'] as $opt)
@@ -179,6 +183,7 @@
                                 Jenis Ruangan <span style="color: var(--accent);">*</span>
                             </label>
                             <select id="room_type" name="room_type"
+                                    required
                                     class="form-input @error('room_type') border-red-400 @enderror">
                                 <option value="">-- Pilih Jenis Ruangan --</option>
                                 @foreach(['Full House', 'Living Room', 'Bedroom', 'Kitchen Set', 'Pantry', 'Office Room', 'Booth', 'F&B Space', 'Lainnya'] as $opt)
@@ -202,6 +207,7 @@
                             <div class="relative">
                                 <input type="number" id="area_size" name="area_size"
                                        value="{{ old('area_size') }}"
+                                       required
                                        placeholder="0"
                                        min="1" step="0.5"
                                        class="form-input pr-12 @error('area_size') border-red-400 @enderror">
