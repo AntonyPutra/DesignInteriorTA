@@ -43,18 +43,24 @@ Route::post('/consultation', [ConsultationController::class, 'store'])->name('co
 // Cost Estimator
 Route::get('/cost-estimator', [CostEstimatorController::class, 'index'])->name('estimator.index');
 
-// AI Smart Cost Estimator
+// AI Smart Cost Estimator (Rate limit 10/min)
 Route::get('/ai-estimator', [AIEstimatorController::class, 'index'])->name('ai-estimator.index');
-Route::post('/ai-estimator/generate', [AIEstimatorController::class, 'generateEstimate'])->name('ai-estimator.generate');
+Route::post('/ai-estimator/generate', [AIEstimatorController::class, 'generateEstimate'])
+    ->middleware('throttle:10,1')
+    ->name('ai-estimator.generate');
 
-// AI Portfolio Search
-Route::get('/ai-portfolio', [AIPortfolioController::class, 'index'])->name('ai-portfolio.index');
+// AI Portfolio Search (Rate limit 10/min)
+Route::get('/ai-portfolio', [AIPortfolioController::class, 'index'])
+    ->middleware('throttle:10,1')
+    ->name('ai-portfolio.index');
 
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
-// Chatbot AI
-Route::post('/chat', [ChatbotController::class, 'chat'])->name('chat');
+// Chatbot AI (Rate limit 10/min)
+Route::post('/chat', [ChatbotController::class, 'chat'])
+    ->middleware('throttle:10,1')
+    ->name('chat');
 
 // ============================================================
 // AUTH ROUTES (Breeze)

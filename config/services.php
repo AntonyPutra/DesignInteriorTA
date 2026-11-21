@@ -9,8 +9,8 @@ return [
     |
     | This file is for storing the credentials for third party services such
     | as Mailgun, Postmark, AWS and more. This file provides the de facto
-    | location for this type of information, allowing packages to have
-    | a conventional file to locate the various service credentials.
+    | location for this type of information, allowing packages to have a
+    | conventional file to locate the various service credentials.
     |
     */
 
@@ -41,13 +41,28 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | 9Router / OpenAI-Compatible AI Service (AI Estimator, Cari AI, Chatbot)
+    | 9Router AI (OpenAI-compatible endpoint)
     |--------------------------------------------------------------------------
+    |
+    | Endpoint lokal 9Router yang menyediakan model combo "pratama_ai".
+    | Digunakan oleh fitur AI Estimator, AI Portfolio Search, dan Chatbot.
     */
+    'ninerouter' => [
+        'provider'          => env('AI_PROVIDER', 'ninerouter'),
+        'base_url'          => env('AI_BASE_URL', 'http://192.168.1.3:20128/v1'),
+        'api_key'           => env('AI_API_KEY'),
+        'model'             => env('AI_MODEL', 'pratama_ai'),
+        'temperature'       => (float) env('AI_TEMPERATURE', 0.3),
+        'app_bearer_token'  => env('APP_API_BEARER_TOKEN', 'pratama_secret_token_2026'),
+    ],
+
     'ai' => [
-        'base_url' => rtrim(env('AI_BASE_URL', 'http://192.168.1.3:20128/v1'), '/'),
-        'api_key'  => env('AI_API_KEY', ''),
-        'model'    => env('AI_MODEL', 'pratama_ai'),
+        'provider'          => env('AI_PROVIDER', 'ninerouter'),
+        'base_url'          => env('AI_BASE_URL', 'http://192.168.1.3:20128/v1'),
+        'api_key'           => env('AI_API_KEY'),
+        'model'             => env('AI_MODEL', 'pratama_ai'),
+        'temperature'       => (float) env('AI_TEMPERATURE', 0.3),
+        'app_bearer_token'  => env('APP_API_BEARER_TOKEN', 'pratama_secret_token_2026'),
     ],
 
 ];

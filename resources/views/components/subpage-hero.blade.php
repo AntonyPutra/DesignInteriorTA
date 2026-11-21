@@ -11,7 +11,7 @@
     $heroImage = $image ?: \App\Models\Portfolio::getHeaderImage($imageKeyword);
 @endphp
 
-<section class="subpage-hero-banner relative overflow-hidden py-16 md:py-20 lg:py-24 border-b"
+<section class="subpage-hero-banner relative overflow-hidden py-20 md:py-28 border-b"
          style="background-color: #161310; border-color: rgba(255, 255, 255, 0.08);">
 
     {{-- Full-Width Background Photo with Fit, Optical Blur, & Cinematic Studio Overlays --}}

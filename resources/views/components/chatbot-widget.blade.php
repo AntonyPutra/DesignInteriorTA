@@ -86,14 +86,16 @@
             <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-xl flex items-center justify-center p-1.5 shadow-sm"
                     style="background-color: var(--accent);">
-                    <img src="{{ asset('assets/images/logo-mark.png') }}" alt="Prama AI" class="w-full h-full object-contain">
+                    <img src="{{ asset('assets/images/logo-mark.png') }}" alt="Prama AI"
+                        class="w-full h-full object-contain">
                 </div>
                 <div>
                     <h3 class="font-bold text-sm tracking-wide text-white leading-tight">Prama AI</h3>
                     <p class="text-[11px] text-white/70">Asisten Studio Pratama</p>
                 </div>
             </div>
-            <button @click="open = false" class="text-white/70 hover:text-white transition-colors p-1" aria-label="Tutup Chat">
+            <button @click="open = false" class="text-white/70 hover:text-white transition-colors p-1"
+                aria-label="Tutup Chat">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -106,20 +108,20 @@
         <div x-ref="chatContainer" class="flex-1 p-4 overflow-y-auto flex flex-col gap-3"
             style="background-color: var(--paper);">
             <template x-for="(msg, index) in messages" :key="index">
-                <div :class="msg.role === 'user' ? 'self-end text-white' : 'self-start'"
-                    :style="msg.role === 'user' 
+                <div :class="msg.role === 'user' ? 'self-end text-white' : 'self-start'" :style="msg.role === 'user' 
                         ? 'background-color: var(--accent); color: #fff;' 
                         : 'background-color: var(--card-bg); border: 1px solid var(--card-border); color: var(--ink);'"
                     class="max-w-[82%] rounded-2xl px-4 py-2.5 shadow-sm text-sm leading-relaxed" x-text="msg.text">
                 </div>
             </template>
-            <div x-show="isLoading"
-                class="self-start rounded-2xl px-4 py-3 shadow-sm text-sm"
+            <div x-show="isLoading" class="self-start rounded-2xl px-4 py-3 shadow-sm text-sm"
                 style="background-color: var(--card-bg); border: 1px solid var(--card-border); color: var(--ink);">
                 <div class="flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full animate-bounce" style="background-color: var(--accent);"></span>
-                    <span class="w-2 h-2 rounded-full animate-bounce" style="background-color: var(--accent); animation-delay: 0.2s"></span>
-                    <span class="w-2 h-2 rounded-full animate-bounce" style="background-color: var(--accent); animation-delay: 0.4s"></span>
+                    <span class="w-2 h-2 rounded-full animate-bounce"
+                        style="background-color: var(--accent); animation-delay: 0.2s"></span>
+                    <span class="w-2 h-2 rounded-full animate-bounce"
+                        style="background-color: var(--accent); animation-delay: 0.4s"></span>
                 </div>
             </div>
         </div>
@@ -127,19 +129,19 @@
         <!-- Input Area -->
         <div class="p-3" style="background-color: var(--card-bg); border-top: 1px solid var(--card-border);">
             <form @submit.prevent="sendMessage" class="flex items-end gap-2">
-                <textarea x-ref="messageInput" x-model="userInput" placeholder="Tanyakan seputar biaya, gaya, atau konsultasi..." 
-                    @input="resize"
-                    @keydown.enter.prevent="if(!$event.shiftKey && userInput.trim() !== '') { sendMessage() }"
-                    rows="1"
-                    class="flex-1 text-sm rounded-2xl px-4 py-2.5 resize-none overflow-y-auto min-h-[42px] max-h-[120px] outline-none transition-colors" 
+                <textarea x-ref="messageInput" x-model="userInput"
+                    placeholder="Tanyakan seputar biaya, gaya, atau konsultasi..." @input="resize"
+                    @keydown.enter.prevent="if(!$event.shiftKey && userInput.trim() !== '') { sendMessage() }" rows="1"
+                    class="flex-1 text-sm rounded-2xl px-4 py-2.5 resize-none overflow-y-auto min-h-[42px] max-h-[120px] outline-none transition-colors"
                     style="background-color: var(--paper); border: 1px solid var(--card-border); color: var(--ink);"
                     :disabled="isLoading"></textarea>
                 <button type="submit" :disabled="isLoading || userInput.trim() === ''"
                     class="text-white rounded-full p-2.5 mb-0.5 disabled:opacity-40 disabled:cursor-not-allowed transition-all hover:scale-105 shrink-0 flex items-center justify-center cursor-pointer"
-                    style="background-color: var(--accent);"
-                    title="Kirim Pesan">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform rotate-90" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                    style="background-color: var(--accent);" title="Kirim Pesan">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform rotate-90" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path
+                            d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                     </svg>
                 </button>
             </form>

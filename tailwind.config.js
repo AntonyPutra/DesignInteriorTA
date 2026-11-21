@@ -12,6 +12,19 @@ export default {
     theme: {
         extend: {
             colors: {
+                pratama: {
+                    charcoal: '#1A1816',
+                    'charcoal-soft': '#2B2622',
+                    cream: '#F5F2EB',
+                    terracotta: '#C86D51',
+                    'terracotta-warm': '#b55b48',
+                    caramel: '#C08A5A',
+                    gold: '#A9744F',
+                    taupe: '#A89F95',
+                    DEFAULT: '#b55b48',
+                    dark: '#1A1816',
+                    light: '#F5F2EB',
+                },
                 charcoal: {
                     DEFAULT: '#1A1816',
                     soft: '#2B2622',

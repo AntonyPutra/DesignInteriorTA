@@ -14,6 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Trust Cloudflare Tunnel and reverse proxies for HTTPS scheme & client IP
         $middleware->trustProxies(at: '*');
+
+        // Middleware Aliases
+        $middleware->alias([
+            'api.bearer' => \App\Http\Middleware\VerifyApiBearerToken::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

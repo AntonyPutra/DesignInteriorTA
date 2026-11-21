@@ -17,9 +17,9 @@ class AIService
      */
     public static function chatCompletion(array $messages, float $temperature = 0.3, int $maxTokens = 2500): ?string
     {
-        $baseUrl = rtrim((string) config('services.ai.base_url', 'http://192.168.1.3:20128/v1'), '/');
-        $apiKey  = (string) config('services.ai.api_key', '');
-        $model   = (string) config('services.ai.model', 'pratama_ai');
+        $baseUrl = rtrim((string) config('services.ninerouter.base_url', config('services.ai.base_url', 'http://192.168.1.3:20128/v1')), '/');
+        $apiKey  = (string) config('services.ninerouter.api_key', config('services.ai.api_key', ''));
+        $model   = (string) config('services.ninerouter.model', config('services.ai.model', 'pratama_ai'));
 
         $url = $baseUrl . '/chat/completions';
 
@@ -28,10 +28,11 @@ class AIService
             'messages'    => $messages,
             'temperature' => $temperature,
             'max_tokens'  => $maxTokens,
+            'stream'      => false,
         ];
 
         try {
-            $req = Http::withoutVerifying()->timeout(60);
+            $req = Http::withoutVerifying()->timeout(120);
             if (!empty($apiKey)) {
                 $req = $req->withToken($apiKey);
             }
@@ -42,7 +43,9 @@ class AIService
                 $data = $response->json();
                 $content = $data['choices'][0]['message']['content'] ?? null;
                 if ($content !== null) {
-                    return trim($content);
+                    // Sanitasi reasoning tokens dari model pratama_ai
+                    $sanitized = preg_replace('/<think>.*?<\/think>/s', '', $content);
+                    return trim($sanitized);
                 }
             }
 
