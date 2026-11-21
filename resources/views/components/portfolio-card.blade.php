@@ -25,6 +25,7 @@
     {{-- Image Container --}}
     <div class="relative overflow-hidden aspect-[4/3] bg-[#302c24]">
         <img src="{{ $imageUrl }}" alt="{{ $portfolio->title }}"
+            loading="lazy"
             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
 
         {{-- Dark overlay on hover --}}

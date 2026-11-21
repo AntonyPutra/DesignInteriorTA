@@ -15,9 +15,53 @@
     <a class="{{ request()->routeIs('about') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#about' : route('about') }}">About</a>
     <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#services' : route('services.index') }}">Services</a>
     <a class="{{ request()->routeIs('portfolio.*') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#portfolio' : route('portfolio.index') }}">Portfolio</a>
-    <a class="{{ request()->routeIs('estimator.*') ? 'active' : '' }}" href="{{ route('estimator.index') }}">Cost Estimator</a>
     <a class="{{ request()->routeIs('ai-portfolio.*') ? 'active' : '' }}" href="{{ route('ai-portfolio.index') }}">Cari AI</a>
-    <a class="{{ request()->routeIs('ai-estimator.*') ? 'active' : '' }}" href="{{ route('ai-estimator.index') }}">AI Estimator</a>
+
+    {{-- Estimator Dropdown for compact 13" laptop viewports --}}
+    <div class="nav-dropdown-wrapper relative group" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+      <button type="button" @click="open = !open" 
+              class="nav-dropdown-trigger flex items-center gap-1.5 transition-colors cursor-pointer {{ request()->routeIs('estimator.*') || request()->routeIs('ai-estimator.*') ? 'active font-semibold' : '' }}"
+              :class="{ 'active': open }"
+              aria-haspopup="true" :aria-expanded="open">
+        <span>Estimator</span>
+        <svg class="w-3.5 h-3.5 transition-transform duration-200 opacity-70 group-hover:opacity-100" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <div x-show="open" x-cloak
+           x-transition:enter="transition ease-out duration-200"
+           x-transition:enter-start="opacity-0 translate-y-2 scale-95"
+           x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+           x-transition:leave="transition ease-in duration-150"
+           x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+           x-transition:leave-end="opacity-0 translate-y-2 scale-95"
+           class="nav-dropdown-menu absolute left-0 top-full mt-2 w-60 rounded-xl shadow-xl py-2 z-50 border backdrop-blur-md"
+           style="background-color: var(--card-bg); border-color: var(--card-border);">
+        <a href="{{ route('estimator.index') }}" 
+           class="flex items-center gap-3 px-4 py-2.5 text-xs transition-colors hover:bg-black/5 dark:hover:bg-white/5 {{ request()->routeIs('estimator.*') ? 'font-semibold' : '' }}"
+           style="{{ request()->routeIs('estimator.*') ? 'color: var(--accent);' : 'color: var(--ink);' }}">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background-color: rgba(181,91,72,0.12); color: var(--accent);">
+            <i class="fas fa-calculator text-xs"></i>
+          </div>
+          <div>
+            <div class="font-semibold text-xs leading-tight">Cost Estimator</div>
+            <div class="text-[10px] opacity-70 mt-0.5">Kalkulator Standar RAB</div>
+          </div>
+        </a>
+        <a href="{{ route('ai-estimator.index') }}" 
+           class="flex items-center gap-3 px-4 py-2.5 text-xs transition-colors hover:bg-black/5 dark:hover:bg-white/5 {{ request()->routeIs('ai-estimator.*') ? 'font-semibold' : '' }}"
+           style="{{ request()->routeIs('ai-estimator.*') ? 'color: var(--accent);' : 'color: var(--ink);' }}">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background-color: rgba(181,91,72,0.12); color: var(--accent);">
+            <i class="fas fa-magic text-xs"></i>
+          </div>
+          <div>
+            <div class="font-semibold text-xs leading-tight">AI Smart Estimator</div>
+            <div class="text-[10px] opacity-70 mt-0.5">RAB Otomatis via AI</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
     <a class="{{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#contact' : route('contact') }}">Contact</a>
   </nav>
 
@@ -83,9 +127,16 @@
     <a class="{{ request()->routeIs('about') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#about' : route('about') }}">About</a>
     <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#services' : route('services.index') }}">Services</a>
     <a class="{{ request()->routeIs('portfolio.*') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#portfolio' : route('portfolio.index') }}">Portfolio</a>
-    <a class="{{ request()->routeIs('estimator.*') ? 'active' : '' }}" href="{{ route('estimator.index') }}">Cost Estimator</a>
-    <a class="{{ request()->routeIs('ai-portfolio.*') ? 'active' : '' }}" href="{{ route('ai-portfolio.index') }}">Cari AI</a>
-    <a class="{{ request()->routeIs('ai-estimator.*') ? 'active' : '' }}" href="{{ route('ai-estimator.index') }}">AI Estimator</a>
+    <a class="{{ request()->routeIs('ai-portfolio.*') ? 'active' : '' }}" href="{{ route('ai-portfolio.index') }}">Cari AI Portofolio</a>
+    <div class="mobile-estimator-group py-1 my-1 border-y" style="border-color: rgba(255,255,255,0.08);">
+      <div class="px-4 py-1 text-[10px] font-semibold tracking-wider uppercase" style="color: var(--accent);">Kalkulator Estimasi</div>
+      <a class="{{ request()->routeIs('estimator.*') ? 'active' : '' }} pl-6 flex items-center gap-2" href="{{ route('estimator.index') }}">
+        <i class="fas fa-calculator text-xs opacity-75"></i> Cost Estimator
+      </a>
+      <a class="{{ request()->routeIs('ai-estimator.*') ? 'active' : '' }} pl-6 flex items-center gap-2" href="{{ route('ai-estimator.index') }}">
+        <i class="fas fa-magic text-xs opacity-75"></i> AI Smart Estimator
+      </a>
+    </div>
     <a class="{{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ request()->routeIs('home') ? '#contact' : route('contact') }}">Contact</a>
   </nav>
 </div>

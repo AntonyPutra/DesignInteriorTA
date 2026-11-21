@@ -84,8 +84,9 @@
         <div class="px-5 py-4 flex items-center justify-between text-white"
             style="background-color: var(--brown-deep); border-bottom: 1px solid rgba(255,255,255,0.08);">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-white font-display text-base shadow-sm"
-                    style="background-color: var(--accent);">P
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center p-1.5 shadow-sm"
+                    style="background-color: var(--accent);">
+                    <img src="{{ asset('assets/images/logo-mark.png') }}" alt="Prama AI" class="w-full h-full object-contain">
                 </div>
                 <div>
                     <h3 class="font-bold text-sm tracking-wide text-white leading-tight">Prama AI</h3>

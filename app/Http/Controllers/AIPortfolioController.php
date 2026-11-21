@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Portfolio;
 use App\Models\PortfolioCategory;
+use App\Services\AIService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class AIPortfolioController extends Controller
@@ -20,63 +20,60 @@ class AIPortfolioController extends Controller
         $aiPrompt = $request->get('ai_search');
 
         if ($aiPrompt) {
-            set_time_limit(120); // Tambahkan batas waktu
-            // AI Smart Search
-            $apiKey = config('services.gemini.api_key');
-            if ($apiKey) {
-                $portfoliosData = Portfolio::published()->get(['id', 'title', 'project_type', 'room_type', 'design_style', 'description'])->map(function($p) {
-                    return "ID: {$p->id} | Judul: {$p->title} | Ruang: {$p->room_type} | Gaya: {$p->design_style} | Deskripsi: " . substr(strip_tags($p->description), 0, 150);
-                })->implode("\n");
+            set_time_limit(120);
 
-                $systemPrompt = "Kamu adalah AI Portfolio Matcher Pratama Design Studio.
-Tugasmu: Diberikan daftar portofolio, carikan portofolio yang paling relevan secara semantik dengan impian atau pencarian klien.
+            // Grounding data nyata dari database Portfolio
+            $portfoliosData = Portfolio::published()
+                ->with('category')
+                ->get(['id', 'title', 'project_type', 'room_type', 'design_style', 'location', 'description'])
+                ->map(function ($p) {
+                    $categoryName = $p->category->name ?? 'Interior';
+                    $cleanDesc = substr(strip_tags((string) $p->description), 0, 160);
+                    return "ID: {$p->id} | Judul: {$p->title} | Kategori: {$categoryName} | Tipe: {$p->project_type} | Ruang: {$p->room_type} | Gaya: {$p->design_style} | Lokasi: {$p->location} | Deskripsi: {$cleanDesc}";
+                })
+                ->implode("\n");
+
+            $systemPrompt = "Kamu adalah Senior Interior Designer & AI Portfolio Matcher di Pratama Design Studio (Semarang, Indonesia).
+Tugasmu: Diberikan katalog portofolio nyata dari database resmi kami, carikan portofolio yang paling relevan secara semantik dengan impian, kata kunci, atau kriteria pencarian klien.
+
+KATALOG PORTOFOLIO RESMI PRATAMA DESIGN STUDIO:
+{$portfoliosData}
+
 PERATURAN MUTLAK:
-HANYA kembalikan array JSON berisi ID integer yang cocok (maksimal 6 ID). Dilarang memberikan teks apapun selain JSON array.
-Contoh valid: [1, 5, 12] atau [] jika tidak ada.
+1. HANYA rekomendasikan ID proyek yang BENAR-BENAR ada dalam katalog resmi di atas. DILARANG membuat ID palsu atau mengarang proyek.
+2. HANYA kembalikan array JSON berisi ID integer yang cocok, diurutkan dari yang paling relevan (maksimal 6 ID).
+3. Dilarang memberikan teks, penjelasan, atau formatting apapun selain array JSON murni.
+Contoh format valid: [1, 5, 2] atau [] jika tidak ada portofolio yang cocok sama sekali.";
 
-Daftar Portofolio:
-" . $portfoliosData;
+            $messages = [
+                ['role' => 'system', 'content' => $systemPrompt],
+                ['role' => 'user', 'content' => "Pencarian Klien: " . $aiPrompt],
+            ];
 
-                $url = "https://generativelanguage.googleapis.com/v1beta/models/gemma-4-26b-a4b-it:generateContent?key=" . $apiKey;
+            try {
+                $reply = AIService::chatCompletion($messages, 0.3, 120);
 
-                try {
-                    $response = Http::withoutVerifying()->timeout(30)->post($url, [
-                        'contents' => [
-                            ['role' => 'user', 'parts' => [['text' => "Instruksi Sistem:\n" . $systemPrompt . "\n\nPencarian Klien: " . $aiPrompt]]]
-                        ],
-                        'generationConfig' => ['temperature' => 0.1, 'maxOutputTokens' => 100]
-                    ]);
-
-                    if ($response->successful()) {
-                        $data = $response->json();
-                        $rawText = '';
-                        if (isset($data['candidates'][0]['content']['parts'])) {
-                            foreach ($data['candidates'][0]['content']['parts'] as $part) {
-                                if (empty($part['thought']) || $part['thought'] !== true) {
-                                    $rawText .= $part['text'] ?? '';
-                                }
-                            }
-                        }
-                        $reply = trim($rawText);
-                        if (preg_match('/\[[\d\s,]*\]/', $reply, $matches)) {
-                            $ids = json_decode($matches[0], true);
-                            if (is_array($ids) && count($ids) > 0) {
-                                // Jaga urutan relevansi AI jika memungkinkan dengan orderByRaw field
-                                $idsString = implode(',', $ids);
-                                $query->whereIn('id', $ids)->orderByRaw("FIELD(id, {$idsString})");
-                            } else {
-                                $query->where('id', -1); // Tidak ada yang cocok
-                            }
+                if ($reply && preg_match('/\[[\d\s,]*\]/', $reply, $matches)) {
+                    $ids = json_decode($matches[0], true);
+                    if (is_array($ids) && count($ids) > 0) {
+                        $ids = array_filter(array_map('intval', $ids));
+                        if (!empty($ids)) {
+                            $idsString = implode(',', $ids);
+                            $query->whereIn('id', $ids)->orderByRaw("FIELD(id, {$idsString})");
                         } else {
                             $query->where('id', -1);
                         }
+                    } else {
+                        $query->where('id', -1);
                     }
-                } catch (\Exception $e) {
-                    Log::error("AI Search Error: " . $e->getMessage());
+                } else {
+                    $query->where('id', -1);
                 }
+            } catch (\Throwable $e) {
+                Log::error("9Router AI Portfolio Matcher Error: " . $e->getMessage());
             }
         } elseif ($activeCategory !== 'all') {
-            // Filter biasa berdasarkan category slug
+            // Filter kategori reguler
             $query->whereHas('category', function ($q) use ($activeCategory) {
                 $q->where('slug', $activeCategory);
             });

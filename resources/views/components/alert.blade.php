@@ -27,11 +27,11 @@
             'text'   => 'text-yellow-800',
         ],
         'info' => [
-            'bg'     => 'bg-blue-50 border-blue-200',
+            'bg'     => 'bg-[#F5F2EB] border-[#C08A5A]/35',
             'icon'   => 'fas fa-info-circle',
-            'color'  => 'text-blue-600',
+            'color'  => 'text-[#C08A5A]',
             'title'  => 'Informasi',
-            'text'   => 'text-blue-800',
+            'text'   => 'text-[#1A1816]',
         ],
     ];
     $s = $styles[$type] ?? $styles['info'];

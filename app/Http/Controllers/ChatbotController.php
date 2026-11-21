@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\CompanyProfile;
-use App\Models\Service;
 use App\Models\Portfolio;
+use App\Models\Service;
+use App\Services\AIService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class ChatbotController extends Controller
@@ -14,23 +14,17 @@ class ChatbotController extends Controller
     public function chat(Request $request)
     {
         set_time_limit(120);
+
         $request->validate([
-            'message' => 'required|string',
+            'message' => 'required|string|max:1000',
         ]);
 
         $userMessage = $request->input('message');
-        $apiKey = config('services.gemini.api_key');
 
-        if (!$apiKey) {
-            return response()->json([
-                'error' => 'API Key belum dikonfigurasi. Silakan tambahkan GEMINI_API_KEY di file .env'
-            ], 500);
-        }
-
-        // Ambil data dinamis dari database
+        // Ambil data dinamis dari database sebagai grounding
         $company = CompanyProfile::getInstance();
         $services = Service::active()->get(['name', 'description']);
-        $portfolios = Portfolio::published()->latest()->take(5)->get(['title', 'client_name', 'project_type']);
+        $portfolios = Portfolio::published()->latest()->take(5)->get(['title', 'client_name', 'project_type', 'room_type']);
 
         // Format data layanan
         $servicesText = "";
@@ -41,85 +35,59 @@ class ChatbotController extends Controller
         // Format data portofolio
         $portfoliosText = "";
         foreach ($portfolios as $portfolio) {
-            $portfoliosText .= "- " . $portfolio->title . " (Klien: " . $portfolio->client_name . ", Tipe: " . $portfolio->project_type . ")\n";
+            $portfoliosText .= "- " . $portfolio->title . " (Ruang: " . ($portfolio->room_type ?? '-') . ", Tipe: " . $portfolio->project_type . ")\n";
         }
 
-        $systemPrompt = "Kamu adalah Prama, asisten virtual resmi untuk {$company->company_name} ({$company->brand_name}).
-Tugasmu adalah membantu pengunjung website yang tertarik dengan layanan desain interior kami.
+        $systemPrompt = "Kamu adalah Prama, asisten virtual resmi sekaligus representasi Senior Interior Designer & Konsultan di Pratama Design Studio (Semarang, Indonesia).
+Tugasmu adalah membantu pengunjung website yang tertarik dengan jasa desain arsitektur, konsultasi interior, custom build, dan renovasi ruangan.
 
-Informasi detail perusahaan (dari database kami):
-- Nama Perusahaan: {$company->company_name}
-- Nama Brand: {$company->brand_name}
-- Deskripsi: {$company->short_description}
-- Visi: {$company->vision}
-- Misi: {$company->mission}
-- Lokasi: {$company->address}
-- WhatsApp: {$company->whatsapp}
-- Email: {$company->email}
-- Website: {$company->website}
-- Instagram: {$company->instagram}
+INFORMASI PERUSAHAAN (PRATAMA DESIGN STUDIO):
+- Nama Perusahaan: " . ($company->company_name ?? 'PT Pratama Berkah Utama') . "
+- Nama Brand: " . ($company->brand_name ?? 'Pratama Design Studio') . "
+- Deskripsi: " . ($company->short_description ?? 'Spesialis desain interior & build') . "
+- Kantor & Workshop: Semarang, Jawa Tengah, Indonesia (melayani area Semarang, Jabodetabek, dan seluruh Indonesia)
+- WhatsApp Resmi: " . ($company->whatsapp ?? '+62 822 1364 1995') . "
+- Email Resmi: " . ($company->email ?? 'pratamadsb@gmail.com') . "
+- Website: " . ($company->website ?? 'https://pratamadesign.com') . "
 
-Daftar Layanan Kami (Wajib direkomendasikan jika relevan):
+PATOKAN TARIF RESMI COMPANY PROFILE:
+- Jasa Desain Interior: Rp 150.000 – Rp 250.000 / m² (termasuk visualisasi 3D render fotorealistis, layout 2D, gambar kerja detail arsitektur & MEP, serta draf RAB transparan).
+- Jasa Renovasi & Build: Rp 350.000 – Rp 400.000 / m² (pekerjaan sipil dan konstruksi fit-out dasar).
+- Custom Workshop: Interior furniture custom (kitchen set, wardrobe, backdrop TV, meja resepsionis, dsb.) diproduksi mandiri di workshop Pratama dengan presisi material berkualitas tinggi.
+
+LAYANAN RESMI:
 {$servicesText}
-Contoh Portofolio Terbaru Kami (Untuk meyakinkan klien):
+
+CONTOH PORTOFOLIO TERBARU:
 {$portfoliosText}
-Panduan Menjawab:
-- Gunakan data di atas untuk menjawab pertanyaan terkait profil, layanan, atau portofolio perusahaan.
-- Jika pengunjung menanyakan hal di luar konteks desain interior, renovasi, atau layanan kami, kamu WAJIB menolak menjawab dengan sopan: 'Maaf, saya hanya bisa membantu pertanyaan seputar layanan interior Pratama Design Studio.'
 
-PERATURAN MUTLAK: 
-Jawablah secara LANGSUNG kepada pengguna. DILARANG KERAS menyertakan proses berpikir (internal monologue), draf, atau penjelasan langkah. HANYA KELUARKAN KALIMAT PERCAKAPAN AKHIR. Jawablah dengan singkat, ramah, persuasif, dan profesional dalam bahasa Indonesia.";
+PANDUAN MENJAWAB:
+- Jawablah dengan ramah, hangat, berkelas (warm luxury architectural studio), ringkas, jelas, dan solutif dalam bahasa Indonesia.
+- Berikan panduan estimasi tarif sesuai patokan resmi di atas jika ditanyakan mengenai biaya/harga.
+- Dorong pengunjung untuk mencoba kalkulator Cost Estimator, AI Estimator di website, atau mengisi Form Konsultasi untuk konsultasi awal dan pre-layout concept gratis.
+- Jika pengguna menanyakan hal di luar konteks arsitektur, interior, konstruksi, atau profil Pratama Design Studio, tolaklah dengan sopan: 'Maaf, saya hanya bisa membantu pertanyaan seputar layanan desain interior dan konstruksi Pratama Design Studio.'
+- Jawab langsung kepada pengguna tanpa proses berpikir internal atau awalan yang berbelit-belit.";
 
-        // Fix: Use the exact model that is available and working for this specific API Key
-        $modelName = 'gemma-4-26b-a4b-it';
-
-        $url = "https://generativelanguage.googleapis.com/v1beta/models/{$modelName}:generateContent?key=" . $apiKey;
+        $messages = [
+            ['role' => 'system', 'content' => $systemPrompt],
+            ['role' => 'user', 'content' => $userMessage],
+        ];
 
         try {
-            $response = Http::withoutVerifying()->timeout(60)->post($url, [
-                'contents' => [
-                    [
-                        'role' => 'user',
-                        'parts' => [
-                            ['text' => "Instruksi Sistem: " . $systemPrompt . "\n\nPertanyaan Pengguna: " . $userMessage]
-                        ]
-                    ]
-                ],
-                'generationConfig' => [
-                    'temperature' => 0.7,
-                    'maxOutputTokens' => 2000,
-                ]
-            ]);
+            $reply = AIService::chatCompletion($messages, 0.3, 1000);
 
-            if ($response->successful()) {
-                $data = $response->json();
-                
-                $rawText = '';
-                if (isset($data['candidates'][0]['content']['parts'])) {
-                    foreach ($data['candidates'][0]['content']['parts'] as $part) {
-                        // Abaikan bagian 'thought' (internal monologue bawaan model)
-                        if (empty($part['thought']) || $part['thought'] !== true) {
-                            $rawText .= $part['text'] ?? '';
-                        }
-                    }
-                }
-                
-                // Bersihkan kutipan atau sisa-sisa spasi
-                $reply = trim($rawText);
-                
-                // Jika masih ada teks monologue di atasnya dan jawaban asli ada di dalam tanda kutip ganda terakhir
-                if (preg_match('/"([^"]+)"$/', $reply, $quoteMatches)) {
-                    $reply = $quoteMatches[1];
-                }
-                
-                return response()->json(['reply' => $reply]);
-            } else {
-                Log::error('Gemini API Error: ' . $response->body());
-                return response()->json(['error' => 'Terjadi kesalahan saat menghubungi AI.'], 500);
+            if (!$reply) {
+                return response()->json([
+                    'reply' => 'Maaf, asisten AI sedang sibuk atau endpoint AI_BASE_URL belum merespons. Silakan hubungi tim kami via WhatsApp di +62 822 1364 1995.'
+                ]);
             }
-        } catch (\Exception $e) {
-            Log::error('Chatbot Error: ' . $e->getMessage());
-            return response()->json(['error' => 'Terjadi kesalahan sistem.'], 500);
+
+            return response()->json(['reply' => $reply]);
+        } catch (\Throwable $e) {
+            Log::error('9Router Chatbot Error: ' . $e->getMessage());
+            return response()->json([
+                'reply' => 'Terjadi kesalahan sistem. Silakan hubungi kami langsung via WhatsApp untuk respon cepat.'
+            ], 500);
         }
     }
 }

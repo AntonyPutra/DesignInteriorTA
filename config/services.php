@@ -39,4 +39,15 @@ return [
         'api_key' => env('GEMINI_API_KEY'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | 9Router / OpenAI-Compatible AI Service (AI Estimator, Cari AI, Chatbot)
+    |--------------------------------------------------------------------------
+    */
+    'ai' => [
+        'base_url' => rtrim(env('AI_BASE_URL', 'http://192.168.1.3:20128/v1'), '/'),
+        'api_key'  => env('AI_API_KEY', ''),
+        'model'    => env('AI_MODEL', 'pratama_ai'),
+    ],
+
 ];

@@ -52,8 +52,8 @@
                             Jenis Layanan / Ruangan <span style="color: var(--accent);">*</span>
                         </label>
                         <div class="relative">
-                            <select id="est_service_type" onchange="calculate()"
-                                    class="w-full rounded-xl text-sm transition-colors py-3 px-4 appearance-none focus:outline-none focus:ring-2"
+                            <select id="est_service_type" onchange="calculate()" required
+                                    class="w-full rounded-xl text-sm transition-colors py-3 px-4 appearance-none focus:outline-none focus:ring-2 focus:ring-accent"
                                     style="background-color: var(--paper); border: 1px solid var(--line); color: var(--text-heading);">
                                 <option value="">-- Pilih Jenis Layanan Interior --</option>
                                 <optgroup label="Interior Residential">
@@ -84,10 +84,10 @@
                             Perkiraan Luas Area (m²) <span style="color: var(--accent);">*</span>
                         </label>
                         <div class="relative">
-                            <input type="number" id="est_area" min="1" step="0.5"
+                            <input type="number" id="est_area" min="1" step="0.5" required
                                    placeholder="Contoh: 36"
                                    oninput="calculate()"
-                                   class="w-full rounded-xl text-sm transition-colors py-3 px-4 pr-12 focus:outline-none focus:ring-2"
+                                   class="w-full rounded-xl text-sm transition-colors py-3 px-4 pr-12 focus:outline-none focus:ring-2 focus:ring-accent"
                                    style="background-color: var(--paper); border: 1px solid var(--line); color: var(--text-heading);">
                             <span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold" style="color: var(--muted);">m²</span>
                         </div>

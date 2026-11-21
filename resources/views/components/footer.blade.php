@@ -32,7 +32,7 @@
       </div>
       <div class="form-group">
         <label for="formSubject">Jenis Layanan</label>
-        <select id="formSubject" name="subject">
+        <select id="formSubject" name="subject" required>
           <option value="residential">Interior Rumah Tinggal (Landed House)</option>
           <option value="apartment">Interior Apartemen</option>
           <option value="commercial">Komersial / F&amp;B / Cafe / Resto</option>

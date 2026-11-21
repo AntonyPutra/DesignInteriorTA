@@ -12,6 +12,18 @@ export default {
     theme: {
         extend: {
             colors: {
+                charcoal: {
+                    DEFAULT: '#1A1816',
+                    soft: '#2B2622',
+                },
+                cream: '#F5F2EB',
+                terracotta: {
+                    DEFAULT: '#C86D51',
+                    warm: '#b55b48',
+                },
+                caramel: '#C08A5A',
+                gold: '#A9744F',
+                taupe: '#A89F95',
                 paper: '#f2f0eb',
                 'paper-2': '#e9e5dd',
                 'brown-lead': '#4a4436',

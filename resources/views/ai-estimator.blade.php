@@ -84,12 +84,12 @@
                 <div class="mb-6 p-4 rounded-xl border" style="background-color: var(--paper); border-color: var(--line);">
                     <div class="text-xs font-bold uppercase tracking-wider mb-3 flex items-center justify-between" style="color: var(--text-heading);">
                         <span><i class="fas fa-sliders-h mr-1.5" style="color: var(--accent);"></i> Parameter Spesifikasi Ruangan:</span>
-                        <span class="text-[11px] font-normal" style="color: var(--muted);">(Opsional: Membantu AI menyusun rincian lebih akurat)</span>
+                        <span class="text-[11px] font-normal" style="color: var(--muted);">(Otomatis digabung ke prompt AI)</span>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                         <div>
-                            <label class="block text-[11px] font-semibold mb-1" style="color: var(--text-heading);">Tipe Ruangan</label>
-                            <select id="param-room" class="w-full text-xs rounded-lg p-2.5 border" style="background-color: var(--card-bg); border-color: var(--line); color: var(--text-heading);">
+                            <label class="block text-[11px] font-semibold mb-1" style="color: var(--text-heading);" for="param-room">Tipe Ruangan</label>
+                            <select id="param-room" class="w-full text-xs rounded-lg p-2.5 border focus:ring-2 focus:ring-accent focus:outline-none" style="background-color: var(--card-bg); border-color: var(--line); color: var(--text-heading);">
                                 <option value="">-- Pilih Tipe --</option>
                                 <option value="Master Bedroom">Kamar Tidur Utama</option>
                                 <option value="Kitchen Set & Pantry">Dapur / Kitchen Set</option>
@@ -100,18 +100,30 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-[11px] font-semibold mb-1" style="color: var(--text-heading);">Luas Ruangan (m²)</label>
-                            <input type="number" id="param-area" min="1" step="0.5" placeholder="Contoh: 18" class="w-full text-xs rounded-lg p-2.5 border" style="background-color: var(--card-bg); border-color: var(--line); color: var(--text-heading);">
+                            <label class="block text-[11px] font-semibold mb-1" style="color: var(--text-heading);" for="param-area">Luas Area (m²)</label>
+                            <input type="number" id="param-area" min="1" step="0.5" placeholder="Contoh: 20" class="w-full text-xs rounded-lg p-2.5 border focus:ring-2 focus:ring-accent focus:outline-none" style="background-color: var(--card-bg); border-color: var(--line); color: var(--text-heading);">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-semibold mb-1" style="color: var(--text-heading);">Gaya Desain</label>
-                            <select id="param-style" class="w-full text-xs rounded-lg p-2.5 border" style="background-color: var(--card-bg); border-color: var(--line); color: var(--text-heading);">
+                            <label class="block text-[11px] font-semibold mb-1" style="color: var(--text-heading);" for="param-style">Gaya Desain</label>
+                            <select id="param-style" class="w-full text-xs rounded-lg p-2.5 border focus:ring-2 focus:ring-accent focus:outline-none" style="background-color: var(--card-bg); border-color: var(--line); color: var(--text-heading);">
                                 <option value="">-- Pilih Gaya --</option>
                                 <option value="Modern Minimalist">Modern Minimalist</option>
                                 <option value="Japandi Warm Wood">Japandi Warm Wood</option>
                                 <option value="Modern Luxury Studio">Modern Luxury Studio</option>
                                 <option value="Classic Contemporary">Classic Contemporary</option>
                                 <option value="Industrial Modern">Industrial Modern</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold mb-1" style="color: var(--text-heading);" for="param-budget">Kisaran Budget</label>
+                            <select id="param-budget" class="w-full text-xs rounded-lg p-2.5 border focus:ring-2 focus:ring-accent focus:outline-none" style="background-color: var(--card-bg); border-color: var(--line); color: var(--text-heading);">
+                                <option value="">-- Pilih Budget --</option>
+                                <option value="Di bawah Rp 25 Juta">&lt; Rp 25 Juta</option>
+                                <option value="Rp 25 - 50 Juta">Rp 25 - 50 Juta</option>
+                                <option value="Rp 50 - 100 Juta">Rp 50 - 100 Juta</option>
+                                <option value="Rp 100 - 250 Juta">Rp 100 - 250 Juta</option>
+                                <option value="Di atas Rp 250 Juta">&gt; Rp 250 Juta</option>
+                                <option value="Fleksibel / Sesuai Rekomendasi">Fleksibel / Standar RAB</option>
                             </select>
                         </div>
                     </div>
@@ -124,7 +136,7 @@
                             Deskripsi Rencana &amp; Kebutuhan Ruangan <span style="color: var(--accent);">*</span>
                         </label>
                         <textarea id="prompt" name="prompt" rows="5" required
-                                  class="w-full rounded-xl text-sm transition-all p-4 focus:outline-none focus:ring-2 leading-relaxed border"
+                                  class="w-full rounded-xl text-sm transition-all p-4 focus:outline-none focus:ring-2 focus:ring-accent leading-relaxed border"
                                   style="background-color: var(--paper); border-color: var(--line); color: var(--text-heading);"
                                   placeholder="Contoh: Saya memiliki master bedroom ukuran 4x5 meter di apartemen. Saya menyukai gaya Japandi Modern dengan sentuhan warm wood. Saya membutuhkan wardrobe custom full plafon dengan pintu cermin, bed frame 180x200 dengan headboard fabric, meja rias gantung, nakas kanan-kiri, dan panel kisi-kisi kayu di dinding utama..."></textarea>
                         <p class="text-[11px] mt-2" style="color: var(--muted);">
@@ -132,7 +144,7 @@
                         </p>
                     </div>
                     <button type="submit" id="btn-generate"
-                            class="w-full py-4 rounded-xl text-xs font-bold uppercase tracking-wider text-white transition-all hover:opacity-95 flex justify-center items-center gap-2 shadow-md"
+                            class="w-full py-4 rounded-xl text-xs font-bold uppercase tracking-wider text-white transition-all hover:opacity-95 flex justify-center items-center gap-2 shadow-md cursor-pointer"
                             style="background-color: var(--accent);">
                         <i class="fas fa-magic text-amber-300"></i> Buat Estimasi Rincian RAB dengan AI
                     </button>
@@ -273,23 +285,43 @@
     document.getElementById('param-room')?.addEventListener('change', syncParamsToPrompt);
     document.getElementById('param-area')?.addEventListener('input', syncParamsToPrompt);
     document.getElementById('param-style')?.addEventListener('change', syncParamsToPrompt);
+    document.getElementById('param-budget')?.addEventListener('change', syncParamsToPrompt);
 
     document.getElementById('ai-estimator-form').addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        const prompt = document.getElementById('prompt').value;
+        const room = document.getElementById('param-room')?.value || '';
+        const area = document.getElementById('param-area')?.value || '';
+        const style = document.getElementById('param-style')?.value || '';
+        const budget = document.getElementById('param-budget')?.value || '';
+        let promptText = document.getElementById('prompt').value.trim();
+        
         const btn = document.getElementById('btn-generate');
         const loading = document.getElementById('loading-state');
         const resultSection = document.getElementById('result-section');
         
-        if (!prompt.trim()) {
+        if (!promptText) {
             alert('Silakan ceritakan rencana ruangan Anda terlebih dahulu.');
             return;
         }
 
+        // Automatically synthesize structured fields with prompt
+        let finalPrompt = promptText;
+        if (room || area || style || budget) {
+            let specs = [];
+            if (room) specs.push('Ruangan: ' + room);
+            if (area) specs.push('Luas: ' + area + ' m²');
+            if (style) specs.push('Gaya: ' + style);
+            if (budget) specs.push('Budget: ' + budget);
+            const prefix = `[Spesifikasi Klien: ${specs.join(', ')}]\n`;
+            if (!finalPrompt.includes('[Spesifikasi Klien:')) {
+                finalPrompt = prefix + finalPrompt;
+            }
+        }
+
         // UI Changes
         btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Sedang Menganalisis...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Sedang Menganalisis RAB...';
         btn.classList.add('opacity-70');
         loading.classList.remove('hidden');
         resultSection.classList.add('hidden');
@@ -302,7 +334,7 @@
                     'Accept': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                body: JSON.stringify({ prompt: prompt })
+                body: JSON.stringify({ prompt: finalPrompt })
             });
 
             const data = await response.json();
