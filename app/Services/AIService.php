@@ -17,7 +17,7 @@ class AIService
      */
     public static function chatCompletion(array $messages, float $temperature = 0.3, int $maxTokens = 2500): ?string
     {
-        $baseUrl = rtrim((string) config('services.ninerouter.base_url', config('services.ai.base_url', 'http://192.168.1.3:20128/v1')), '/');
+        $baseUrl = rtrim((string) config('services.ninerouter.base_url', config('services.ai.base_url', 'http://100.73.16.92:20128/v1')), '/');
         $apiKey  = (string) config('services.ninerouter.api_key', config('services.ai.api_key', ''));
         $model   = (string) config('services.ninerouter.model', config('services.ai.model', 'pratama_ai'));
 
@@ -40,8 +40,15 @@ class AIService
             $response = $req->post($url, $payload);
 
             if ($response->successful()) {
-                $data = $response->json();
+                $rawBody = $response->body();
+                $cleanBody = preg_replace('/\s*data:\s*\[DONE\]\s*$/i', '', trim($rawBody));
+                $data = json_decode($cleanBody, true) ?: $response->json();
+
                 $content = $data['choices'][0]['message']['content'] ?? null;
+                if ($content === null && !empty($data['choices'][0]['message']['reasoning_content'])) {
+                    $content = $data['choices'][0]['message']['reasoning_content'];
+                }
+
                 if ($content !== null) {
                     // Sanitasi reasoning tokens dari model pratama_ai
                     $sanitized = preg_replace('/<think>.*?<\/think>/s', '', $content);

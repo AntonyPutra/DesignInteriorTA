@@ -99,8 +99,15 @@ Struktur JSON yang WAJIB dikembalikan:
             ]);
 
             if ($response->successful()) {
-                $data = $response->json();
+                $rawBody = $response->body();
+                // 9Router SSE cleanup: hapus trailing data: [DONE] jika ada
+                $cleanBody = preg_replace('/\s*data:\s*\[DONE\]\s*$/i', '', trim($rawBody));
+                $data = json_decode($cleanBody, true) ?: $response->json();
+                
                 $rawText = $data['choices'][0]['message']['content'] ?? '';
+                if (empty($rawText) && !empty($data['choices'][0]['message']['reasoning_content'])) {
+                    $rawText = $data['choices'][0]['message']['reasoning_content'];
+                }
 
                 // 1. Sanitasi reasoning tokens dari model pratama_ai
                 $reply = preg_replace('/<think>.*?<\/think>/s', '', $rawText);

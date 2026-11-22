@@ -49,7 +49,7 @@ return [
     */
     'ninerouter' => [
         'provider'          => env('AI_PROVIDER', 'ninerouter'),
-        'base_url'          => env('AI_BASE_URL', 'http://192.168.1.3:20128/v1'),
+        'base_url'          => env('AI_BASE_URL', 'http://100.73.16.92:20128/v1'),
         'api_key'           => env('AI_API_KEY'),
         'model'             => env('AI_MODEL', 'pratama_ai'),
         'temperature'       => (float) env('AI_TEMPERATURE', 0.3),
@@ -58,7 +58,7 @@ return [
 
     'ai' => [
         'provider'          => env('AI_PROVIDER', 'ninerouter'),
-        'base_url'          => env('AI_BASE_URL', 'http://192.168.1.3:20128/v1'),
+        'base_url'          => env('AI_BASE_URL', 'http://100.73.16.92:20128/v1'),
         'api_key'           => env('AI_API_KEY'),
         'model'             => env('AI_MODEL', 'pratama_ai'),
         'temperature'       => (float) env('AI_TEMPERATURE', 0.3),
