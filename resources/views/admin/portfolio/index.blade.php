@@ -38,13 +38,7 @@
                 <tr class="hover:bg-[#faf8f5] transition-colors">
                     <td class="px-6 py-4 text-center">
                         <div class="w-16 h-12 rounded-xl overflow-hidden bg-[#f2f0eb] border border-[#e8e4dc] mx-auto shadow-2xs">
-                            @if($portfolio->main_image && Storage::disk('public')->exists($portfolio->main_image))
-                                <img src="{{ Storage::url($portfolio->main_image) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover">
-                            @else
-                                <div class="w-full h-full flex items-center justify-center text-[#a8a296]">
-                                    <i class="fas fa-image text-sm"></i>
-                                </div>
-                            @endif
+                            <img src="{{ $portfolio->image_url }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover" loading="lazy">
                         </div>
                     </td>
                     <td class="px-6 py-4">

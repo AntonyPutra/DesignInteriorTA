@@ -105,9 +105,20 @@
 <section id="portfolio" 
          x-data="{ 
             activePage: '06_fnb',
+            lightboxOpen: false,
+            activeItem: {},
             portfolioData: {{ Js::from($portfolioPages) }},
             getCurrentPage() {
                 return this.portfolioData.find(p => p.page_key === this.activePage) || this.portfolioData[3];
+            },
+            openPreview(item) {
+                this.activeItem = item;
+                this.lightboxOpen = true;
+                document.body.style.overflow = 'hidden';
+            },
+            closePreview() {
+                this.lightboxOpen = false;
+                document.body.style.overflow = '';
             }
          }" 
          class="relative w-full py-12 sm:py-16 lg:py-20 px-6 sm:px-12 lg:px-20 bg-cream text-ink transition-colors duration-400">
@@ -175,15 +186,67 @@
                         <p x-show="item.meta" x-text="item.meta" class="font-sans text-[10px] sm:text-[11px] text-ink/70 leading-tight truncate"></p>
                     </div>
 
-                    {{-- Image Container (Sharp Square/Rectangle Aspect Ratio) --}}
-                    <div class="relative w-full aspect-square overflow-hidden bg-ink/5">
+                    {{-- Image Container (Sharp Square/Rectangle Aspect Ratio with Hover Zoom & Click Lightbox) --}}
+                    <div class="group relative w-full aspect-square overflow-hidden bg-ink/5 cursor-pointer rounded-lg border border-ink/10"
+                         @click="openPreview(item)">
                         <img :src="item.image" 
                              :alt="item.title" 
-                             class="w-full h-full object-cover object-center"
+                             class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-108"
                              loading="lazy">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                            <span class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
+                                <i class="fas fa-search-plus"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </template>
+        </div>
+    </div>
+
+    {{-- Home Page Portfolio Lightbox Modal --}}
+    <div x-show="lightboxOpen"
+         x-cloak
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @keydown.escape.window="closePreview()"
+         class="fixed inset-0 z-[150] flex items-center justify-center p-4 sm:p-6 bg-black/95 backdrop-blur-md">
+        
+        <div class="absolute inset-0" @click="closePreview()"></div>
+
+        <div class="relative z-10 w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#1a1816]"
+             @click.stop>
+            <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#24211d]">
+                <div>
+                    <h3 class="font-display text-white text-lg font-semibold truncate" x-text="activeItem.title"></h3>
+                    <p class="text-xs text-white/60" x-text="activeItem.meta"></p>
+                </div>
+                <button type="button" @click="closePreview()"
+                        class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fas fa-times text-base"></i>
+                </button>
+            </div>
+
+            <div class="relative flex-1 min-h-[300px] max-h-[65vh] bg-[#12100e] flex items-center justify-center p-3 sm:p-5 overflow-hidden">
+                <img :src="activeItem.image"
+                     :alt="activeItem.title"
+                     class="max-w-full max-h-[60vh] object-contain rounded-lg shadow-xl">
+            </div>
+
+            <div class="px-6 py-4 bg-[#24211d] border-t border-white/10 flex items-center justify-between gap-4">
+                <span class="text-xs text-white/60">Pratama Design Studio &bull; Interior &amp; Exterior</span>
+                <a :href="'https://wa.me/6282213641995?text=Halo%20Pratama%20Design%20Studio%2C%20saya%20tertarik%20dengan%20proyek%20' + encodeURIComponent(activeItem.title || 'Portfolio') + '%20dari%20katalog%20website.'"
+                   target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white transition-transform hover:scale-105 shadow-md"
+                   style="background-color: #25D366;">
+                    <i class="fab fa-whatsapp text-sm"></i>
+                    <span>Konsultasikan Proyek Ini</span>
+                </a>
+            </div>
         </div>
     </div>
 </section>

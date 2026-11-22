@@ -97,9 +97,22 @@ class Portfolio extends Model
             1 => 'assets/images/p-landed-03.jpg',    // Kitchen Set PIK
             2 => 'assets/images/p-landed-02.jpg',    // Master Bedroom Cengkareng
             3 => 'assets/images/p-landed-01.jpg',    // Full House Jelambar
-            4 => 'assets/images/p-apartment-01.jpg', // Apartment Studio Bekasi
-            5 => 'assets/images/p-fnb-01.jpg',       // KATA Kopi PIK
-            6 => 'assets/images/p-office-01.jpg',    // Office Interior Jakarta
+            4 => 'assets/images/p-landed-05.jpg',    // Rainbow Cluster
+            5 => 'assets/images/service-01.jpg',     // Living Room Duri Mas
+            6 => 'assets/images/p-landed-04.jpg',    // Kitchen Green Garden
+            7 => 'assets/images/p-apartment-01.jpg', // Studio Bekasi
+            8 => 'assets/images/p-apartment-02.jpg', // 3BR Meikarta
+            9 => 'assets/images/p-apartment-03.jpg', // Green Park View
+            10 => 'assets/images/p-fnb-01.jpg',      // KATA Kopi PIK
+            11 => 'assets/images/p-fnb-02.jpg',      // Kampung Burger Depok
+            12 => 'assets/images/p-fnb-03.jpg',      // PanMee Mangga Besar
+            13 => 'assets/images/service-02.jpg',    // Muragaru Gading Serpong
+            14 => 'assets/images/p-booth-01.jpg',    // Bubee Commercial Booth
+            15 => 'assets/images/p-booth-02.jpg',    // Exhibition Booth ICE BSD
+            16 => 'assets/images/p-office-01.jpg',   // Lobby Lift DPR RI
+            17 => 'assets/images/p-office-02.jpg',   // DPR Staff Working Room
+            18 => 'assets/images/p-office-03.jpg',   // Reception PT Momodis
+            19 => 'assets/images/p-office-04.jpg',   // NCS POLRI Cyber Crime
         ];
 
         return asset($fallbacks[$this->id] ?? 'assets/images/hero-living.jpg');

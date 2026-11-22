@@ -95,10 +95,11 @@
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         @foreach($portfolio->images as $img)
                         <div class="group relative aspect-square rounded-xl overflow-hidden cursor-pointer border"
-                             onclick="openLightbox('{{ Storage::url($img->image) }}', '{{ $img->caption }}')"
+                             onclick="openLightbox('{{ $img->image_url }}', '{{ addslashes($img->caption ?? $portfolio->title) }}')"
                              style="background-color: var(--card-bg); border-color: var(--card-border);">
-                            <img src="{{ Storage::url($img->image) }}"
+                            <img src="{{ $img->image_url }}"
                                  alt="{{ $img->caption ?? $portfolio->title }}"
+                                 loading="lazy"
                                  class="w-full h-full object-cover transition-transform duration-400 group-hover:scale-110">
                             <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
                                 <i class="fas fa-expand-alt text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>

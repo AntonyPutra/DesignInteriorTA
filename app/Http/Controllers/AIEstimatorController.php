@@ -29,6 +29,22 @@ class AIEstimatorController extends Controller
         $model       = config('services.ninerouter.model', config('services.ai.model', 'pratama_ai'));
         $temperature = (float) config('services.ninerouter.temperature', config('services.ai.temperature', 0.3));
 
+        // Database Grounding: Ambil contoh karya portofolio studio dari database sebagai referensi material & spesifikasi
+        $portfolioGrounding = '';
+        try {
+            $portfolioItems = \App\Models\Portfolio::published()
+                ->with('category')
+                ->limit(8)
+                ->get(['title', 'project_type', 'room_type', 'design_style']);
+
+            if ($portfolioItems->isNotEmpty()) {
+                $portfolioGrounding = "\nACUAN SPESIFIKASI & PORTOFOLIO NYATA STUDIO:\n" .
+                    $portfolioItems->map(fn($p) => "- {$p->title} (Tipe: {$p->project_type}, Ruang: {$p->room_type}, Gaya: {$p->design_style})")->implode("\n") . "\n";
+            }
+        } catch (\Throwable $e) {
+            $portfolioGrounding = '';
+        }
+
         $systemPrompt = "Kamu adalah Senior Interior Designer dan Quantity Surveyor di Pratama Design Studio (Semarang, Indonesia).
 Tugasmu adalah membaca spesifikasi, ukuran, dan kebutuhan renovasi/desain ruangan dari klien, lalu menghasilkan draf estimasi Rencana Anggaran Biaya (RAB) sederhana yang realistis dan akurat dalam Rupiah (Rp).
 
@@ -36,7 +52,7 @@ PATOKAN TARIF RESMI COMPANY PROFILE PRATAMA DESIGN STUDIO:
 - Jasa Desain Interior: Rp 150.000 – Rp 250.000 / m² (konseptual, 3D render realistis, denah 2D, gambar kerja arsitektur & MEP).
 - Jasa Renovasi / Build: Rp 350.000 – Rp 400.000 / m² (pekerjaan sipil dasar, fit-out, pembongkaran, partisi, plester/cat).
 - Custom Furniture: Dihitung per unit/meter lari (m1) standar multiplex/plywood finishing HPL/Duco di workshop Pratama.
-
+{$portfolioGrounding}
 PERATURAN MUTLAK FORMAT KELUARAN:
 1. Jawab HANYA dalam format JSON murni yang valid tanpa awalan markdown seperti ```json, tanpa teks pembuka atau penutup apapun.
 2. Nilai 'grand_total' WAJIB sama persis dengan hasil penjumlahan seluruh nilai 'total' dari setiap item pada array 'items'.

@@ -81,7 +81,7 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         @foreach($portfolio->images as $img)
                         <div class="group relative rounded-2xl overflow-hidden border border-[#e8e4dc] bg-[#faf8f5] aspect-square shadow-2xs">
-                            <img src="{{ Storage::url($img->image) }}" alt="{{ $img->caption }}" class="w-full h-full object-cover">
+                            <img src="{{ $img->image_url }}" alt="{{ $img->caption }}" class="w-full h-full object-cover" loading="lazy">
                             
                             {{-- Overlay & Actions --}}
                             <div class="absolute inset-0 bg-[#24211d]/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2.5 backdrop-blur-[2px]">

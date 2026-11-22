@@ -1,97 +1,122 @@
-{{-- Portfolio Card Component --}}
+{{-- Portfolio Card Component (Warm Luxury Edition) --}}
 {{-- Usage: <x-portfolio-card :portfolio="$portfolio" /> --}}
 
 @props(['portfolio'])
 
 @php
-    // Fallback images from public/assets/images
-    $fallbackImages = [
-        1 => 'assets/images/p-landed-03.jpg',    // Kitchen Set
-        2 => 'assets/images/p-landed-02.jpg',    // Master Bedroom
-        3 => 'assets/images/p-landed-01.jpg',    // Full House
-        4 => 'assets/images/p-apartment-01.jpg', // Apartment Studio
-        5 => 'assets/images/p-fnb-01.jpg',       // F&B / Cafe
-        6 => 'assets/images/p-office-01.jpg',    // Office
-    ];
-    $fallbackImage = $fallbackImages[$portfolio->id] ?? 'assets/images/p-apartment-02.jpg';
-
-    $hasMainImage = $portfolio->main_image && Storage::disk('public')->exists($portfolio->main_image);
-    $imageUrl = $hasMainImage ? Storage::url($portfolio->main_image) : asset($fallbackImage);
+    $imageUrl = $portfolio->image_url;
+    $categoryName = $portfolio->category->name ?? 'Interior';
+    $projectType = $portfolio->project_type ?? 'Desain & Build';
+    $location = $portfolio->location ?? 'Jakarta';
+    $year = $portfolio->year ?? '2023';
 @endphp
 
-<div class="group relative rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 border"
+<div class="group relative rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 border flex flex-col h-full"
     style="background: var(--card-bg); border-color: var(--card-border); box-shadow: var(--card-shadow);">
 
-    {{-- Image Container --}}
-    <div class="relative overflow-hidden aspect-[4/3] bg-[#302c24]">
-        <img src="{{ $imageUrl }}" alt="{{ $portfolio->title }}"
+    {{-- Image Container (Consistent 4:3 Aspect Ratio) --}}
+    <div class="relative overflow-hidden aspect-[4/3] bg-[#24211d] shrink-0">
+        <img src="{{ $imageUrl }}" alt="{{ $portfolio->title }} - {{ $projectType }}"
             loading="lazy"
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
 
-        {{-- Dark overlay on hover --}}
+        {{-- Dark Gradient Overlay on Hover --}}
         <div class="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-            style="background: linear-gradient(to top, rgba(36, 33, 29, 0.9) 0%, rgba(36, 33, 29, 0.25) 60%, transparent 100%);">
+            style="background: linear-gradient(to top, rgba(26, 24, 22, 0.92) 0%, rgba(26, 24, 22, 0.3) 55%, transparent 100%);">
         </div>
 
-        {{-- Category Badge --}}
-        <div class="absolute top-3 left-3">
-            <span
-                class="inline-flex items-center px-2.5 py-1 rounded text-[11px] font-semibold tracking-wide text-white shadow-sm"
-                style="background-color: rgba(181, 91, 72, 0.92); backdrop-filter: blur(4px);">
-                {{ $portfolio->category->name ?? 'Interior' }}
+        {{-- Category Badge (Top Left) --}}
+        <div class="absolute top-3.5 left-3.5 z-10">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase text-white shadow-md"
+                style="background-color: rgba(181, 91, 72, 0.92); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.15);">
+                {{ $categoryName }}
             </span>
         </div>
 
-        {{-- Year badge --}}
-        @if($portfolio->year)
-            <div class="absolute top-3 right-3">
-                <span class="inline-flex items-center px-2.5 py-1 rounded text-[11px] font-medium text-white shadow-sm"
-                    style="background-color: rgba(0, 0, 0, 0.45); backdrop-filter: blur(4px);">
-                    {{ $portfolio->year }}
+        {{-- Year Badge (Top Right) --}}
+        @if($year)
+            <div class="absolute top-3.5 right-3.5 z-10">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium text-white/90 shadow-md"
+                    style="background-color: rgba(0, 0, 0, 0.55); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.1);">
+                    {{ $year }}
                 </span>
             </div>
         @endif
 
-        {{-- View Detail Overlay Button --}}
-        <div
-            class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+        {{-- Interactive Hover Overlay Action Buttons --}}
+        <div class="absolute inset-0 z-20 flex items-center justify-center gap-2.5 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 px-4">
+            {{-- Quick Lightbox Preview Trigger --}}
+            <button type="button"
+                onclick="if(window.openPortfolioLightbox) { window.openPortfolioLightbox({
+                    title: '{{ addslashes($portfolio->title) }}',
+                    category: '{{ addslashes($categoryName) }}',
+                    image: '{{ $imageUrl }}',
+                    location: '{{ addslashes($location) }}',
+                    year: '{{ $year }}',
+                    project_type: '{{ addslashes($projectType) }}',
+                    room_type: '{{ addslashes($portfolio->room_type ?? '') }}',
+                    design_style: '{{ addslashes($portfolio->design_style ?? '') }}',
+                    url: '{{ route('portfolio.show', $portfolio->slug) }}'
+                }); } else { window.location.href = '{{ route('portfolio.show', $portfolio->slug) }}'; }"
+                class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-white transition-all duration-200 hover:scale-105 shadow-lg"
+                style="background-color: rgba(43, 38, 34, 0.9); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(8px);">
+                <i class="fas fa-search-plus text-[11px]"></i>
+                <span>Preview</span>
+            </button>
+
+            {{-- Detail Page Link --}}
             <a href="{{ route('portfolio.show', $portfolio->slug) }}"
-                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider text-white transition-all duration-200 hover:scale-105 transform translate-y-2 group-hover:translate-y-0 shadow-lg"
-                style="background-color: var(--accent); backdrop-filter: blur(4px);">
-                <i class="fas fa-eye text-xs"></i>
-                Lihat Detail
+                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white transition-all duration-200 hover:scale-105 shadow-lg"
+                style="background-color: var(--accent); backdrop-filter: blur(8px);">
+                <span>Detail</span>
+                <i class="fas fa-arrow-right text-[10px]"></i>
             </a>
         </div>
     </div>
 
     {{-- Card Body --}}
-    <div class="p-4" style="background: var(--card-bg);">
-        <div class="flex items-start justify-between gap-2">
-            <div class="flex-1 min-w-0">
-                <h3 class="font-semibold text-base leading-snug truncate mb-1 transition-colors duration-200 group-hover:text-[var(--accent)]"
-                    style="font-family: var(--serif); font-size: 1.2rem; color: var(--text-heading);">
+    <div class="p-5 flex flex-col justify-between flex-1" style="background: var(--card-bg);">
+        <div>
+            {{-- Title --}}
+            <h3 class="font-display font-semibold text-lg leading-snug line-clamp-1 mb-2 transition-colors duration-200 group-hover:text-[var(--accent)]"
+                style="color: var(--text-heading);" title="{{ $portfolio->title }}">
+                <a href="{{ route('portfolio.show', $portfolio->slug) }}">
                     {{ $portfolio->title }}
-                </h3>
-                <div class="flex items-center gap-3 text-xs" style="color: var(--muted);">
-                    @if($portfolio->project_type)
-                        <span class="flex items-center gap-1 font-medium">
-                            <i class="fas fa-tag text-[0.6rem]" style="color: var(--accent);"></i>
-                            {{ $portfolio->project_type }}
-                        </span>
-                    @endif
-                    @if($portfolio->location)
-                        <span class="flex items-center gap-1">
-                            <i class="fas fa-map-marker-alt text-[0.6rem]" style="color: var(--muted);"></i>
-                            {{ $portfolio->location }}
-                        </span>
-                    @endif
-                </div>
+                </a>
+            </h3>
+
+            {{-- Meta Tags --}}
+            <div class="flex flex-wrap items-center gap-2 text-xs mb-3" style="color: var(--muted);">
+                @if($projectType)
+                    <span class="inline-flex items-center gap-1 font-medium">
+                        <i class="fas fa-layer-group text-[10px]" style="color: var(--accent);"></i>
+                        {{ $projectType }}
+                    </span>
+                @endif
+
+                @if($portfolio->room_type)
+                    <span class="opacity-40">•</span>
+                    <span class="inline-flex items-center gap-1">
+                        <i class="fas fa-door-open text-[10px]" style="color: var(--muted);"></i>
+                        {{ $portfolio->room_type }}
+                    </span>
+                @endif
             </div>
-            <a href="{{ route('portfolio.show', $portfolio->slug) }}"
-                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-                style="background-color: var(--paper); border: 1px solid var(--line);" title="Lihat Detail">
-                <i class="fas fa-arrow-right text-xs" style="color: var(--accent);"></i>
-            </a>
+        </div>
+
+        {{-- Card Footer: Location & Style Pills --}}
+        <div class="pt-3 border-t flex items-center justify-between gap-2 text-[11px]" style="border-color: var(--line);">
+            <span class="truncate flex items-center gap-1.5" style="color: var(--text-lead);">
+                <i class="fas fa-map-marker-alt text-[10px]" style="color: var(--accent);"></i>
+                <span class="truncate">{{ $location }}</span>
+            </span>
+
+            @if($portfolio->design_style)
+                <span class="px-2 py-0.5 rounded-md font-medium text-[10px] shrink-0"
+                    style="background-color: var(--paper); color: var(--text-lead); border: 1px solid var(--line);">
+                    {{ $portfolio->design_style }}
+                </span>
+            @endif
         </div>
     </div>
 </div>
