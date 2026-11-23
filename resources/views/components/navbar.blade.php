@@ -2,10 +2,10 @@
 <header class="site-header" id="top">
   <a class="brand" href="{{ route('home') }}" aria-label="Pratama Design Studio">
     <span class="brand-icon">
-      <img src="{{ asset('assets/images/logo-mark.png') }}"
-        onerror="this.onerror=null; this.src='/assets/images/logo-mark.png';"
+      <img src="{{ asset('assets/images/logo-mark.png') }}?v=3"
+        onerror="this.onerror=null; this.src='/assets/images/logo-mark.png?v=3';"
         alt="Pratama Design Studio"
-        class="w-6 h-auto object-contain">
+        class="h-9 md:h-10 w-auto object-contain block">
     </span>
     <span class="brand-copy">
       <span class="brand-word">Pratama Design Studio</span>

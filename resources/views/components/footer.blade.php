@@ -70,10 +70,10 @@
     <div class="footer-col footer-col-brand reveal">
       <div class="brand-badge-row">
         <span class="brand-icon-sm">
-          <img src="{{ asset('assets/images/logo-mark.png') }}"
-            onerror="this.onerror=null; this.src='/assets/images/logo-mark.png';"
+          <img src="{{ asset('assets/images/logo-mark.png') }}?v=3"
+            onerror="this.onerror=null; this.src='/assets/images/logo-mark.png?v=3';"
             alt="Pratama Design Studio"
-            class="w-5 h-auto object-contain">
+            class="h-8 md:h-9 w-auto object-contain block">
         </span>
         <div class="brand-title-wrap">
           <strong id="contact-title" class="brand-main-title">Pratama Design Studio</strong>

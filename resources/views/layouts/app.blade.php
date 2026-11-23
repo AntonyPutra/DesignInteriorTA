@@ -10,7 +10,9 @@
     <title>@yield('title', 'Pratama Design Studio') | PT Pratama Berkah Utama</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-mark.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-mark.png') }}?v=3">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo-mark.png') }}?v=3">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-mark.png') }}?v=3">
 
     <!-- Google Fonts: Cormorant Garamond (display) + Plus Jakarta Sans & Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

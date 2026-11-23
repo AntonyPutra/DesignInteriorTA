@@ -7,7 +7,7 @@
 
 <x-subpage-hero
     title="Karya Kami"
-    eyebrow="Project Portfolio &amp; AI Assistant"
+    eyebrow="Project Portfolio & AI Assistant"
     description="Jelajahi portofolio desain interior kami atau temukan inspirasi spesifik menggunakan asisten pencarian cerdas berbasis AI."
     :breadcrumbs="['Portfolio' => '']"
     image-keyword="apartment"

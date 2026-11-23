@@ -65,14 +65,14 @@
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold tracking-[0.2em] uppercase mb-3.5 border shadow-sm"
                  style="background-color: rgba(181, 91, 72, 0.22); color: #f7a696; border-color: rgba(181, 91, 72, 0.38);">
                 <span class="w-1.5 h-1.5 rounded-full" style="background-color: var(--accent);"></span>
-                {{ $eyebrow }}
+                {!! $eyebrow !!}
             </div>
             @endif
 
             {{-- Title --}}
             <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-white leading-tight tracking-tight drop-shadow-sm"
                 style="font-family: var(--serif);">
-                {{ $title }}
+                {!! $title !!}
             </h1>
 
             {{-- Description --}}

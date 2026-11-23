@@ -6,8 +6,8 @@
 @section('content')
 
 <x-subpage-hero
-    title="Karya &amp; Portofolio"
-    eyebrow="Portfolio Architecture &amp; Interior"
+    title="Karya & Portofolio"
+    eyebrow="Portfolio Architecture & Interior"
     description="Setiap proyek adalah wujud kolaborasi harmonis antara fungsi ruang yang presisi dan estetika interior hangat. Jelajahi karya rancang bangun terbaik kami."
     :breadcrumbs="['Portfolio' => '']"
     image-keyword="landed"
