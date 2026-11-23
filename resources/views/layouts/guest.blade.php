@@ -25,7 +25,7 @@
             <div class="text-center mb-8">
                 <a href="{{ route('home') }}" class="inline-flex flex-col items-center group">
                     <div class="w-16 h-16 rounded-2xl bg-[#1e1b17] border border-[#353029] flex items-center justify-center p-3 shadow-lg group-hover:scale-105 transition-transform duration-200 mb-3">
-                        <img src="{{ asset('assets/images/logo-mark.png') }}" alt="Pratama Design Studio" class="w-full h-full object-contain">
+                        <img src="{{ asset('assets/images/logo-mark.png') }}" onerror="this.onerror=null; this.src='/assets/images/logo-mark.png';" alt="Pratama Design Studio" class="w-full h-full object-contain">
                     </div>
                     <span class="font-display text-3xl font-bold text-[#24211d] tracking-wide block">Pratama</span>
                     <span class="text-xs uppercase tracking-[0.25em] text-[#8c8477] font-semibold mt-0.5">Design Studio &middot; Admin</span>

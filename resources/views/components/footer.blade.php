@@ -70,7 +70,9 @@
     <div class="footer-col footer-col-brand reveal">
       <div class="brand-badge-row">
         <span class="brand-icon-sm">
-          <img src="{{ asset('assets/images/logo-mark.png') }}" alt="Pratama Design Studio"
+          <img src="{{ asset('assets/images/logo-mark.png') }}"
+            onerror="this.onerror=null; this.src='/assets/images/logo-mark.png';"
+            alt="Pratama Design Studio"
             class="w-5 h-auto object-contain">
         </span>
         <div class="brand-title-wrap">
@@ -109,20 +111,15 @@
       <h3 class="footer-col-title">Menu Utama</h3>
       <div class="footer-title-bar"></div>
       <ul class="footer-menu-list">
-        <li><a href="{{ request()->routeIs('home') ? '#home' : route('home') }}"><span class="menu-chevron">&gt;</span>
-            Home</a></li>
-        <li><a href="{{ request()->routeIs('home') ? '#about' : route('about') }}"><span
-              class="menu-chevron">&gt;</span> About Us</a></li>
-        <li><a href="{{ request()->routeIs('home') ? '#services' : route('services.index') }}"><span
-              class="menu-chevron">&gt;</span> Services</a></li>
-        <li><a href="{{ request()->routeIs('home') ? '#portfolio' : route('portfolio.index') }}"><span
-              class="menu-chevron">&gt;</span> Portfolio</a></li>
+        <li><a href="{{ route('home') }}"><span class="menu-chevron">&gt;</span> Home</a></li>
+        <li><a href="{{ route('about') }}"><span class="menu-chevron">&gt;</span> About Us</a></li>
+        <li><a href="{{ route('services.index') }}"><span class="menu-chevron">&gt;</span> Services</a></li>
+        <li><a href="{{ route('portfolio.index') }}"><span class="menu-chevron">&gt;</span> Portfolio</a></li>
         <li><a href="{{ route('estimator.index') }}"><span class="menu-chevron">&gt;</span> Cost Estimator</a></li>
         <li><a href="{{ route('ai-portfolio.index') }}"><span class="menu-chevron">&gt;</span> Cari AI Portofolio</a>
         </li>
         <li><a href="{{ route('ai-estimator.index') }}"><span class="menu-chevron">&gt;</span> AI Estimator</a></li>
-        <li><a href="#contact" class="trigger-contact-modal"><span class="menu-chevron">&gt;</span> Konsultasi Form</a>
-        </li>
+        <li><a href="{{ route('contact') }}"><span class="menu-chevron">&gt;</span> Konsultasi Form</a></li>
       </ul>
     </div>
 

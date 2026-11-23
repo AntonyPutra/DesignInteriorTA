@@ -2,7 +2,9 @@
 <header class="site-header" id="top">
   <a class="brand" href="{{ route('home') }}" aria-label="Pratama Design Studio">
     <span class="brand-icon">
-      <img src="{{ asset('assets/images/logo-mark.png') }}" alt="Pratama Design Studio"
+      <img src="{{ asset('assets/images/logo-mark.png') }}"
+        onerror="this.onerror=null; this.src='/assets/images/logo-mark.png';"
+        alt="Pratama Design Studio"
         class="w-6 h-auto object-contain">
     </span>
     <span class="brand-copy">
@@ -13,13 +15,13 @@
 
   <nav class="desktop-nav" aria-label="Main navigation">
     <a class="{{ request()->routeIs('home') ? 'active' : '' }}"
-      href="{{ request()->routeIs('home') ? '#home' : route('home') }}">Home</a>
+      href="{{ route('home') }}">Home</a>
     <a class="{{ request()->routeIs('about') ? 'active' : '' }}"
-      href="{{ request()->routeIs('home') ? '#about' : route('about') }}">About</a>
+      href="{{ route('about') }}">About</a>
     <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}"
-      href="{{ request()->routeIs('home') ? '#services' : route('services.index') }}">Services</a>
+      href="{{ route('services.index') }}">Services</a>
     <a class="{{ request()->routeIs('portfolio.*') ? 'active' : '' }}"
-      href="{{ request()->routeIs('home') ? '#portfolio' : route('portfolio.index') }}">Portfolio</a>
+      href="{{ route('portfolio.index') }}">Portfolio</a>
     <a class="{{ request()->routeIs('ai-portfolio.*') ? 'active' : '' }}" href="{{ route('ai-portfolio.index') }}">Cari
       AI</a>
 
@@ -71,7 +73,7 @@
     </div>
 
     <a class="{{ request()->routeIs('contact') ? 'active' : '' }}"
-      href="{{ request()->routeIs('home') ? '#contact' : route('contact') }}">Contact</a>
+      href="{{ route('contact') }}">Contact</a>
   </nav>
 
   <div class="header-actions">
@@ -139,13 +141,13 @@
   </div>
   <nav aria-label="Mobile navigation">
     <a class="{{ request()->routeIs('home') ? 'active' : '' }}"
-      href="{{ request()->routeIs('home') ? '#home' : route('home') }}">Home</a>
+      href="{{ route('home') }}">Home</a>
     <a class="{{ request()->routeIs('about') ? 'active' : '' }}"
-      href="{{ request()->routeIs('home') ? '#about' : route('about') }}">About</a>
+      href="{{ route('about') }}">About</a>
     <a class="{{ request()->routeIs('services.*') ? 'active' : '' }}"
-      href="{{ request()->routeIs('home') ? '#services' : route('services.index') }}">Services</a>
+      href="{{ route('services.index') }}">Services</a>
     <a class="{{ request()->routeIs('portfolio.*') ? 'active' : '' }}"
-      href="{{ request()->routeIs('home') ? '#portfolio' : route('portfolio.index') }}">Portfolio</a>
+      href="{{ route('portfolio.index') }}">Portfolio</a>
     <a class="{{ request()->routeIs('ai-portfolio.*') ? 'active' : '' }}" href="{{ route('ai-portfolio.index') }}">Cari
       AI Portofolio</a>
     <div class="mobile-estimator-group py-1 my-1 border-y" style="border-color: rgba(255,255,255,0.08);">
@@ -161,7 +163,7 @@
       </a>
     </div>
     <a class="{{ request()->routeIs('contact') ? 'active' : '' }}"
-      href="{{ request()->routeIs('home') ? '#contact' : route('contact') }}">Contact</a>
+      href="{{ route('contact') }}">Contact</a>
   </nav>
 </div>
 

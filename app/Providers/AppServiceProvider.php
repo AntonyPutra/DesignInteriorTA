@@ -20,8 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Paksa HTTPS jika APP_URL menggunakan https (misal via Cloudflare Tunnel)
-        if (app()->environment('production') || str_starts_with((string) config('app.url'), 'https://')) {
+        // Paksa HTTPS jika APP_URL menggunakan https (misal via Cloudflare Tunnel) atau request header HTTPS
+        if (str_starts_with((string) config('app.url'), 'https://') || request()->isSecure() || request()->header('X-Forwarded-Proto') === 'https') {
             URL::forceScheme('https');
         }
     }

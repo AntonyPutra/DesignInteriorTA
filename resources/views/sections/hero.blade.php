@@ -22,6 +22,7 @@
                     </span>
                     <div class="w-16 sm:w-20 lg:w-22 xl:w-24">
                         <img src="{{ asset('assets/images/logo-mark.png') }}" 
+                             onerror="this.onerror=null; this.src='/assets/images/logo-mark.png';"
                              alt="Pratama geometric logo mark" 
                              class="w-full h-auto drop-shadow-sm">
                     </div>
