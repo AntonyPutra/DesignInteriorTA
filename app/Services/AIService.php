@@ -15,7 +15,7 @@ class AIService
      * @param int $maxTokens Maximum output tokens
      * @return string|null Generated assistant message content
      */
-    public static function chatCompletion(array $messages, float $temperature = 0.3, int $maxTokens = 2500): ?string
+    public static function chatCompletion(array $messages, float $temperature = 0.3, int $maxTokens = 3000): ?string
     {
         $baseUrl = rtrim((string) config('services.ninerouter.base_url', config('services.ai.base_url', 'http://100.73.16.92:20128/v1')), '/');
         $apiKey  = (string) config('services.ninerouter.api_key', config('services.ai.api_key', ''));
@@ -24,11 +24,12 @@ class AIService
         $url = $baseUrl . '/chat/completions';
 
         $payload = [
-            'model'       => $model,
-            'messages'    => $messages,
-            'temperature' => $temperature,
-            'max_tokens'  => $maxTokens,
-            'stream'      => false,
+            'model'            => $model,
+            'messages'         => $messages,
+            'temperature'      => $temperature,
+            'max_tokens'       => $maxTokens,
+            'stream'           => false,
+            'reasoning_effort' => 'none',
         ];
 
         try {

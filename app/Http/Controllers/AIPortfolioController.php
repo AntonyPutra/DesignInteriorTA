@@ -23,9 +23,9 @@ class AIPortfolioController extends Controller
             set_time_limit(120);
 
             // Konfigurasi 9Router (OpenAI-compatible)
-            $baseUrl     = rtrim(config('services.ninerouter.base_url', config('services.ai.base_url', 'http://192.168.1.3:20128/v1')), '/');
-            $apiKey      = config('services.ninerouter.api_key', config('services.ai.api_key'));
-            $model       = config('services.ninerouter.model', config('services.ai.model', 'pratama_ai'));
+            $baseUrl = rtrim(config('services.ninerouter.base_url', config('services.ai.base_url', 'http://192.168.1.3:20128/v1')), '/');
+            $apiKey = config('services.ninerouter.api_key', config('services.ai.api_key'));
+            $model = config('services.ninerouter.model', config('services.ai.model', 'pratama_ai'));
             $temperature = (float) config('services.ninerouter.temperature', config('services.ai.temperature', 0.3));
 
             // Database Grounding: Ambil katalog portofolio nyata dari database
@@ -60,14 +60,15 @@ Contoh valid: [1, 5, 2] atau [] jika tidak ada portofolio yang cocok sama sekali
                 }
 
                 $response = $req->post($url, [
-                    'model'       => $model,
-                    'messages'    => [
+                    'model' => $model,
+                    'messages' => [
                         ['role' => 'system', 'content' => $systemPrompt],
-                        ['role' => 'user',   'content' => "Pencarian Klien: " . $aiPrompt],
+                        ['role' => 'user', 'content' => "Pencarian Klien: " . $aiPrompt],
                     ],
-                    'temperature' => $temperature,
-                    'max_tokens'  => 200,
-                    'stream'      => false,
+                    'temperature'      => $temperature,
+                    'max_tokens'       => 1000,
+                    'stream'           => false,
+                    'reasoning_effort' => 'none',
                 ]);
 
                 if ($response->successful()) {

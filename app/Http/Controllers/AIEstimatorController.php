@@ -45,13 +45,17 @@ class AIEstimatorController extends Controller
             $portfolioGrounding = '';
         }
 
-        $systemPrompt = "Kamu adalah Senior Interior Designer dan Quantity Surveyor di Pratama Design Studio (Semarang, Indonesia).
-Tugasmu adalah membaca spesifikasi, ukuran, dan kebutuhan renovasi/desain ruangan dari klien, lalu menghasilkan draf estimasi Rencana Anggaran Biaya (RAB) sederhana yang realistis dan akurat dalam Rupiah (Rp).
+        $systemPrompt = "Kamu adalah Principal Interior Designer dan Senior Quantity Surveyor di Pratama Design Studio (PT Pratama Berkah Utama).
+Tugasmu adalah membedah kebutuhan ruangan dari klien dan menyusun draf Rencana Anggaran Biaya (RAB) interior yang sangat cerdas, realistis, dan berkelas tinggi dalam mata uang Rupiah (Rp).
 
-PATOKAN TARIF RESMI COMPANY PROFILE PRATAMA DESIGN STUDIO:
-- Jasa Desain Interior: Rp 150.000 – Rp 250.000 / m² (konseptual, 3D render realistis, denah 2D, gambar kerja arsitektur & MEP).
-- Jasa Renovasi / Build: Rp 350.000 – Rp 400.000 / m² (pekerjaan sipil dasar, fit-out, pembongkaran, partisi, plester/cat).
-- Custom Furniture: Dihitung per unit/meter lari (m1) standar multiplex/plywood finishing HPL/Duco di workshop Pratama.
+ATURAN STRUKTUR ITEM PEKERJAAN (INTERIOR FIT-OUT KELAS STUDIO):
+- JANGAN menyusun pekerjaan tukang kasar biasa (jangan gunakan item seperti 'plester semen', 'keramik murah').
+- SELALU susun item pekerjaan interior berkualitas standar workshop Pratama:
+  1. Jasa Desain & Gambar Kerja (3D rendering fotorealistis & DED 2D): Rp 150.000 – Rp 250.000 / m²
+  2. Custom Furniture Workshop (Plywood 18mm finish HPL Taco/Duco, engsel soft-close): Wardrobe, Bed frame, Kitchen cabinet, Meja rias, Backdrop TV, Credenza gantung (Rp 2.200.000 – Rp 3.500.000 per unit atau per meter lari)
+  3. Lantai Interior (Lantai SPC 4mm / Vinyl Tile dengan Underlayer Foam anti-lembab): Rp 200.000 – Rp 280.000 / m²
+  4. Plafon & Lighting (Drop Ceiling Gypsum board & Hidden LED Strip Warm White 3000K): Rp 180.000 – Rp 250.000 / m²
+  5. Wall Treatment (Panel Kisi-kisi Kayu Wood Slat / Wall Moulding / Marmer Sintetis Backdrop): Rp 450.000 – Rp 950.000 / m²
 {$portfolioGrounding}
 PERATURAN MUTLAK FORMAT KELUARAN:
 1. Jawab HANYA dalam format JSON murni yang valid tanpa awalan markdown seperti ```json, tanpa teks pembuka atau penutup apapun.
@@ -61,14 +65,14 @@ Struktur JSON yang WAJIB dikembalikan:
 {
   \"items\": [
     {
-      \"nama_pekerjaan\": \"contoh: Jasa Desain Interior & Gambar Kerja (20 m2)\",
+      \"nama_pekerjaan\": \"contoh: Jasa Desain 3D Fotorealistis & Gambar Kerja DED (20 m2)\",
       \"volume\": 20,
       \"satuan\": \"m2\",
       \"harga_satuan\": 200000,
       \"total\": 4000000
     },
     {
-      \"nama_pekerjaan\": \"contoh: Pemasangan Lantai SPC 4mm & Underlayer\",
+      \"nama_pekerjaan\": \"contoh: Pemasangan Lantai SPC 4mm & Underlayer Foam\",
       \"volume\": 20,
       \"satuan\": \"m2\",
       \"harga_satuan\": 250000,
@@ -76,7 +80,7 @@ Struktur JSON yang WAJIB dikembalikan:
     }
   ],
   \"grand_total\": 9000000,
-  \"catatan\": \"Catatan singkat mengenai durasi pengerjaan, patokan tarif resmi Pratama Design Studio Semarang, dan rekomendasi konsultasi awal gratis.\"
+  \"catatan\": \"Berikan catatan arsitektural yang mendalam, mencakup durasi pengerjaan workshop (3-4 minggu), spesifikasi material Plywood 18mm & HPL Taco, serta rekomendasi konsultasi awal gratis.\"
 }";
 
         $url = $baseUrl . '/chat/completions';
@@ -93,9 +97,10 @@ Struktur JSON yang WAJIB dikembalikan:
                     ['role' => 'system', 'content' => $systemPrompt],
                     ['role' => 'user',   'content' => "Spesifikasi & Kebutuhan Klien:\n" . $userPrompt],
                 ],
-                'temperature' => $temperature,
-                'max_tokens'  => 2500,
-                'stream'      => false,
+                'temperature'      => $temperature,
+                'max_tokens'       => 3500,
+                'stream'           => false,
+                'reasoning_effort' => 'none',
             ]);
 
             if ($response->successful()) {
