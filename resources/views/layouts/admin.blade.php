@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'Admin Dashboard') | Pratama Design Studio</title>
+    <title>{!! strip_tags(html_entity_decode(View::yieldContent('title', 'Admin Dashboard'))) !!} | Pratama Design Studio</title>
 
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-mark.png') }}?v=3">
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo-mark.png') }}?v=3">
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-mark.png') }}?v=3">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/favicon-32x32.png') }}?v=4">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon-16x16.png') }}?v=4">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('assets/images/favicon-512x512.png') }}?v=4">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/apple-touch-icon.png') }}?v=4">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=4">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

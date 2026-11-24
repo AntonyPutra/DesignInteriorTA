@@ -7,12 +7,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description"
         content="@yield('meta_description', 'Pratama Design Studio — Interior & Exterior Design & Build Company. Kami menghadirkan solusi desain yang estetis, fungsional, dan sesuai kebutuhan Anda.')">
-    <title>@yield('title', 'Pratama Design Studio') | PT Pratama Berkah Utama</title>
+    <title>{!! strip_tags(html_entity_decode(View::yieldContent('title', 'Pratama Design Studio'))) !!} | PT Pratama Berkah Utama</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-mark.png') }}?v=3">
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo-mark.png') }}?v=3">
-    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo-mark.png') }}?v=3">
+    <!-- Favicon (Square 1:1 format for Safari & all modern browsers) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/favicon-32x32.png') }}?v=4">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon-16x16.png') }}?v=4">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ asset('assets/images/favicon-512x512.png') }}?v=4">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/apple-touch-icon.png') }}?v=4">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=4">
 
     <!-- Google Fonts: Cormorant Garamond (display) + Plus Jakarta Sans & Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
