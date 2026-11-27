@@ -18,6 +18,7 @@ class Portfolio extends Model
         'title',
         'slug',
         'client_name',
+        'hide_client_name',
         'location',
         'project_type',
         'room_type',
@@ -27,6 +28,23 @@ class Portfolio extends Model
         'main_image',
         'status',
     ];
+
+    protected $casts = [
+        'hide_client_name' => 'boolean',
+    ];
+
+    /**
+     * Nama klien untuk tampilan publik: null jika kosong, atau disensor '***' jika privasi NDA diaktifkan.
+     */
+    public function getPublicClientNameAttribute(): ?string
+    {
+        $name = trim((string) ($this->client_name ?? ''));
+        if ($name === '') {
+            return null;
+        }
+
+        return $this->hide_client_name ? '***' : $name;
+    }
 
     protected static function booted(): void
     {

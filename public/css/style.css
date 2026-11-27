@@ -1144,6 +1144,12 @@ body.dark-theme .lang-toggle-btn:hover {
   box-shadow: 0 6px 24px rgba(0,0,0,.18);
 }
 .project-card:hover .card-overlay-label { transform: translateY(0); }
+html[data-theme="dark"] .card-overlay-label,
+body.dark-theme .card-overlay-label {
+  background: rgba(37, 34, 28, 0.92);
+  color: #f6f3ee;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
 
 .project-meta { display: flex; justify-content: space-between; gap: 12px; padding: 12px 2px 0; align-items: baseline; }
 .project-meta p { margin: 0; font-family: var(--serif); font-size: 18px; color: var(--text-heading); }
@@ -1213,12 +1219,12 @@ body.dark-theme .lang-toggle-btn:hover {
 }
 html[data-theme="dark"] .process-ambient-backdrop img,
 body.dark-theme .process-ambient-backdrop img {
-  opacity: 0.12;
+  opacity: 0.08;
   filter: brightness(0.55) contrast(1.1);
 }
 html[data-theme="dark"] .process-ambient-overlay,
 body.dark-theme .process-ambient-overlay {
-  background: radial-gradient(circle at 50% 30%, rgba(37, 34, 28, 0.82) 0%, rgba(37, 34, 28, 0.96) 85%);
+  background: radial-gradient(circle at 50% 30%, rgba(28, 25, 20, 0.15) 0%, rgba(28, 25, 20, 0.4) 85%);
 }
 
 .process-inner {
@@ -1437,7 +1443,7 @@ body.dark-theme .process-ambient-overlay {
 /* Dark Theme Compatibility */
 html[data-theme="dark"] .process-section,
 body.dark-theme .process-section {
-  background: var(--bg) !important;
+  background: transparent !important;
   border-color: var(--line) !important;
 }
 
@@ -2521,22 +2527,85 @@ body.dark-theme .desktop-nav a.active {
   color: #c4644f !important;
 }
 
+html[data-theme="dark"] body::before,
+body.dark-theme::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 22% 20%, rgba(42, 35, 28, 0.48) 0%, rgba(20, 17, 14, 0.78) 70%),
+    linear-gradient(180deg, rgba(22, 19, 15, 0.68) 0%, rgba(26, 22, 18, 0.66) 50%, rgba(18, 15, 12, 0.76) 100%),
+    url('/assets/images/dark-paper-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+html[data-theme="dark"] main,
+body.dark-theme main,
+html[data-theme="dark"] .contact-footer,
+body.dark-theme .contact-footer {
+  position: relative;
+  z-index: 1;
+}
+
 html[data-theme="dark"] .about,
 body.dark-theme .about,
-html[data-theme="dark"] .services,
-body.dark-theme .services,
 html[data-theme="dark"] .portfolio,
 body.dark-theme .portfolio,
+html[data-theme="dark"] .testimonials-section,
+body.dark-theme .testimonials-section {
+  background: rgba(24, 21, 17, 0.52) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .services,
+body.dark-theme .services,
 html[data-theme="dark"] .process-section,
 body.dark-theme .process-section,
-html[data-theme="dark"] .testimonials-section,
-body.dark-theme .testimonials-section,
 html[data-theme="dark"] .principal,
 body.dark-theme .principal,
 html[data-theme="dark"] .cta-consult-section,
 body.dark-theme .cta-consult-section {
-  background-color: #25221C !important;
+  background: rgba(18, 16, 13, 0.68) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+html[data-theme="dark"] .about .image-frame img,
+body.dark-theme .about .image-frame img,
+html[data-theme="dark"] .service-gallery img,
+body.dark-theme .service-gallery img {
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45);
+}
+
+html[data-theme="dark"] .about-values,
+body.dark-theme .about-values {
   border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .about-values span,
+body.dark-theme .about-values span,
+html[data-theme="dark"] .service-list article,
+body.dark-theme .service-list article {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .service-list,
+body.dark-theme .service-list {
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .about-copy > p:not(.lead),
+body.dark-theme .about-copy > p:not(.lead),
+html[data-theme="dark"] .section-heading p,
+body.dark-theme .section-heading p,
+html[data-theme="dark"] .service-list p,
+body.dark-theme .service-list p {
+  color: #b7aea2 !important;
 }
 
 html[data-theme="dark"] .cta-icon-badge,
@@ -2586,8 +2655,8 @@ html[data-theme="dark"] .hero,
 body.dark-theme .hero,
 html[data-theme="dark"] .hero-copy,
 body.dark-theme .hero-copy {
-  background: #25221C !important;
-  background-color: #25221C !important;
+  background: transparent !important;
+  background-color: transparent !important;
   color: #ece7df !important;
 }
 
@@ -4138,11 +4207,9 @@ body.dark-theme .detail-prose {
    DARK MODE OVERRIDES (#25221C) FOR ABOUT RICH COMPONENTS
    ========================================================================== */
 
-html[data-theme="dark"] .about,
-body.dark-theme .about,
 html[data-theme="dark"] .about-standalone-content,
 body.dark-theme .about-standalone-content {
-  background-color: #25221C !important;
+  background: rgba(24, 21, 17, 0.52) !important;
 }
 
 html[data-theme="dark"] .about-company-name,

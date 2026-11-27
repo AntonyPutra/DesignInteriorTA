@@ -114,11 +114,24 @@
                                class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
                     </div>
                     <div class="col-span-2">
-                        <label for="client_name" class="block text-sm font-medium text-gray-700 mb-1">
-                            Nama Klien
-                        </label>
-                        <input type="text" id="client_name" name="client_name" value="{{ old('client_name') }}" placeholder="Nama Klien / Perusahaan"
+                        <div class="flex items-center justify-between mb-1">
+                            <label for="client_name" class="block text-sm font-medium text-gray-700">
+                                Nama Klien <span class="text-xs font-normal text-gray-400">(Opsional / Privasi NDA)</span>
+                            </label>
+                            <label for="hide_client_name" class="inline-flex items-center gap-2 cursor-pointer select-none">
+                                <input type="checkbox" id="hide_client_name" name="hide_client_name" value="1"
+                                       {{ old('hide_client_name') ? 'checked' : '' }}
+                                       onchange="document.getElementById('client_privacy_badge').textContent = this.checked ? 'Sensor Aktif (***)' : 'Tampil Normal'; document.getElementById('client_privacy_badge').className = this.checked ? 'text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800' : 'text-xs font-medium px-2 py-0.5 rounded bg-gray-100 text-gray-600';"
+                                       class="sr-only peer">
+                                <div class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-red-700"></div>
+                                <span id="client_privacy_badge" class="{{ old('hide_client_name') ? 'text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800' : 'text-xs font-medium px-2 py-0.5 rounded bg-gray-100 text-gray-600' }}">
+                                    {{ old('hide_client_name') ? 'Sensor Aktif (***)' : 'Tampil Normal' }}
+                                </span>
+                            </label>
+                        </div>
+                        <input type="text" id="client_name" name="client_name" value="{{ old('client_name') }}" placeholder="Kosongkan jika ingin disembunyikan sepenuhnya di web"
                                class="w-full rounded-lg border-gray-300 shadow-sm focus:border-red-500 focus:ring-red-500">
+                        <p class="mt-1 text-xs text-gray-500">Kosongkan kolom untuk menyembunyikan baris Klien di publik, atau aktifkan toggle sensor untuk menampilkan <strong>***</strong> (NDA).</p>
                     </div>
                 </div>
 
